@@ -3,28 +3,28 @@ info:
   title: Apollo OpenAPI
   description: |
     Apollo配置中心OpenAPI接口文档
-    
+
     ## 认证方式
-    
+
     所有API接口都需要通过Authorization header进行身份验证。
-    
+
     ### 获取Token的方式：
-    
+
     1. **Portal管理界面获取**：
        - 登录Apollo Portal管理界面
        - 进入"管理员工具" -> "开放平台授权管理"
        - 创建第三方应用，获取Token
-    
+
     2. **Token格式**：
        ```
        Authorization: token_value
        ```
-    
+
     3. **Token权限**：
        - Token具有对应应用的读写权限
        - 不同Token可能有不同的环境和命名空间权限
        - 建议为不同用途创建不同的Token
-    
+
     ### 使用示例：
     ```bash
     curl -X GET "http://localhost:8070/openapi/v1/apps" \
@@ -3840,17 +3840,14 @@ components:
       name: Authorization
       description: |
         Apollo OpenAPI访问令牌
-        
         **获取方式：**
         1. 登录Apollo Portal管理界面
-        2. 进入"管理员工具" -> "开放平台授权管理" 
+        2. 进入"管理员工具" -> "开放平台授权管理"
         3. 创建第三方应用，获取Token
-        
         **使用格式：**
         ```
         Authorization: your_token_here
         ```
-        
         **权限说明：**
         - Token具有对应应用的读写权限
         - 不同Token可能有不同的环境和命名空间权限
