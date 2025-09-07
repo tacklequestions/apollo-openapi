@@ -1,0 +1,4585 @@
+openapi: 3.0.1
+info:
+  title: Apollo OpenAPI
+  description: |
+    Apollo配置中心OpenAPI接口文档
+
+    ## 认证方式
+
+    所有API接口都需要通过Authorization header进行身份验证。
+
+    ### 获取Token的方式：
+
+    1. **Portal管理界面获取**：
+       - 登录Apollo Portal管理界面
+       - 进入"管理员工具" -> "开放平台授权管理"
+       - 创建第三方应用，获取Token
+
+    2. **Token格式**：
+       ```
+       Authorization: token_value
+       ```
+
+    3. **Token权限**：
+       - Token具有对应应用的读写权限
+       - 不同Token可能有不同的环境和命名空间权限
+       - 建议为不同用途创建不同的Token
+
+    ### 使用示例：
+    ```bash
+    curl -X GET "http://localhost:8070/openapi/v1/apps" \
+         -H "Authorization: your_token_here"
+    ```
+  version: 1.0.0
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: App Management
+    description: 应用管理相关接口，包括应用的创建、查询、更新、删除等操作
+  - name: Item Management
+    description: 配置项管理相关接口，包括配置的增删改查、批量操作、同步等功能
+  - name: Release Management
+    description: 发布管理相关接口，包括配置发布、发布历史、灰度发布等功能
+  - name: Cluster Management
+    description: 集群管理相关接口，包括集群的创建、查询、删除等操作
+  - name: Namespace Management
+    description: 命名空间管理相关接口，包括命名空间的创建、查询、配置等操作
+  - name: Namespace Namespace Branch Management
+    description: 命名空间分支管理相关接口，包括分支创建、合并、灰度发布等功能
+  - name: Instance Management
+    description: 实例管理相关接口，包括实例查询、配置生效状态等功能
+  - name: Organization Management
+    description: 组织管理相关接口，包括组织信息查询等功能
+paths:
+  /openapi/v1/apps:
+    post:
+      summary: 创建应用
+      deprecated: false
+      description: POST /openapi/v1/apps
+      tags:
+        - App Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenCreateAppDTO'
+              required:
+                - app
+                - admins
+                - assignAppRoleToSelf
+              properties:
+                app:
+                  allOf:
+                    - $ref: '#/components/schemas/OpenAppDTO'
+                  required:
+                    - appId
+                    - name
+                    - orgId
+                    - orgName
+                    - ownerName
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '应用创建成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAppDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                name: 'Sample Application'
+                appId: 'sample-app'
+                orgId: 'default'
+                orgName: 'Default Organization'
+                ownerName: 'Apollo Admin'
+                ownerEmail: 'admin@apollo.com'
+          headers: {}
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  exception:
+                    type: string
+              example:
+                message: 'App is null'
+                exception: 'BadRequestException'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+    get:
+      summary: 获取当前Consumer授权的应用列表
+      deprecated: false
+      description: GET /openapi/v1/apps?authorized=true
+      tags:
+        - App Management
+      parameters:
+        - name: authorized
+          in: query
+          description: '是否只返回授权的应用'
+          required: false
+          example: 'true'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取授权应用列表'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenAppDTO'
+              example:
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'apollo'
+                  dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                  name: 'Sample Application'
+                  appId: 'sample-app'
+                  orgId: 'default'
+                  orgName: 'Default Organization'
+                  ownerName: 'Apollo Admin'
+                  ownerEmail: 'admin@apollo.com'
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'apollo'
+                  dataChangeCreatedTime: '2024-01-10T14:20:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-12T16:45:00.000Z'
+                  name: 'User Service'
+                  appId: 'user-service'
+                  orgId: 'microservices'
+                  orgName: 'Microservices Team'
+                  ownerName: 'Dev Team'
+                  ownerEmail: 'dev@company.com'
+          headers: {}
+        '401':
+          description: '未授权访问'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Unauthorized'
+  /openapi/v1/apps/{appId}/env-clusters:
+    get:
+      summary: 获取应用的环境集群信息
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/env-clusters
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取应用环境集群信息'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenEnvClusterDTO'
+              example:
+                - env: 'DEV'
+                  clusters:
+                    - 'default'
+                    - 'test-cluster'
+                - env: 'UAT'
+                  clusters:
+                    - 'default'
+                - env: 'PRO'
+                  clusters:
+                    - 'default'
+                    - 'backup'
+          headers: {}
+        '404':
+          description: '应用不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'App not found: invalid-app-id'
+  /openapi/v1/apps/{appId}:
+    get:
+      summary: 获取单个应用信息
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取应用信息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAppDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'dev-user'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-20T15:45:00.000Z'
+                name: 'Sample Application'
+                appId: 'sample-app'
+                orgId: 'default'
+                orgName: 'Default Organization'
+                ownerName: 'Apollo Admin'
+                ownerEmail: 'admin@apollo.com'
+          headers: {}
+        '404':
+          description: '应用不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'App not found: invalid-app-id'
+    put:
+      summary: 更新应用
+      deprecated: false
+      description: PUT /openapi/v1/apps/{appId}
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenAppDTO'
+              required:
+                - appId
+                - name
+                - orgId
+                - orgName
+                - ownerName
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAppDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'dev-user'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-20T16:45:00.000Z'
+                name: 'Updated Sample Application'
+                appId: 'sample-app'
+                orgId: 'default'
+                orgName: 'Default Organization'
+                ownerName: 'Apollo Admin'
+                ownerEmail: 'admin@apollo.com'
+          headers: {}
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Invalid app data'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+    delete:
+      summary: 删除应用
+      deprecated: false
+      description: DELETE /openapi/v1/apps/{appId}
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '应用删除成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'App deleted successfully'
+        '403':
+          description: '权限不足，需要超级管理员权限'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+        '404':
+          description: '应用不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'App not found: invalid-app-id'
+          headers: {}
+  /openapi/v1/apps/by-self:
+    get:
+      summary: 获取当前Consumer的应用列表（分页）
+      deprecated: false
+      description: GET /openapi/v1/apps/by-self
+      tags:
+        - App Management
+      responses:
+        '200':
+          description: '成功获取Consumer的应用列表'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenAppDTO'
+              example:
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'dev-user'
+                  dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-20T16:45:00.000Z'
+                  name: 'User Service'
+                  appId: 'user-service'
+                  orgId: 'microservices'
+                  orgName: 'Microservices Team'
+                  ownerName: 'Dev Team'
+                  ownerEmail: 'dev@company.com'
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'ops-user'
+                  dataChangeCreatedTime: '2024-01-10T09:15:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-18T14:30:00.000Z'
+                  name: 'Order Service'
+                  appId: 'order-service'
+                  orgId: 'business'
+                  orgName: 'Business Team'
+                  ownerName: 'Business Team'
+                  ownerEmail: 'business@company.com'
+          headers: {}
+        '401':
+          description: '未授权访问'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Unauthorized'
+  /openapi/v1/apps/{appId}/navtree:
+    get:
+      summary: 获取应用导航树
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/navtree
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取应用导航树'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnvClusterInfo'
+              example:
+                - env: 'DEV'
+                  clusters:
+                    - dataChangeCreatedBy: 'apollo'
+                      dataChangeLastModifiedBy: 'apollo'
+                      dataChangeCreatedByDisplayName: 'apollo'
+                      dataChangeLastModifiedByDisplayName: 'apollo'
+                      dataChangeCreatedTime: '2023-01-01T00:00:00.000Z'
+                      dataChangeLastModifiedTime: '2023-01-01T00:00:00.000Z'
+                      id: 1
+                      name: 'default'
+                      appId: 'sample-app'
+                      parentClusterId: 0
+                      comment: 'Default cluster'
+          headers: {}
+  /openapi/v1/apps/envs/{env}:
+    post:
+      summary: 在指定环境创建应用
+      deprecated: false
+      description: POST /openapi/v1/apps/envs/{env}
+      tags:
+        - App Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenAppDTO'
+              required:
+                - appId
+                - name
+                - orgId
+                - orgName
+                - ownerName
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '应用在指定环境创建成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'App created in environment successfully'
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'appId should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+          headers: {}
+  /openapi/v1/apps/{appId}/miss_envs:
+    get:
+      summary: 查找缺失的环境
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/miss_envs
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取应用缺失的环境列表'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - 'UAT'
+                - 'PRO'
+          headers: {}
+        '404':
+          description: '应用不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'App not found'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
+    get:
+      summary: 获取单个配置项
+      deprecated: false
+      description: >-
+        GET
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取配置项'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenItemDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'dev-user'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                key: 'server.port'
+                type: 0
+                value: '8080'
+                comment: '服务器端口配置'
+          headers: {}
+        '404':
+          description: '配置项不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration item not found'
+    put:
+      summary: 更新配置项
+      deprecated: false
+      description: >-
+        PUT
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: createIfNotExists
+          in: query
+          description: ''
+          required: true
+          example: 'false'
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenItemDTO'
+              required:
+                - key
+                - dataChangeLastModifiedBy
+                - value
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '配置项更新成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration item updated successfully'
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'key, value and dataChangeLastModifiedBy should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+        '404':
+          description: '配置项不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration item not found'
+          headers: {}
+    delete:
+      summary: 删除配置项
+      deprecated: false
+      description: >-
+        DELETE
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: operator
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:
+    get:
+      summary: 获取命名空间下的配置项列表
+      deprecated: false
+      description: ''
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: 0
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: ''
+          required: true
+          example: 50
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '成功获取配置项列表'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenPageDTOOpenItemDTO'
+              example:
+                page: 0
+                size: 50
+                total: 3
+                content:
+                  - dataChangeCreatedBy: 'apollo'
+                    dataChangeLastModifiedBy: 'dev-user'
+                    dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                    dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                    key: 'server.port'
+                    type: 0
+                    value: '8080'
+                    comment: '服务器端口配置'
+                  - dataChangeCreatedBy: 'apollo'
+                    dataChangeLastModifiedBy: 'apollo'
+                    dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                    dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                    key: 'spring.datasource.url'
+                    type: 0
+                    value: 'jdbc:mysql://localhost:3306/apollo'
+                    comment: '数据库连接地址'
+                  - dataChangeCreatedBy: 'apollo'
+                    dataChangeLastModifiedBy: 'ops-user'
+                    dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                    dataChangeLastModifiedTime: '2024-01-18T09:15:00.000Z'
+                    key: 'logging.level.root'
+                    type: 0
+                    value: 'INFO'
+                    comment: '日志级别配置'
+          headers: {}
+        '404':
+          description: '命名空间不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Namespace not found'
+    post:
+      summary: 创建新的配置项
+      deprecated: false
+      description: >-
+        POST
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenItemDTO'
+              required:
+                - key
+                - dataChangeCreatedBy
+                - value
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '配置项创建成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenItemDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                key: 'server.port'
+                type: 0
+                value: '8080'
+                comment: '服务器端口配置'
+          headers: {}
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'key and dataChangeCreatedBy should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
+    get:
+      summary: 通过查询参数获取配置项（支持编码的key）
+      deprecated: false
+      description: >-
+        GET
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items?key={key}&encoded={true|false}
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取配置项（支持编码key）'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenItemDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'dev-user'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                key: 'spring.datasource.url'
+                type: 0
+                value: 'jdbc:mysql://localhost:3306/apollo?useUnicode=true&characterEncoding=utf8'
+                comment: '数据库连接地址，包含特殊字符'
+          headers: {}
+        '404':
+          description: '配置项不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration item not found'
+    put:
+      summary: 通过编码的key更新配置项
+      deprecated: false
+      description: >-
+        PUT
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: createIfNotExists
+          in: query
+          description: ''
+          required: true
+          example: 'false'
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenItemDTO'
+              required:
+                - key
+                - dataChangeLastModifiedBy
+                - value
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '配置项更新成功（编码key）'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration item updated successfully'
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'key, value and dataChangeLastModifiedBy should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+        '404':
+          description: '配置项不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration item not found'
+          headers: {}
+    delete:
+      summary: 通过编码的key删除配置项
+      deprecated: false
+      description: >-
+        DELETE
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: operator
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate:
+    put:
+      summary: 通过文本批量修改配置项
+      deprecated: false
+      description: >-
+        PUT
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceTextModel'
+              required:
+                - operator
+                - format
+                - configText
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '批量更新配置项成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Batch update configuration items successfully'
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'operator should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
+    get:
+      summary: 获取分支下的配置项
+      deprecated: false
+      description: >-
+        GET
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取分支下的配置项列表'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenItemDTO'
+              example:
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'dev-user'
+                  dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                  key: 'feature.new-feature'
+                  type: 0
+                  value: 'enabled'
+                  comment: '新功能开关，分支测试中'
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'dev-user'
+                  dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                  key: 'test.debug.level'
+                  type: 0
+                  value: 'verbose'
+                  comment: '测试调试级别'
+          headers: {}
+        '404':
+          description: '分支不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Branch not found'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare:
+    post:
+      summary: 对比命名空间配置差异
+      deprecated: false
+      description: >-
+        POST
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceSyncModel'
+              required:
+                - syncToNamespaces
+                - syncItems
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '成功对比命名空间配置差异'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListItemDiffs'
+              example:
+                - namespace:
+                    appId: ''
+                    env: ''
+                    clusterName: ''
+                    namespaceName: ''
+                  diffs:
+                    dataChangeCreatedBy: ''
+                    dataChangeLastModifiedBy: ''
+                    dataChangeCreatedByDisplayName: ''
+                    dataChangeLastModifiedByDisplayName: ''
+                    dataChangeCreatedTime: ''
+                    dataChangeLastModifiedTime: ''
+                    createItems:
+                      - dataChangeCreatedBy: ''
+                        dataChangeLastModifiedBy: ''
+                        dataChangeCreatedByDisplayName: ''
+                        dataChangeLastModifiedByDisplayName: ''
+                        dataChangeCreatedTime: ''
+                        dataChangeLastModifiedTime: ''
+                        id: 0
+                        namespaceId: 0
+                        key: ''
+                        type: 0
+                        value: ''
+                        comment: ''
+                        lineNum: 0
+                    updateItems:
+                      - dataChangeCreatedBy: ''
+                        dataChangeLastModifiedBy: ''
+                        dataChangeCreatedByDisplayName: ''
+                        dataChangeLastModifiedByDisplayName: ''
+                        dataChangeCreatedTime: ''
+                        dataChangeLastModifiedTime: ''
+                        id: 0
+                        namespaceId: 0
+                        key: ''
+                        type: 0
+                        value: ''
+                        comment: ''
+                        lineNum: 0
+                    deleteItems:
+                      - dataChangeCreatedBy: ''
+                        dataChangeLastModifiedBy: ''
+                        dataChangeCreatedByDisplayName: ''
+                        dataChangeLastModifiedByDisplayName: ''
+                        dataChangeCreatedTime: ''
+                        dataChangeLastModifiedTime: ''
+                        id: 0
+                        namespaceId: 0
+                        key: ''
+                        type: 0
+                        value: ''
+                        comment: ''
+                        lineNum: 0
+                  extInfo: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync:
+    post:
+      summary: 同步配置项到多个命名空间
+      deprecated: false
+      description: >-
+        POST
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceSyncModel'
+              required:
+                - syncToNamespaces
+                - syncItems
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '配置项同步成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration items synced successfully to target namespaces'
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'syncToNamespaces should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate:
+    post:
+      summary: 验证配置文本语法
+      deprecated: false
+      description: >-
+        POST
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceTextModel'
+              required:
+                - format
+                - configText
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '配置文本语法验证通过'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                valid: true
+                message: 'Configuration syntax is valid'
+        '400':
+          description: '配置文本语法错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                  message:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: string
+              example:
+                valid: false
+                message: 'Configuration syntax validation failed'
+                errors:
+                  - 'Line 3: Invalid property format'
+                  - 'Line 7: Missing value for key "database.port"'
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert:
+    post:
+      summary: 撤销配置项更改
+      deprecated: false
+      description: >-
+        POST
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
+      tags:
+        - Item Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '配置项更改撤销成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Configuration changes reverted successfully'
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Invalid revert request'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+          headers: {}
+  /openapi/v1/apps/{appId}/clusters/{clusterName}:
+    get:
+      summary: 获取指定集群信息
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/clusters/{clusterName}
+      tags:
+        - Cluster Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取集群信息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenClusterDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'ops-user'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-18T09:15:00.000Z'
+                name: 'production'
+                appId: 'sample-app'
+          headers: {}
+        '404':
+          description: '集群不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Cluster not found'
+  /openapi/v1/apps/{appId}/clusters:
+    post:
+      summary: 创建集群
+      deprecated: false
+      description: POST /openapi/v1/apps/{appId}/clusters
+      tags:
+        - Cluster Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenClusterDTO'
+              required:
+                - name
+                - appId
+                - dataChangeCreatedBy
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '集群创建成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenClusterDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                name: 'test-cluster'
+                appId: 'sample-app'
+          headers: {}
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'name and dataChangeCreatedBy should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}:
+    delete:
+      summary: 删除集群
+      deprecated: false
+      description: DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}
+      tags:
+        - Cluster Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '集群删除成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Cluster deleted successfully'
+        '400':
+          description: '删除失败，集群可能包含配置'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Cannot delete cluster with existing configurations'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+        '404':
+          description: '集群不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Cluster not found'
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases:
+    post:
+      summary: 创建发布
+      deprecated: false
+      description: ''
+      tags:
+        - Release Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceReleaseDTO'
+              required:
+                - releaseTitle
+                - releasedBy
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '发布创建成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                id: 12345
+                appId: 'sample-app'
+                clusterName: 'default'
+                namespaceName: 'application'
+                name: 'Release v1.0.0'
+                configurations:
+                  'server.port': '8080'
+                  'spring.datasource.url': 'jdbc:mysql://localhost:3306/apollo'
+                  'logging.level.root': 'INFO'
+                comment: '首次发布，包含基础配置'
+          headers: {}
+        '400':
+          description: '发布参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Params(releaseTitle and releasedBy) can not be empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/latest:
+    get:
+      summary: 获取最新活跃发布
+      deprecated: false
+      description: ''
+      tags:
+        - Release Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功获取最新活跃发布'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                id: 12345
+                appId: 'sample-app'
+                clusterName: 'default'
+                namespaceName: 'application'
+                name: 'Release v1.2.0'
+                configurations:
+                  'server.port': '8080'
+                  'spring.datasource.url': 'jdbc:mysql://localhost:3306/apollo'
+                  'logging.level.root': 'INFO'
+                  'app.version': '1.2.0'
+                comment: '最新生产发布版本，包含性能优化'
+          headers: {}
+        '404':
+          description: '未找到活跃发布'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'No active release found for this namespace'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/merge:
+    post:
+      summary: 合并分支
+      deprecated: false
+      description: ''
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: deleteBranch
+          in: query
+          description: ''
+          required: true
+          example: 'true'
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceReleaseDTO'
+              required:
+                - releaseTitle
+                - releasedBy
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: '分支合并成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                id: 12346
+                appId: 'sample-app'
+                clusterName: 'default'
+                namespaceName: 'application'
+                name: 'Merge from branch feature-123'
+                configurations:
+                  'server.port': '8080'
+                  'spring.datasource.url': 'jdbc:mysql://localhost:3306/apollo'
+                  'logging.level.root': 'INFO'
+                  'feature.new-feature': 'enabled'
+                comment: '合并功能分支到主分支，包含新功能配置'
+          headers: {}
+        '400':
+          description: '合并参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'releaseTitle and releasedBy should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/releases:
+    post:
+      summary: 创建灰度发布
+      deprecated: false
+      description: ''
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceReleaseDTO'
+              required:
+                - releaseTitle
+                - releasedBy
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                id: 0
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                name: ''
+                configurations:
+                  '': ''
+                comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-del-releases:
+    post:
+      summary: 创建灰度删除发布
+      deprecated: false
+      description: ''
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceGrayDelReleaseDTO'
+              required:
+                - releaseTitle
+                - releasedBy
+                - grayDelKeys
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                id: 0
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                name: ''
+                configurations:
+                  '': ''
+                comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/releases/{releaseId}/rollback:
+    put:
+      summary: 回滚发布
+      deprecated: false
+      description: ''
+      tags:
+        - Release Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: releaseId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: integer
+        - name: operator
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+  /openapi/v1/envs/{env}/releases/{releaseId}:
+    get:
+      summary: 获取发布详情
+      deprecated: false
+      description: GET /openapi/v1/envs/{env}/releases/{releaseId}
+      tags:
+        - Release Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: releaseId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                id: 0
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                name: ''
+                configurations:
+                  '': ''
+                comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/all:
+    get:
+      summary: 获取所有发布（分页）
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/all
+      tags:
+        - Release Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: 0
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: ''
+          required: true
+          example: 5
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListReleaseBO'
+              example:
+                - baseInfo:
+                    dataChangeCreatedBy: ''
+                    dataChangeLastModifiedBy: ''
+                    dataChangeCreatedByDisplayName: ''
+                    dataChangeLastModifiedByDisplayName: ''
+                    dataChangeCreatedTime: ''
+                    dataChangeLastModifiedTime: ''
+                    id: 0
+                    releaseKey: ''
+                    name: ''
+                    appId: ''
+                    clusterName: ''
+                    namespaceName: ''
+                    configurations: ''
+                    comment: ''
+                    isAbandoned: false
+                  items:
+                    - key: ''
+                      value: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/active:
+    get:
+      summary: 获取活跃发布（分页）
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/active
+      tags:
+        - Release Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: 0
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: ''
+          required: true
+          example: 5
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                - dataChangeCreatedBy: ''
+                  dataChangeLastModifiedBy: ''
+                  dataChangeCreatedTime: ''
+                  dataChangeLastModifiedTime: ''
+                  id: 0
+                  appId: ''
+                  clusterName: ''
+                  namespaceName: ''
+                  name: ''
+                  configurations:
+                    '': ''
+                  comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/releases/compare:
+    get:
+      summary: 对比发布
+      deprecated: false
+      description: GET /openapi/v1/envs/{env}/releases/compare
+      tags:
+        - Release Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: baseReleaseId
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: integer
+        - name: toCompareReleaseId
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  changes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Change'
+              example:
+                changes:
+                  - type: ''
+                    entity:
+                      firstEntity:
+                        key: ''
+                        value: ''
+                      secondEntity:
+                        key: ''
+                        value: ''
+          headers: {}
+  /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances:
+    get:
+      summary: 获取命名空间下的实例数量
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
+      tags:
+        - Instance Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: integer
+          headers: {}
+  /openapi/v1/envs/{env}/releases/{releaseId}/instances:
+    get:
+      summary: 根据发布版本查询实例（支持分页）
+      deprecated: false
+      description: GET /openapi/v1/envs/{env}/releases/{releaseId}/instances
+      tags:
+        - Instance Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: releaseId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: 0
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: ''
+          required: true
+          example: 20
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenPageDTOOpenInstanceDTO'
+              example:
+                page: 0
+                size: 0
+                total: 0
+                content:
+                  - id: 0
+                    appId: ''
+                    clusterName: ''
+                    dataCenter: ''
+                    ip: ''
+                    configs:
+                      - release:
+                          dataChangeCreatedBy: ''
+                          dataChangeLastModifiedBy: ''
+                          dataChangeCreatedTime: ''
+                          dataChangeLastModifiedTime: ''
+                          id: 0
+                          appId: ''
+                          clusterName: ''
+                          namespaceName: ''
+                          name: ''
+                          configurations:
+                            '': ''
+                          comment: ''
+                        releaseDeliveryTime: ''
+                        dataChangeLastModifiedTime: ''
+                    dataChangeCreatedTime: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances:
+    get:
+      summary: 查询不在指定发布版本中的实例
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances?excludeReleases=1,2,3
+      tags:
+        - Instance Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: excludeReleases
+          in: query
+          description: '排除的发布ID列表，用逗号分隔'
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenInstanceDTO'
+              example:
+                - id: 0
+                  appId: ''
+                  clusterName: ''
+                  dataCenter: ''
+                  ip: ''
+                  configs:
+                    - release:
+                        dataChangeCreatedBy: ''
+                        dataChangeLastModifiedBy: ''
+                        dataChangeCreatedTime: ''
+                        dataChangeLastModifiedTime: ''
+                        id: 0
+                        appId: ''
+                        clusterName: ''
+                        namespaceName: ''
+                        name: ''
+                        configurations:
+                          '': ''
+                        comment: ''
+                      releaseDeliveryTime: ''
+                      dataChangeLastModifiedTime: ''
+                  dataChangeCreatedTime: ''
+          headers: {}
+  /openapi/v1/apps/{appId}/appnamespaces:
+    post:
+      summary: 创建AppNamespace
+      deprecated: false
+      description: POST /openapi/v1/apps/{appId}/appnamespaces
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenAppNamespaceDTO'
+              required:
+                - appId
+                - name
+                - format
+                - dataChangeCreatedBy
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: 'AppNamespace创建成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAppNamespaceDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                name: 'database'
+                appId: 'sample-app'
+                format: 'properties'
+                isPublic: false
+                appendNamespacePrefix: true
+                comment: '数据库相关配置命名空间'
+          headers: {}
+        '400':
+          description: '请求参数错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'appId, name, format and dataChangeCreatedBy should not be null or empty'
+        '403':
+          description: '权限不足'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Access is denied'
+    get:
+      summary: 获取指定应用的AppNamespace
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/appnamespaces
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenAppNamespaceDTO'
+              example:
+                - dataChangeCreatedBy: ''
+                  dataChangeLastModifiedBy: ''
+                  dataChangeCreatedTime: ''
+                  dataChangeLastModifiedTime: ''
+                  name: ''
+                  appId: ''
+                  format: ''
+                  isPublic: false
+                  appendNamespacePrefix: false
+                  comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces:
+    get:
+      summary: 获取指定集群下的所有Namespace
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: fillItemDetail
+          in: query
+          description: ''
+          required: true
+          example: 'true'
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenNamespaceDTO'
+              example:
+                - dataChangeCreatedBy: ''
+                  dataChangeLastModifiedBy: ''
+                  dataChangeCreatedTime: ''
+                  dataChangeLastModifiedTime: ''
+                  appId: ''
+                  clusterName: ''
+                  namespaceName: ''
+                  comment: ''
+                  format: ''
+                  isPublic: false
+                  items:
+                    - dataChangeCreatedBy: ''
+                      dataChangeLastModifiedBy: ''
+                      dataChangeCreatedTime: ''
+                      dataChangeLastModifiedTime: ''
+                      key: ''
+                      type: 0
+                      value: ''
+                      comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}:
+    get:
+      summary: 获取指定的Namespace
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}
+      tags:
+        - Cluster Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: fillItemDetail
+          in: query
+          description: ''
+          required: true
+          example: 'true'
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenNamespaceDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                comment: ''
+                format: ''
+                isPublic: false
+                items:
+                  - dataChangeCreatedBy: ''
+                    dataChangeLastModifiedBy: ''
+                    dataChangeCreatedTime: ''
+                    dataChangeLastModifiedTime: ''
+                    key: ''
+                    type: 0
+                    value: ''
+                    comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/lock:
+    get:
+      summary: 获取Namespace的锁状态
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/lock
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenNamespaceLockDTO'
+              example:
+                namespaceName: ''
+                isLocked: false
+                lockedBy: ''
+          headers: {}
+  /openapi/v1/appnamespaces:
+    get:
+      summary: 获取所有公共AppNamespace
+      deprecated: false
+      description: GET /openapi/v1/appnamespaces?public=true
+      tags:
+        - Namespace Management
+      parameters:
+        - name: publicOnly
+          in: query
+          description: ''
+          required: true
+          example: 'false'
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenAppNamespaceDTO'
+              example:
+                - dataChangeCreatedBy: ''
+                  dataChangeLastModifiedBy: ''
+                  dataChangeCreatedTime: ''
+                  dataChangeLastModifiedTime: ''
+                  name: ''
+                  appId: ''
+                  format: ''
+                  isPublic: false
+                  appendNamespacePrefix: false
+                  comment: ''
+          headers: {}
+  /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}:
+    get:
+      summary: 获取指定的AppNamespace
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAppNamespaceDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                name: ''
+                appId: ''
+                format: ''
+                isPublic: false
+                appendNamespacePrefix: false
+                comment: ''
+          headers: {}
+    delete:
+      summary: 删除AppNamespace
+      deprecated: false
+      description: DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+  /openapi/v1/apps/{appId}/namespaces/releases/status:
+    get:
+      summary: 获取应用下所有Namespace的发布状态
+      deprecated: false
+      description: GET /openapi/v1/apps/{appId}/namespaces/releases/status
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: boolean
+              example:
+                '':
+                  '': false
+          headers: {}
+  /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances:
+    get:
+      summary: 获取公共AppNamespace的所有实例
+      deprecated: false
+      description: GET /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances
+      tags:
+        - Namespace Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: publicNamespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: 0
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: ''
+          required: true
+          example: 10
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenNamespaceDTO'
+              example:
+                - dataChangeCreatedBy: ''
+                  dataChangeLastModifiedBy: ''
+                  dataChangeCreatedTime: ''
+                  dataChangeLastModifiedTime: ''
+                  appId: ''
+                  clusterName: ''
+                  namespaceName: ''
+                  comment: ''
+                  format: ''
+                  isPublic: false
+                  items:
+                    - dataChangeCreatedBy: ''
+                      dataChangeLastModifiedBy: ''
+                      dataChangeCreatedTime: ''
+                      dataChangeLastModifiedTime: ''
+                      key: ''
+                      type: 0
+                      value: ''
+                      comment: ''
+          headers: {}
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/public-association:
+    get:
+      summary: 获取关联的公共Namespace
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/public-association
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenNamespaceDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                comment: ''
+                format: ''
+                isPublic: false
+                items:
+                  - dataChangeCreatedBy: ''
+                    dataChangeLastModifiedBy: ''
+                    dataChangeCreatedTime: ''
+                    dataChangeLastModifiedTime: ''
+                    key: ''
+                    type: 0
+                    value: ''
+                    comment: ''
+          headers: {}
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/integrity-check:
+    get:
+      summary: 检查缺失的Namespace
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/integrity-check
+      tags:
+        - Namespace Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - ''
+          headers: {}
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links:
+    delete:
+      summary: 删除关联的Namespace
+      deprecated: false
+      description: >-
+        DELETE
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links
+      tags:
+        - App Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+  /openapi/v1/organizations:
+    get:
+      summary: 获取所有组织信息
+      deprecated: false
+      description: GET /openapi/v1/organizations
+      tags:
+        - Organization Management
+      responses:
+        '200':
+          description: '成功获取组织列表'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenOrganizationDto'
+                description: 组织列表
+              example:
+                - orgId: 'default'
+                  orgName: 'Default Organization'
+                - orgId: 'microservices'
+                  orgName: 'Microservices Team'
+                - orgId: 'infrastructure'
+                  orgName: 'Infrastructure Team'
+          headers: {}
+        '401':
+          description: '未授权访问'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Unauthorized'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches:
+    get:
+      summary: 获取命名空间分支信息
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
+      tags:
+        - Cluster Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenNamespaceDTO'
+              example:
+                dataChangeCreatedBy: 'apollo'
+                dataChangeLastModifiedBy: 'dev-user'
+                dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                appId: 'sample-app'
+                clusterName: 'default'
+                namespaceName: 'application'
+                comment: '功能分支，用于测试新特性'
+                format: 'properties'
+                isPublic: false
+                items:
+                  - dataChangeCreatedBy: 'apollo'
+                    dataChangeLastModifiedBy: 'dev-user'
+                    dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                    dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                    key: 'feature.new-feature'
+                    type: 0
+                    value: 'enabled'
+                    comment: '新功能开关'
+                  - dataChangeCreatedBy: 'apollo'
+                    dataChangeLastModifiedBy: 'dev-user'
+                    dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                    dataChangeLastModifiedTime: '2024-01-20T14:25:00.000Z'
+                    key: 'test.mode'
+                    type: 0
+                    value: 'debug'
+                    comment: '测试模式配置'
+          headers: {}
+        '404':
+          description: '分支不存在'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: 'Branch not found for this namespace'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branch:
+    post:
+      summary: 创建命名空间分支
+      deprecated: false
+      description: >-
+        POST
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branch
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: operator
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenNamespaceDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                comment: ''
+                format: ''
+                isPublic: false
+                items:
+                  - dataChangeCreatedBy: ''
+                    dataChangeLastModifiedBy: ''
+                    dataChangeCreatedTime: ''
+                    dataChangeLastModifiedTime: ''
+                    key: ''
+                    type: 0
+                    value: ''
+                    comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}:
+    delete:
+      summary: 删除命名空间分支
+      deprecated: false
+      description: >-
+        DELETE
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: operator
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+    patch:
+      summary: 合并分支到主分支
+      deprecated: false
+      description: >-
+        PATCH
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}
+
+
+        使用 PATCH 方法表示部分更新操作（将分支状态从"独立"更新为"合并"）
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: deleteBranch
+          in: query
+          description: ''
+          required: true
+          example: 'true'
+          schema:
+            type: boolean
+        - name: X-Apollo-Operator
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/NamespaceReleaseDTO'
+              required:
+                - releaseTitle
+                - releasedBy
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenReleaseDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                id: 0
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                name: ''
+                configurations:
+                  '': ''
+                comment: ''
+          headers: {}
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules:
+    get:
+      summary: 获取分支灰度发布规则
+      deprecated: false
+      description: >-
+        GET
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenGrayReleaseRuleDTO'
+              example:
+                dataChangeCreatedBy: ''
+                dataChangeLastModifiedBy: ''
+                dataChangeCreatedTime: ''
+                dataChangeLastModifiedTime: ''
+                appId: ''
+                clusterName: ''
+                namespaceName: ''
+                branchName: ''
+                ruleItems:
+                  - clientAppId: ''
+                    clientIpList:
+                      - ''
+                    clientLabelList:
+                      - ''
+          headers: {}
+    put:
+      summary: 更新分支灰度发布规则
+      deprecated: false
+      description: >-
+        PUT
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules
+      tags:
+        - Namespace Branch Management
+      parameters:
+        - name: appId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: env
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: namespaceName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: branchName
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: operator
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/OpenGrayReleaseRuleDTO'
+              required:
+                - ruleItems
+              description: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: |
+        Apollo OpenAPI访问令牌
+        **获取方式：**
+        1. 登录Apollo Portal管理界面
+        2. 进入"管理员工具" -> "开放平台授权管理"
+        3. 创建第三方应用，获取Token
+        **使用格式：**
+        ```
+        Authorization: your_token_here
+        ```
+        **权限说明：**
+        - Token具有对应应用的读写权限
+        - 不同Token可能有不同的环境和命名空间权限
+        - 建议为不同用途创建不同的Token
+  schemas:
+    OpenAppDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 数据创建者用户名，记录是谁创建了这个应用
+        dataChangeLastModifiedBy:
+          type: string
+          description: 数据最后修改者用户名，记录最后一次修改应用信息的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 数据创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 数据最后修改时间，ISO 8601格式的时间戳
+        name:
+          type: string
+          description: 应用名称，用于显示的友好名称
+        appId:
+          type: string
+          description: 应用唯一标识符，全局唯一的应用ID
+        orgId:
+          type: string
+          description: 组织ID，应用所属组织的唯一标识
+        orgName:
+          type: string
+          description: 组织名称，应用所属组织的显示名称
+        ownerName:
+          type: string
+          description: 应用负责人姓名，应用的主要负责人
+        ownerEmail:
+          type: string
+          description: 应用负责人邮箱地址，用于接收应用相关通知
+      description: Apollo应用信息数据传输对象，包含应用的基本信息和元数据
+    OpenCreateAppDTO:
+      type: object
+      properties:
+        assignAppRoleToSelf:
+          type: boolean
+          description: 是否将应用角色分配给当前用户。当设置为true时，当前token用户将获得该应用的完全操作权限
+        admins:
+          type: array
+          items:
+            type: string
+          description: 应用管理员用户名列表。应用负责人默认具有项目管理员权限。管理员可以创建命名空间、集群并分配用户权限
+        app:
+          $ref: '#/components/schemas/OpenAppDTO'
+          description: 应用基本信息，包含应用的详细配置数据
+      description: 创建Apollo应用的请求数据传输对象，包含创建应用所需的所有信息
+    OpenItemDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 配置项创建者用户名，记录是谁创建了这个配置项
+        dataChangeLastModifiedBy:
+          type: string
+          description: 配置项最后修改者用户名，记录最后一次修改配置的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 配置项创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 配置项最后修改时间，ISO 8601格式的时间戳
+        key:
+          type: string
+          description: 配置项的键名，在同一命名空间内唯一标识一个配置项
+        type:
+          type: integer
+          description: 配置项类型，0表示普通配置项，1表示文件类型配置项
+        value:
+          type: string
+          description: 配置项的值，可以是字符串、数字、JSON等格式
+        comment:
+          type: string
+          description: 配置项的注释说明，用于描述配置项的用途和含义
+      description: Apollo配置项数据传输对象，表示一个具体的配置键值对及其元数据
+    OpenPageDTOOpenItemDTO:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: 当前页码，从0开始计数
+        size:
+          type: integer
+          description: 每页显示的记录数量
+        total:
+          type: integer
+          description: 总记录数，符合查询条件的配置项总数量
+          format: int64
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenItemDTO'
+            description: com.ctrip.framework.apollo.openapi.dto.OpenItemDTO
+          description: 当前页的配置项列表，包含具体的配置项数据
+      description: 分页配置项数据传输对象，用于返回分页查询的配置项列表结果
+    OpenClusterDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 集群创建者用户名，记录是谁创建了这个集群
+        dataChangeLastModifiedBy:
+          type: string
+          description: 集群最后修改者用户名，记录最后一次修改集群信息的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 集群创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 集群最后修改时间，ISO 8601格式的时间戳
+        name:
+          type: string
+          description: 集群名称，在同一应用和环境下唯一标识一个集群
+        appId:
+          type: string
+          description: 所属应用的唯一标识符
+      description: Apollo集群信息数据传输对象，表示应用在特定环境下的集群配置
+    MapString:
+      type: object
+      properties:
+        key:
+          type: string
+      description: 字符串映射对象，用于表示键值对的配置数据结构
+    OpenReleaseDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 发布创建者用户名，记录是谁创建了这次发布
+        dataChangeLastModifiedBy:
+          type: string
+          description: 发布最后修改者用户名，记录最后一次修改发布信息的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 发布创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 发布最后修改时间，ISO 8601格式的时间戳
+        id:
+          type: integer
+          description: 发布记录的唯一标识符，系统自动生成
+          format: int64
+        appId:
+          type: string
+          description: 所属应用的唯一标识符
+        clusterName:
+          type: string
+          description: 所属集群的名称
+        namespaceName:
+          type: string
+          description: 所属命名空间的名称
+        name:
+          type: string
+          description: 发布名称，用于标识这次发布的版本或描述
+        configurations:
+          $ref: '#/components/schemas/MapString'
+          description: 本次发布包含的所有配置项键值对
+        comment:
+          type: string
+          description: 发布备注，描述本次发布的变更内容和目的
+      description: Apollo发布信息数据传输对象，表示一次配置发布的完整信息
+    NamespaceReleaseDTO:
+      type: object
+      properties:
+        releaseTitle:
+          type: string
+          description: 发布标题，用于标识这次发布的名称或版本号
+        releaseComment:
+          type: string
+          description: 发布备注，详细描述本次发布的变更内容和目的
+        releasedBy:
+          type: string
+          description: 发布操作者用户名，记录是谁执行了这次发布操作
+        isEmergencyPublish:
+          type: boolean
+          description: 是否为紧急发布，紧急发布可能会跳过某些审核流程
+      description: 命名空间发布请求数据传输对象，用于创建新的配置发布
+    NamespaceGrayDelReleaseDTO:
+      type: object
+      properties:
+        releaseTitle:
+          type: string
+          description: 发布标题，用于标识这次灰度删除发布的名称或版本号
+        releaseComment:
+          type: string
+          description: 发布备注，详细描述本次灰度删除发布的目的和删除的配置项
+        releasedBy:
+          type: string
+          description: 发布操作者用户名，记录是谁执行了这次灰度删除发布操作
+        isEmergencyPublish:
+          type: boolean
+          description: 是否为紧急发布，紧急发布可能会跳过某些审核流程
+        grayDelKeys:
+          type: array
+          items:
+            type: string
+          description: 需要在灰度发布中删除的配置项键名列表
+      description: 命名空间灰度删除发布请求数据传输对象，用于创建删除特定配置项的灰度发布
+    OpenAppNamespaceDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 命名空间创建者用户名，记录是谁创建了这个应用命名空间
+        dataChangeLastModifiedBy:
+          type: string
+          description: 命名空间最后修改者用户名，记录最后一次修改命名空间信息的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 命名空间创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 命名空间最后修改时间，ISO 8601格式的时间戳
+        name:
+          type: string
+          description: 命名空间名称，在同一应用内唯一标识一个命名空间
+        appId:
+          type: string
+          description: 所属应用的唯一标识符
+        format:
+          type: string
+          description: 命名空间格式类型，如properties、xml、json、yml等
+        isPublic:
+          type: boolean
+          description: 是否为公共命名空间，公共命名空间可以被其他应用关联使用
+        appendNamespacePrefix:
+          type: boolean
+          description: 对于公共命名空间，是否在命名空间名称前添加前缀
+          default: true
+        comment:
+          type: string
+          description: 命名空间备注说明，描述命名空间的用途和包含的配置类型
+      description: Apollo应用命名空间数据传输对象，表示应用级别的命名空间配置信息
+    OpenGrayReleaseRuleItemDTO:
+      type: object
+      properties:
+        clientAppId:
+          type: string
+          description: 客户端应用ID，指定哪个应用可以获取灰度配置
+        clientIpList:
+          type: array
+          items:
+            type: string
+          description: 客户端IP地址列表，指定哪些IP地址可以获取灰度配置
+        clientLabelList:
+          type: array
+          items:
+            type: string
+          description: 客户端标签列表，通过标签来识别可以获取灰度配置的客户端
+      description: Apollo灰度发布规则项数据传输对象，表示灰度发布的具体规则条件
+    OpenGrayReleaseRuleDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 灰度规则创建者用户名，记录是谁创建了这个灰度发布规则
+        dataChangeLastModifiedBy:
+          type: string
+          description: 灰度规则最后修改者用户名，记录最后一次修改规则的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 灰度规则创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 灰度规则最后修改时间，ISO 8601格式的时间戳
+        appId:
+          type: string
+          description: 所属应用的唯一标识符
+        clusterName:
+          type: string
+          description: 所属集群的名称
+        namespaceName:
+          type: string
+          description: 所属命名空间的名称
+        branchName:
+          type: string
+          description: 灰度分支名称，标识灰度发布的分支
+        ruleItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenGrayReleaseRuleItemDTO'
+            description: com.ctrip.framework.apollo.openapi.dto.OpenGrayReleaseRuleItemDTO
+          description: 灰度发布规则项列表，包含具体的灰度规则条件
+      description: Apollo灰度发布规则数据传输对象，表示完整的灰度发布规则配置
+    OpenNamespaceDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: 命名空间创建者用户名，记录是谁创建了这个命名空间
+        dataChangeLastModifiedBy:
+          type: string
+          description: 命名空间最后修改者用户名，记录最后一次修改命名空间信息的用户
+        dataChangeCreatedTime:
+          type: string
+          description: 命名空间创建时间，ISO 8601格式的时间戳
+        dataChangeLastModifiedTime:
+          type: string
+          description: 命名空间最后修改时间，ISO 8601格式的时间戳
+        appId:
+          type: string
+          description: 所属应用的唯一标识符
+        clusterName:
+          type: string
+          description: 所属集群的名称
+        namespaceName:
+          type: string
+          description: 命名空间名称，在同一应用和集群下唯一标识一个命名空间
+        comment:
+          type: string
+          description: 命名空间备注说明，描述命名空间的用途
+        format:
+          type: string
+          description: 命名空间格式类型，如properties、xml、json、yml等
+        isPublic:
+          type: boolean
+          description: 是否为公共命名空间，公共命名空间可以被其他应用关联使用
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenItemDTO'
+          description: 命名空间包含的配置项列表
+      description: Apollo命名空间数据传输对象，表示一个完整的命名空间及其配置项
+    OpenNamespaceLockDTO:
+      type: object
+      properties:
+        namespaceName:
+          type: string
+          description: 命名空间名称
+        isLocked:
+          type: boolean
+          description: 是否被锁定
+        lockedBy:
+          type: string
+          description: 锁定者用户名
+      description: Apollo命名空间锁状态数据传输对象
+    OpenPageDTOOpenInstanceDTO:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: 当前页码，从0开始计数
+        size:
+          type: integer
+          description: 每页显示的记录数量
+        total:
+          type: integer
+          description: 总记录数，符合查询条件的实例总数量
+          format: int64
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenInstanceDTO'
+          description: 当前页的实例列表，包含具体的实例数据
+      description: 分页实例数据传输对象，用于返回分页查询的实例列表结果
+    OpenEnvClusterDTO:
+      type: object
+      properties:
+        env:
+          type: string
+          description: ''
+        clusters:
+          type: array
+          items:
+            type: string
+          description: ''
+    ClusterDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: ''
+        dataChangeLastModifiedBy:
+          type: string
+          description: ''
+        dataChangeCreatedByDisplayName:
+          type: string
+          description: ''
+        dataChangeLastModifiedByDisplayName:
+          type: string
+          description: ''
+        dataChangeCreatedTime:
+          type: string
+          description: ''
+        dataChangeLastModifiedTime:
+          type: string
+          description: ''
+        id:
+          type: integer
+          description: ''
+          format: int64
+        name:
+          type: string
+          description: ''
+          pattern: '[0-9a-zA-Z_-]+[0-9a-zA-Z_.-]*'
+        appId:
+          type: string
+          description: ''
+        parentClusterId:
+          type: integer
+          description: ''
+          format: int64
+        comment:
+          type: string
+          description: ''
+      required:
+        - name
+        - appId
+    EnvClusterInfo:
+      type: object
+      properties:
+        env:
+          type: string
+          description: ''
+        clusters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterDTO'
+            description: com.ctrip.framework.apollo.common.dto.ClusterDTO
+          description: ''
+
+
+    NamespaceTextModel:
+      type: object
+      properties:
+        appId:
+          type: string
+          description: ''
+        env:
+          type: string
+          description: ''
+        clusterName:
+          type: string
+          description: ''
+        namespaceName:
+          type: string
+          description: ''
+        namespaceId:
+          type: integer
+          description: ''
+          format: int64
+        format:
+          type: string
+          description: ''
+        configText:
+          type: string
+          description: ''
+        operator:
+          type: string
+          description: ''
+    NamespaceIdentifier:
+      type: object
+      properties:
+        appId:
+          type: string
+          description: ''
+        env:
+          type: string
+          description: ''
+        clusterName:
+          type: string
+          description: ''
+        namespaceName:
+          type: string
+          description: ''
+    ItemDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: ''
+        dataChangeLastModifiedBy:
+          type: string
+          description: ''
+        dataChangeCreatedByDisplayName:
+          type: string
+          description: ''
+        dataChangeLastModifiedByDisplayName:
+          type: string
+          description: ''
+        dataChangeCreatedTime:
+          type: string
+          description: ''
+        dataChangeLastModifiedTime:
+          type: string
+          description: ''
+        id:
+          type: integer
+          description: ''
+          format: int64
+        namespaceId:
+          type: integer
+          description: ''
+          format: int64
+        key:
+          type: string
+          description: ''
+        type:
+          type: integer
+          description: ''
+        value:
+          type: string
+          description: ''
+        comment:
+          type: string
+          description: ''
+        lineNum:
+          type: integer
+          description: ''
+    ItemChangeSets:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: ''
+        dataChangeLastModifiedBy:
+          type: string
+          description: ''
+        dataChangeCreatedByDisplayName:
+          type: string
+          description: ''
+        dataChangeLastModifiedByDisplayName:
+          type: string
+          description: ''
+        dataChangeCreatedTime:
+          type: string
+          description: ''
+        dataChangeLastModifiedTime:
+          type: string
+          description: ''
+        createItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+            description: com.ctrip.framework.apollo.common.dto.ItemDTO
+          description: ''
+          default: new LinkedList<>()
+        updateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+            description: com.ctrip.framework.apollo.common.dto.ItemDTO
+          description: ''
+          default: new LinkedList<>()
+        deleteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+            description: com.ctrip.framework.apollo.common.dto.ItemDTO
+          description: ''
+          default: new LinkedList<>()
+    ListItemDiffs:
+      type: object
+      properties:
+        namespace:
+          $ref: '#/components/schemas/NamespaceIdentifier'
+          description: ''
+        diffs:
+          $ref: '#/components/schemas/ItemChangeSets'
+          description: ''
+        extInfo:
+          type: string
+          description: ''
+    NamespaceSyncModel:
+      type: object
+      properties:
+        syncToNamespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamespaceIdentifier'
+            description: com.ctrip.framework.apollo.portal.entity.vo.NamespaceIdentifier
+          description: ''
+        syncItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+            description: com.ctrip.framework.apollo.common.dto.ItemDTO
+          description: ''
+
+
+    ReleaseDTO:
+      type: object
+      properties:
+        dataChangeCreatedBy:
+          type: string
+          description: ''
+        dataChangeLastModifiedBy:
+          type: string
+          description: ''
+        dataChangeCreatedByDisplayName:
+          type: string
+          description: ''
+        dataChangeLastModifiedByDisplayName:
+          type: string
+          description: ''
+        dataChangeCreatedTime:
+          type: string
+          description: ''
+        dataChangeLastModifiedTime:
+          type: string
+          description: ''
+        id:
+          type: integer
+          description: ''
+          format: int64
+        releaseKey:
+          type: string
+          description: ''
+        name:
+          type: string
+          description: ''
+        appId:
+          type: string
+          description: ''
+        clusterName:
+          type: string
+          description: ''
+        namespaceName:
+          type: string
+          description: ''
+        configurations:
+          type: string
+          description: ''
+        comment:
+          type: string
+          description: ''
+        isAbandoned:
+          type: boolean
+          description: ''
+    KVEntity:
+      type: object
+      properties:
+        key:
+          type: string
+          description: ''
+        value:
+          type: string
+          description: ''
+    ListReleaseBO:
+      type: object
+      properties:
+        baseInfo:
+          $ref: '#/components/schemas/ReleaseDTO'
+          description: ''
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/KVEntity'
+            description: com.ctrip.framework.apollo.portal.entity.bo.KVEntity
+          description: ''
+    EntityPairKVEntity:
+      type: object
+      properties:
+        firstEntity:
+          $ref: '#/components/schemas/KVEntity'
+          description: ''
+        secondEntity:
+          $ref: '#/components/schemas/KVEntity'
+          description: ''
+    Change:
+      type: object
+      properties:
+        type:
+          type: string
+          description: ''
+          enum:
+            - ADDED
+            - MODIFIED
+            - DELETED
+        entity:
+          $ref: '#/components/schemas/EntityPairKVEntity'
+          description: ''
+
+    OpenInstanceConfigDTO:
+      type: object
+      properties:
+        release:
+          $ref: '#/components/schemas/OpenReleaseDTO'
+          description: ''
+        releaseDeliveryTime:
+          type: string
+          description: ''
+        dataChangeLastModifiedTime:
+          type: string
+          description: ''
+    OpenInstanceDTO: &ref_3
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ''
+          format: int64
+        appId:
+          type: string
+          description: ''
+        clusterName:
+          type: string
+          description: ''
+        dataCenter:
+          type: string
+          description: ''
+        ip:
+          type: string
+          description: ''
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenInstanceConfigDTO'
+            description: com.ctrip.framework.apollo.openapi.dto.OpenInstanceConfigDTO
+          description: ''
+        dataChangeCreatedTime:
+          type: string
+          description: ''
+
+
+
+    OpenOrganizationDto:
+      type: object
+      properties:
+        orgId:
+          type: string
+          description: ''
+        orgName:
+          type: string
+          description: ''
+
+
+servers: []
