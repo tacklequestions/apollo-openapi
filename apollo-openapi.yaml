@@ -4391,21 +4391,21 @@ components:
             $ref: '#/components/schemas/ItemDTO'
             description: com.ctrip.framework.apollo.common.dto.ItemDTO
           description: ''
-          default: new LinkedList<>()
+          default: []
         updateItems:
           type: array
           items:
             $ref: '#/components/schemas/ItemDTO'
             description: com.ctrip.framework.apollo.common.dto.ItemDTO
           description: ''
-          default: new LinkedList<>()
+          default: []
         deleteItems:
           type: array
           items:
             $ref: '#/components/schemas/ItemDTO'
             description: com.ctrip.framework.apollo.common.dto.ItemDTO
           description: ''
-          default: new LinkedList<>()
+          default: []
     ListItemDiffs:
       type: object
       properties:
