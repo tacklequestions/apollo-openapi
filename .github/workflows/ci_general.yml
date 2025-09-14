@@ -1,8 +1,44 @@
+#name: General CI Checks
+#on:
+#  pull_request:
+#    branches:
+#      - main
+#
+#permissions:
+#  contents: read
+#  pull-requests: read
+#
+#jobs:
+#  commitlint:
+#    name: Commit Message Check
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: wagoid/commitlint-github-action@v6
+#  line_lint:
+#    name: Line Format Check
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: linelint
+#        uses: hezhangjian/linelint@main
+#  typos:
+#    name: Typos Check
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: crate-ci/typos@master
 name: General CI Checks
+
 on:
-  pull_request:
+  push:                   # 在你的 fork 内，任何分支 push 都跑
     branches:
-      - main
+      - '**'
+  pull_request:           # 在你的 fork 内发到任意分支的 PR 也跑
+    branches:
+      - '**'
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:      # 允许在 Actions 页面手动 Run
 
 permissions:
   contents: read
@@ -15,6 +51,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: wagoid/commitlint-github-action@v6
+        # 如果仓库没有配置，建议新增 .commitlintrc.yml（见下方说明）
+
   line_lint:
     name: Line Format Check
     runs-on: ubuntu-latest
@@ -22,9 +60,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: linelint
         uses: hezhangjian/linelint@main
+
   typos:
     name: Typos Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: crate-ci/typos@master
+      - uses: crate-ci/typos@v1.23.11   # 固定版本而不是 master
