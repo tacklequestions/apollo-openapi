@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * Apollo命名空间锁状态数据传输对象
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T16:24:26.137229+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T16:50:03.362525+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenNamespaceLockDTO {
   public static final String SERIALIZED_NAME_NAMESPACE_NAME = "namespaceName";
   @SerializedName(SERIALIZED_NAME_NAMESPACE_NAME)

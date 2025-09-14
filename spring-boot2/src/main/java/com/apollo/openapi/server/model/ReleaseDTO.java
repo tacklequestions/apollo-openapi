@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * ReleaseDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T16:24:28.369117+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T16:50:05.518301+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ReleaseDTO {
 
   private @Nullable String dataChangeCreatedBy;

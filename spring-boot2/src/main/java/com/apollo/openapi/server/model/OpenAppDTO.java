@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "OpenAppDTO", description = "Apollo应用信息数据传输对象，包含应用的基本信息和元数据")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T16:24:28.369117+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T16:50:05.518301+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenAppDTO {
 
   private @Nullable String dataChangeCreatedBy;
