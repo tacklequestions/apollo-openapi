@@ -66,4 +66,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: crate-ci/typos@v1.23.11   # 固定版本而不是 master
+      - uses: crate-ci/typos@master   # 固定版本而不是 master
