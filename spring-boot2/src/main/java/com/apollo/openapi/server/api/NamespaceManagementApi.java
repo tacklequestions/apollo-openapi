@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T15:38:43.825630+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T16:24:28.369117+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Namespace Management", description = "命名空间管理相关接口，包括命名空间的创建、查询、配置等操作")
 public interface NamespaceManagementApi {

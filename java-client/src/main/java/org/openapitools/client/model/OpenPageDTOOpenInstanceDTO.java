@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * 分页实例数据传输对象，用于返回分页查询的实例列表结果
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T15:38:42.175795+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T16:24:26.137229+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenPageDTOOpenInstanceDTO {
   public static final String SERIALIZED_NAME_PAGE = "page";
   @SerializedName(SERIALIZED_NAME_PAGE)

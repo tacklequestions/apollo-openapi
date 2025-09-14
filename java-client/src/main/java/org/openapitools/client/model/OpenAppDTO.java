@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * Apollo应用信息数据传输对象，包含应用的基本信息和元数据
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T15:38:42.175795+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T16:24:26.137229+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenAppDTO {
   public static final String SERIALIZED_NAME_DATA_CHANGE_CREATED_BY = "dataChangeCreatedBy";
   @SerializedName(SERIALIZED_NAME_DATA_CHANGE_CREATED_BY)

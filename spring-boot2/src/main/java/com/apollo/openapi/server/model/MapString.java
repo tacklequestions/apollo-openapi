@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "MapString", description = "字符串映射对象，用于表示键值对的配置数据结构")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T15:38:43.825630+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T16:24:28.369117+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class MapString {
 
   private @Nullable String key;

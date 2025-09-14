@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * Apollo配置项数据传输对象，表示一个具体的配置键值对及其元数据
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T15:38:42.175795+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-14T16:24:26.137229+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenItemDTO {
   public static final String SERIALIZED_NAME_DATA_CHANGE_CREATED_BY = "dataChangeCreatedBy";
   @SerializedName(SERIALIZED_NAME_DATA_CHANGE_CREATED_BY)
