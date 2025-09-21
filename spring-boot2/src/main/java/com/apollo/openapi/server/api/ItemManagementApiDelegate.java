@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ItemManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ItemManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -218,7 +218,7 @@ public interface ItemManagementApiDelegate {
 
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items : 获取命名空间下的配置项列表
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)

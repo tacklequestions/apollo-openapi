@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * NamespaceIdentifier
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class NamespaceIdentifier {
 
   private @Nullable String appId;
@@ -36,10 +36,10 @@ public class NamespaceIdentifier {
   }
 
   /**
-   * 
+   *
    * @return appId
    */
-  
+
   @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
@@ -56,10 +56,10 @@ public class NamespaceIdentifier {
   }
 
   /**
-   * 
+   *
    * @return env
    */
-  
+
   @Schema(name = "env", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("env")
   public @Nullable String getEnv() {
@@ -76,10 +76,10 @@ public class NamespaceIdentifier {
   }
 
   /**
-   * 
+   *
    * @return clusterName
    */
-  
+
   @Schema(name = "clusterName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusterName")
   public @Nullable String getClusterName() {
@@ -96,10 +96,10 @@ public class NamespaceIdentifier {
   }
 
   /**
-   * 
+   *
    * @return namespaceName
    */
-  
+
   @Schema(name = "namespaceName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceName")
   public @Nullable String getNamespaceName() {
@@ -153,4 +153,3 @@ public class NamespaceIdentifier {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

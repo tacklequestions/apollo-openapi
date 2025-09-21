@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Namespace Management", description = "命名空间管理相关接口，包括命名空间的创建、查询、配置等操作")
 public interface NamespaceManagementApi {
@@ -69,7 +69,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_APPNAMESPACES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenAppNamespaceDTO>> openapiV1AppnamespacesGet(
         @NotNull @Parameter(name = "publicOnly", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "publicOnly", required = true) Boolean publicOnly
     ) {
@@ -104,7 +104,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_APPNAMESPACES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenAppNamespaceDTO>> openapiV1AppsAppIdAppnamespacesGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -140,7 +140,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_APPNAMESPACES_NAMESPACE_NAME_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenAppNamespaceDTO> openapiV1AppsAppIdAppnamespacesNamespaceNameGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
@@ -186,7 +186,7 @@ public interface NamespaceManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenAppNamespaceDTO> openapiV1AppsAppIdAppnamespacesPost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "OpenAppNamespaceDTO", description = "", required = true) @Valid @RequestBody OpenAppNamespaceDTO openAppNamespaceDTO
@@ -224,7 +224,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENVS_ENV_CLUSTERS_CLUSTER_NAME_NAMESPACES_INTEGRITY_CHECK_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<String>> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesIntegrityCheckGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -264,7 +264,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENVS_ENV_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_PUBLIC_ASSOCIATION_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenNamespaceDTO> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNamePublicAssociationGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -305,7 +305,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPNAMESPACES_PUBLIC_NAMESPACE_NAME_INSTANCES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenNamespaceDTO>> openapiV1EnvsEnvAppnamespacesPublicNamespaceNameInstancesGet(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "publicNamespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("publicNamespaceName") String publicNamespaceName,
@@ -346,7 +346,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenNamespaceDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -387,7 +387,7 @@ public interface NamespaceManagementApi {
         value = NamespaceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_LOCK_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenNamespaceLockDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameLockGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,

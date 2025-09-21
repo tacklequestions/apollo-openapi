@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * ReleaseDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ReleaseDTO {
 
   private @Nullable String dataChangeCreatedBy;
@@ -58,10 +58,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedBy
    */
-  
+
   @Schema(name = "dataChangeCreatedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedBy")
   public @Nullable String getDataChangeCreatedBy() {
@@ -78,10 +78,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedBy
    */
-  
+
   @Schema(name = "dataChangeLastModifiedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedBy")
   public @Nullable String getDataChangeLastModifiedBy() {
@@ -98,10 +98,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedByDisplayName
    */
-  
+
   @Schema(name = "dataChangeCreatedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedByDisplayName")
   public @Nullable String getDataChangeCreatedByDisplayName() {
@@ -118,10 +118,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedByDisplayName
    */
-  
+
   @Schema(name = "dataChangeLastModifiedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedByDisplayName")
   public @Nullable String getDataChangeLastModifiedByDisplayName() {
@@ -138,10 +138,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedTime
    */
-  
+
   @Schema(name = "dataChangeCreatedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
@@ -158,10 +158,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedTime
    */
-  
+
   @Schema(name = "dataChangeLastModifiedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
@@ -178,10 +178,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return id
    */
-  
+
   @Schema(name = "id", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public @Nullable Long getId() {
@@ -198,10 +198,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return releaseKey
    */
-  
+
   @Schema(name = "releaseKey", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("releaseKey")
   public @Nullable String getReleaseKey() {
@@ -218,10 +218,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return name
    */
-  
+
   @Schema(name = "name", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public @Nullable String getName() {
@@ -238,10 +238,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return appId
    */
-  
+
   @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
@@ -258,10 +258,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return clusterName
    */
-  
+
   @Schema(name = "clusterName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusterName")
   public @Nullable String getClusterName() {
@@ -278,10 +278,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return namespaceName
    */
-  
+
   @Schema(name = "namespaceName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceName")
   public @Nullable String getNamespaceName() {
@@ -298,10 +298,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return configurations
    */
-  
+
   @Schema(name = "configurations", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("configurations")
   public @Nullable String getConfigurations() {
@@ -318,10 +318,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return comment
    */
-  
+
   @Schema(name = "comment", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("comment")
   public @Nullable String getComment() {
@@ -338,10 +338,10 @@ public class ReleaseDTO {
   }
 
   /**
-   * 
+   *
    * @return isAbandoned
    */
-  
+
   @Schema(name = "isAbandoned", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("isAbandoned")
   public @Nullable Boolean getIsAbandoned() {
@@ -417,4 +417,3 @@ public class ReleaseDTO {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

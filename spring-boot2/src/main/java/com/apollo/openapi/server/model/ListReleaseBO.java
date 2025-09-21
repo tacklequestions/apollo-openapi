@@ -24,7 +24,7 @@ import javax.annotation.Generated;
  * ListReleaseBO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ListReleaseBO {
 
   private @Nullable ReleaseDTO baseInfo;
@@ -41,7 +41,7 @@ public class ListReleaseBO {
    * Get baseInfo
    * @return baseInfo
    */
-  @Valid 
+  @Valid
   @Schema(name = "baseInfo", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("baseInfo")
   public @Nullable ReleaseDTO getBaseInfo() {
@@ -66,10 +66,10 @@ public class ListReleaseBO {
   }
 
   /**
-   * 
+   *
    * @return items
    */
-  @Valid 
+  @Valid
   @Schema(name = "items", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("items")
   public List<@Valid KVEntity> getItems() {
@@ -119,4 +119,3 @@ public class ListReleaseBO {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

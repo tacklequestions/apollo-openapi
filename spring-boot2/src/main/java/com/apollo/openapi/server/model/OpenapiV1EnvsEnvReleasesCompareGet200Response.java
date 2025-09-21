@@ -25,7 +25,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("_openapi_v1_envs__env__releases_compare_get_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenapiV1EnvsEnvReleasesCompareGet200Response {
 
   @Valid
@@ -48,7 +48,7 @@ public class OpenapiV1EnvsEnvReleasesCompareGet200Response {
    * Get changes
    * @return changes
    */
-  @Valid 
+  @Valid
   @Schema(name = "changes", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("changes")
   public List<@Valid Change> getChanges() {
@@ -96,4 +96,3 @@ public class OpenapiV1EnvsEnvReleasesCompareGet200Response {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

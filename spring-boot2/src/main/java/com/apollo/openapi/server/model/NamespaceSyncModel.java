@@ -24,7 +24,7 @@ import javax.annotation.Generated;
  * NamespaceSyncModel
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class NamespaceSyncModel {
 
   @Valid
@@ -47,10 +47,10 @@ public class NamespaceSyncModel {
   }
 
   /**
-   * 
+   *
    * @return syncToNamespaces
    */
-  @Valid 
+  @Valid
   @Schema(name = "syncToNamespaces", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("syncToNamespaces")
   public List<@Valid NamespaceIdentifier> getSyncToNamespaces() {
@@ -75,10 +75,10 @@ public class NamespaceSyncModel {
   }
 
   /**
-   * 
+   *
    * @return syncItems
    */
-  @Valid 
+  @Valid
   @Schema(name = "syncItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("syncItems")
   public List<@Valid ItemDTO> getSyncItems() {
@@ -128,4 +128,3 @@ public class NamespaceSyncModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

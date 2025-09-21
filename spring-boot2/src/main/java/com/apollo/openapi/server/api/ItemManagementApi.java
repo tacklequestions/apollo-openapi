@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Item Management", description = "配置项管理相关接口，包括配置的增删改查、批量操作、同步等功能")
 public interface ItemManagementApi {
@@ -78,7 +78,7 @@ public interface ItemManagementApi {
         value = ItemManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ENCODED_ITEMS_KEY_DELETE,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyDelete(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -126,7 +126,7 @@ public interface ItemManagementApi {
         value = ItemManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ENCODED_ITEMS_KEY_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -184,7 +184,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyPut(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -238,7 +238,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsBatchUpdatePut(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -282,7 +282,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<List<ListItemDiffs>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -297,7 +297,7 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items";
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items : 获取命名空间下的配置项列表
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -330,7 +330,7 @@ public interface ItemManagementApi {
         value = ItemManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenPageDTOOpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -375,7 +375,7 @@ public interface ItemManagementApi {
         value = ItemManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_KEY_DELETE,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyDelete(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -423,7 +423,7 @@ public interface ItemManagementApi {
         value = ItemManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_KEY_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -481,7 +481,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyPut(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -535,7 +535,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsPost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -585,7 +585,7 @@ public interface ItemManagementApi {
         value = ItemManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_REVERT_POST,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsRevertPost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -636,7 +636,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsSyncPost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -684,7 +684,7 @@ public interface ItemManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost200Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,

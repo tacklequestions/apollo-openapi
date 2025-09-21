@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Instance Management", description = "实例管理相关接口，包括实例查询、配置生效状态等功能")
 public interface InstanceManagementApi {
@@ -69,7 +69,7 @@ public interface InstanceManagementApi {
         value = InstanceManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Integer> openapiV1AppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
@@ -110,7 +110,7 @@ public interface InstanceManagementApi {
         value = InstanceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenInstanceDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
@@ -152,7 +152,7 @@ public interface InstanceManagementApi {
         value = InstanceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_RELEASES_RELEASE_ID_INSTANCES_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenPageDTOOpenInstanceDTO> openapiV1EnvsEnvReleasesReleaseIdInstancesGet(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "releaseId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("releaseId") Integer releaseId,

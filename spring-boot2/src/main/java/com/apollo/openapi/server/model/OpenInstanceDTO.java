@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  * OpenInstanceDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenInstanceDTO {
 
   private @Nullable Long id;
@@ -47,10 +47,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return id
    */
-  
+
   @Schema(name = "id", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public @Nullable Long getId() {
@@ -67,10 +67,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return appId
    */
-  
+
   @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
@@ -87,10 +87,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return clusterName
    */
-  
+
   @Schema(name = "clusterName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusterName")
   public @Nullable String getClusterName() {
@@ -107,10 +107,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return dataCenter
    */
-  
+
   @Schema(name = "dataCenter", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataCenter")
   public @Nullable String getDataCenter() {
@@ -127,10 +127,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return ip
    */
-  
+
   @Schema(name = "ip", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ip")
   public @Nullable String getIp() {
@@ -155,10 +155,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return configs
    */
-  @Valid 
+  @Valid
   @Schema(name = "configs", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("configs")
   public List<@Valid OpenInstanceConfigDTO> getConfigs() {
@@ -175,10 +175,10 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedTime
    */
-  
+
   @Schema(name = "dataChangeCreatedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
@@ -238,4 +238,3 @@ public class OpenInstanceDTO {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

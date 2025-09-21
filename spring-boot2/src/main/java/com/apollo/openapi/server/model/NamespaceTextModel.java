@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * NamespaceTextModel
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class NamespaceTextModel {
 
   private @Nullable String appId;
@@ -44,10 +44,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return appId
    */
-  
+
   @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
@@ -64,10 +64,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return env
    */
-  
+
   @Schema(name = "env", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("env")
   public @Nullable String getEnv() {
@@ -84,10 +84,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return clusterName
    */
-  
+
   @Schema(name = "clusterName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusterName")
   public @Nullable String getClusterName() {
@@ -104,10 +104,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return namespaceName
    */
-  
+
   @Schema(name = "namespaceName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceName")
   public @Nullable String getNamespaceName() {
@@ -124,10 +124,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return namespaceId
    */
-  
+
   @Schema(name = "namespaceId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceId")
   public @Nullable Long getNamespaceId() {
@@ -144,10 +144,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return format
    */
-  
+
   @Schema(name = "format", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("format")
   public @Nullable String getFormat() {
@@ -164,10 +164,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return configText
    */
-  
+
   @Schema(name = "configText", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("configText")
   public @Nullable String getConfigText() {
@@ -184,10 +184,10 @@ public class NamespaceTextModel {
   }
 
   /**
-   * 
+   *
    * @return operator
    */
-  
+
   @Schema(name = "operator", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("operator")
   public @Nullable String getOperator() {
@@ -249,4 +249,3 @@ public class NamespaceTextModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * ClusterDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ClusterDTO {
 
   private @Nullable String dataChangeCreatedBy;
@@ -62,10 +62,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedBy
    */
-  
+
   @Schema(name = "dataChangeCreatedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedBy")
   public @Nullable String getDataChangeCreatedBy() {
@@ -82,10 +82,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedBy
    */
-  
+
   @Schema(name = "dataChangeLastModifiedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedBy")
   public @Nullable String getDataChangeLastModifiedBy() {
@@ -102,10 +102,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedByDisplayName
    */
-  
+
   @Schema(name = "dataChangeCreatedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedByDisplayName")
   public @Nullable String getDataChangeCreatedByDisplayName() {
@@ -122,10 +122,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedByDisplayName
    */
-  
+
   @Schema(name = "dataChangeLastModifiedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedByDisplayName")
   public @Nullable String getDataChangeLastModifiedByDisplayName() {
@@ -142,10 +142,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedTime
    */
-  
+
   @Schema(name = "dataChangeCreatedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
@@ -162,10 +162,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedTime
    */
-  
+
   @Schema(name = "dataChangeLastModifiedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
@@ -182,10 +182,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return id
    */
-  
+
   @Schema(name = "id", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public @Nullable Long getId() {
@@ -202,10 +202,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return name
    */
-  @NotNull @Pattern(regexp = "[0-9a-zA-Z_-]+[0-9a-zA-Z_.-]*") 
+  @NotNull @Pattern(regexp = "[0-9a-zA-Z_-]+[0-9a-zA-Z_.-]*")
   @Schema(name = "name", description = "", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
@@ -222,10 +222,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return appId
    */
-  @NotNull 
+  @NotNull
   @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("appId")
   public String getAppId() {
@@ -242,10 +242,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return parentClusterId
    */
-  
+
   @Schema(name = "parentClusterId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("parentClusterId")
   public @Nullable Long getParentClusterId() {
@@ -262,10 +262,10 @@ public class ClusterDTO {
   }
 
   /**
-   * 
+   *
    * @return comment
    */
-  
+
   @Schema(name = "comment", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("comment")
   public @Nullable String getComment() {
@@ -333,4 +333,3 @@ public class ClusterDTO {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

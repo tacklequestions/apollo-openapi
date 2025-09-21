@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Release Management", description = "发布管理相关接口，包括配置发布、发布历史、灰度发布等功能")
 public interface ReleaseManagementApi {
@@ -75,7 +75,7 @@ public interface ReleaseManagementApi {
         value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_RELEASES_ACTIVE_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenReleaseDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesActiveGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -120,7 +120,7 @@ public interface ReleaseManagementApi {
         value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_RELEASES_ALL_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<ListReleaseBO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesAllGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -136,7 +136,7 @@ public interface ReleaseManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_RELEASES_LATEST_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/latest";
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/latest : 获取最新活跃发布
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -167,7 +167,7 @@ public interface ReleaseManagementApi {
         value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_RELEASES_LATEST_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenReleaseDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesLatestGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -181,7 +181,7 @@ public interface ReleaseManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_RELEASES_POST = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases";
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases : 创建发布
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -218,7 +218,7 @@ public interface ReleaseManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenReleaseDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesPost(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -259,7 +259,7 @@ public interface ReleaseManagementApi {
         value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_RELEASES_COMPARE_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1EnvsEnvReleasesCompareGet200Response> openapiV1EnvsEnvReleasesCompareGet(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @NotNull @Parameter(name = "baseReleaseId", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "baseReleaseId", required = true) Integer baseReleaseId,
@@ -297,7 +297,7 @@ public interface ReleaseManagementApi {
         value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_RELEASES_RELEASE_ID_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenReleaseDTO> openapiV1EnvsEnvReleasesReleaseIdGet(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "releaseId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("releaseId") Integer releaseId
@@ -309,7 +309,7 @@ public interface ReleaseManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_RELEASES_RELEASE_ID_ROLLBACK_PUT = "/openapi/v1/envs/{env}/releases/{releaseId}/rollback";
     /**
      * PUT /openapi/v1/envs/{env}/releases/{releaseId}/rollback : 回滚发布
-     * 
+     *
      *
      * @param env  (required)
      * @param releaseId  (required)
@@ -335,7 +335,7 @@ public interface ReleaseManagementApi {
         value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_RELEASES_RELEASE_ID_ROLLBACK_PUT,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Object> openapiV1EnvsEnvReleasesReleaseIdRollbackPut(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "releaseId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("releaseId") Integer releaseId,

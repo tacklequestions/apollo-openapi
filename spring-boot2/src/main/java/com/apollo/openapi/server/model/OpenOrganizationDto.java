@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * OpenOrganizationDto
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenOrganizationDto {
 
   private @Nullable String orgId;
@@ -32,10 +32,10 @@ public class OpenOrganizationDto {
   }
 
   /**
-   * 
+   *
    * @return orgId
    */
-  
+
   @Schema(name = "orgId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("orgId")
   public @Nullable String getOrgId() {
@@ -52,10 +52,10 @@ public class OpenOrganizationDto {
   }
 
   /**
-   * 
+   *
    * @return orgName
    */
-  
+
   @Schema(name = "orgName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("orgName")
   public @Nullable String getOrgName() {
@@ -105,4 +105,3 @@ public class OpenOrganizationDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

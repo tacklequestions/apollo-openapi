@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("_openapi_v1_envs__env__apps__appId__clusters__clusterName__namespaces__namespaceName__items_validate_post_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost200Response {
 
   private @Nullable Boolean valid;
@@ -37,7 +37,7 @@ public class OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceName
    * Get valid
    * @return valid
    */
-  
+
   @Schema(name = "valid", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("valid")
   public @Nullable Boolean getValid() {
@@ -57,7 +57,7 @@ public class OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceName
    * Get message
    * @return message
    */
-  
+
   @Schema(name = "message", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("message")
   public @Nullable String getMessage() {
@@ -107,4 +107,3 @@ public class OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceName
     return o.toString().replace("\n", "\n    ");
   }
 }
-

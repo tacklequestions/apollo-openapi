@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * EntityPairKVEntity
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class EntityPairKVEntity {
 
   private @Nullable KVEntity firstEntity;
@@ -36,7 +36,7 @@ public class EntityPairKVEntity {
    * Get firstEntity
    * @return firstEntity
    */
-  @Valid 
+  @Valid
   @Schema(name = "firstEntity", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("firstEntity")
   public @Nullable KVEntity getFirstEntity() {
@@ -56,7 +56,7 @@ public class EntityPairKVEntity {
    * Get secondEntity
    * @return secondEntity
    */
-  @Valid 
+  @Valid
   @Schema(name = "secondEntity", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("secondEntity")
   public @Nullable KVEntity getSecondEntity() {
@@ -106,4 +106,3 @@ public class EntityPairKVEntity {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

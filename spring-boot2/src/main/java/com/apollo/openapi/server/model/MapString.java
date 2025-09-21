@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "MapString", description = "字符串映射对象，用于表示键值对的配置数据结构")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class MapString {
 
   private @Nullable String key;
@@ -34,7 +34,7 @@ public class MapString {
    * Get key
    * @return key
    */
-  
+
   @Schema(name = "key", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("key")
   public @Nullable String getKey() {
@@ -82,4 +82,3 @@ public class MapString {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

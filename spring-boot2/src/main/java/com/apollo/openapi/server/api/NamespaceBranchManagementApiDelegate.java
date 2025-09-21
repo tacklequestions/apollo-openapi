@@ -25,7 +25,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link NamespaceBranchManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface NamespaceBranchManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -87,7 +87,7 @@ public interface NamespaceBranchManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-del-releases : 创建灰度删除发布
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -210,7 +210,7 @@ public interface NamespaceBranchManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/merge : 合并分支
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -292,7 +292,7 @@ public interface NamespaceBranchManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/releases : 创建灰度发布
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)

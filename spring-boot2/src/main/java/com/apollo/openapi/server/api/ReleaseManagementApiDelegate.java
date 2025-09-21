@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ReleaseManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ReleaseManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -96,7 +96,7 @@ public interface ReleaseManagementApiDelegate {
 
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/latest : 获取最新活跃发布
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -130,7 +130,7 @@ public interface ReleaseManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases : 创建发布
-     * 
+     *
      *
      * @param appId  (required)
      * @param env  (required)
@@ -222,7 +222,7 @@ public interface ReleaseManagementApiDelegate {
 
     /**
      * PUT /openapi/v1/envs/{env}/releases/{releaseId}/rollback : 回滚发布
-     * 
+     *
      *
      * @param env  (required)
      * @param releaseId  (required)

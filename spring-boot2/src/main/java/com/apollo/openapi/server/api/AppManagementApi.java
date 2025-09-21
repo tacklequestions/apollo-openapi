@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "App Management", description = "应用管理相关接口，包括应用的创建、查询、更新、删除等操作")
 public interface AppManagementApi {
@@ -73,7 +73,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_APPNAMESPACES_NAMESPACE_NAME_DELETE,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Object> openapiV1AppsAppIdAppnamespacesNamespaceNameDelete(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
@@ -117,7 +117,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_DELETE,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1AppsAppIdDelete(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -156,7 +156,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENV_CLUSTERS_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenEnvClusterDTO>> openapiV1AppsAppIdEnvClustersGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -194,7 +194,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENVS_ENV_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_LINKS_DELETE,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Object> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameLinksDelete(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
@@ -236,7 +236,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenAppDTO> openapiV1AppsAppIdGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -275,7 +275,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_MISS_ENVS_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<String>> openapiV1AppsAppIdMissEnvsGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -308,7 +308,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_NAMESPACES_RELEASES_STATUS_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Map<String, Map<String, Boolean>>> openapiV1AppsAppIdNamespacesReleasesStatusGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -343,7 +343,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_NAVTREE_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<EnvClusterInfo>> openapiV1AppsAppIdNavtreeGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
@@ -388,7 +388,7 @@ public interface AppManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenAppDTO> openapiV1AppsAppIdPut(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "OpenAppDTO", description = "", required = true) @Valid @RequestBody OpenAppDTO openAppDTO
@@ -427,9 +427,9 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_BY_SELF_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenAppDTO>> openapiV1AppsBySelfGet(
-        
+
     ) {
         return getDelegate().openapiV1AppsBySelfGet();
     }
@@ -472,7 +472,7 @@ public interface AppManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1AppsEnvsEnvPost(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "OpenAppDTO", description = "", required = true) @Valid @RequestBody OpenAppDTO openAppDTO
@@ -512,7 +512,7 @@ public interface AppManagementApi {
         value = AppManagementApi.PATH_OPENAPI_V1_APPS_GET,
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<OpenAppDTO>> openapiV1AppsGet(
         @Parameter(name = "authorized", description = "是否只返回授权的应用", in = ParameterIn.QUERY) @Valid @RequestParam(value = "authorized", required = false) @Nullable String authorized
     ) {
@@ -556,7 +556,7 @@ public interface AppManagementApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<OpenAppDTO> openapiV1AppsPost(
         @Parameter(name = "OpenapiV1AppsPostRequest", description = "", required = true) @Valid @RequestBody OpenapiV1AppsPostRequest openapiV1AppsPostRequest
     ) {

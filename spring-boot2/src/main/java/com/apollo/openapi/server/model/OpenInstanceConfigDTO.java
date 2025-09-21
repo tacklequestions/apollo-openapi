@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * OpenInstanceConfigDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenInstanceConfigDTO {
 
   private @Nullable OpenReleaseDTO release;
@@ -38,7 +38,7 @@ public class OpenInstanceConfigDTO {
    * Get release
    * @return release
    */
-  @Valid 
+  @Valid
   @Schema(name = "release", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("release")
   public @Nullable OpenReleaseDTO getRelease() {
@@ -55,10 +55,10 @@ public class OpenInstanceConfigDTO {
   }
 
   /**
-   * 
+   *
    * @return releaseDeliveryTime
    */
-  
+
   @Schema(name = "releaseDeliveryTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("releaseDeliveryTime")
   public @Nullable String getReleaseDeliveryTime() {
@@ -75,10 +75,10 @@ public class OpenInstanceConfigDTO {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedTime
    */
-  
+
   @Schema(name = "dataChangeLastModifiedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
@@ -130,4 +130,3 @@ public class OpenInstanceConfigDTO {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  * ItemChangeSets
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ItemChangeSets {
 
   private @Nullable String dataChangeCreatedBy;
@@ -53,10 +53,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedBy
    */
-  
+
   @Schema(name = "dataChangeCreatedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedBy")
   public @Nullable String getDataChangeCreatedBy() {
@@ -73,10 +73,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedBy
    */
-  
+
   @Schema(name = "dataChangeLastModifiedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedBy")
   public @Nullable String getDataChangeLastModifiedBy() {
@@ -93,10 +93,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedByDisplayName
    */
-  
+
   @Schema(name = "dataChangeCreatedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedByDisplayName")
   public @Nullable String getDataChangeCreatedByDisplayName() {
@@ -113,10 +113,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedByDisplayName
    */
-  
+
   @Schema(name = "dataChangeLastModifiedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedByDisplayName")
   public @Nullable String getDataChangeLastModifiedByDisplayName() {
@@ -133,10 +133,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return dataChangeCreatedTime
    */
-  
+
   @Schema(name = "dataChangeCreatedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
@@ -153,10 +153,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return dataChangeLastModifiedTime
    */
-  
+
   @Schema(name = "dataChangeLastModifiedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
@@ -181,10 +181,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return createItems
    */
-  @Valid 
+  @Valid
   @Schema(name = "createItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("createItems")
   public List<@Valid ItemDTO> getCreateItems() {
@@ -209,10 +209,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return updateItems
    */
-  @Valid 
+  @Valid
   @Schema(name = "updateItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("updateItems")
   public List<@Valid ItemDTO> getUpdateItems() {
@@ -237,10 +237,10 @@ public class ItemChangeSets {
   }
 
   /**
-   * 
+   *
    * @return deleteItems
    */
-  @Valid 
+  @Valid
   @Schema(name = "deleteItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("deleteItems")
   public List<@Valid ItemDTO> getDeleteItems() {
@@ -304,4 +304,3 @@ public class ItemChangeSets {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

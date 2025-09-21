@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  * ListItemDiffs
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T17:08:21.606545+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ListItemDiffs {
 
   private @Nullable NamespaceIdentifier namespace;
@@ -39,7 +39,7 @@ public class ListItemDiffs {
    * Get namespace
    * @return namespace
    */
-  @Valid 
+  @Valid
   @Schema(name = "namespace", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespace")
   public @Nullable NamespaceIdentifier getNamespace() {
@@ -59,7 +59,7 @@ public class ListItemDiffs {
    * Get diffs
    * @return diffs
    */
-  @Valid 
+  @Valid
   @Schema(name = "diffs", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("diffs")
   public @Nullable ItemChangeSets getDiffs() {
@@ -76,10 +76,10 @@ public class ListItemDiffs {
   }
 
   /**
-   * 
+   *
    * @return extInfo
    */
-  
+
   @Schema(name = "extInfo", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("extInfo")
   public @Nullable String getExtInfo() {
@@ -131,4 +131,3 @@ public class ListItemDiffs {
     return o.toString().replace("\n", "\n    ");
   }
 }
-
