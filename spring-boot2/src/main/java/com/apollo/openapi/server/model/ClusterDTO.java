@@ -16,10 +16,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ClusterDTO
+ * 集群信息
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "ClusterDTO", description = "集群信息")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ClusterDTO {
 
   private @Nullable String dataChangeCreatedBy;
@@ -62,11 +63,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 创建人
    * @return dataChangeCreatedBy
    */
 
-  @Schema(name = "dataChangeCreatedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedBy", description = "创建人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedBy")
   public @Nullable String getDataChangeCreatedBy() {
     return dataChangeCreatedBy;
@@ -82,11 +83,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 最后修改人
    * @return dataChangeLastModifiedBy
    */
 
-  @Schema(name = "dataChangeLastModifiedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedBy", description = "最后修改人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedBy")
   public @Nullable String getDataChangeLastModifiedBy() {
     return dataChangeLastModifiedBy;
@@ -102,11 +103,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 创建人显示名称
    * @return dataChangeCreatedByDisplayName
    */
 
-  @Schema(name = "dataChangeCreatedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedByDisplayName", description = "创建人显示名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedByDisplayName")
   public @Nullable String getDataChangeCreatedByDisplayName() {
     return dataChangeCreatedByDisplayName;
@@ -122,11 +123,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 最后修改人显示名称
    * @return dataChangeLastModifiedByDisplayName
    */
 
-  @Schema(name = "dataChangeLastModifiedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedByDisplayName", description = "最后修改人显示名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedByDisplayName")
   public @Nullable String getDataChangeLastModifiedByDisplayName() {
     return dataChangeLastModifiedByDisplayName;
@@ -142,11 +143,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 创建时间
    * @return dataChangeCreatedTime
    */
 
-  @Schema(name = "dataChangeCreatedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedTime", description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
     return dataChangeCreatedTime;
@@ -162,11 +163,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 最后修改时间
    * @return dataChangeLastModifiedTime
    */
 
-  @Schema(name = "dataChangeLastModifiedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedTime", description = "最后修改时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
     return dataChangeLastModifiedTime;
@@ -182,11 +183,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 集群ID
    * @return id
    */
 
-  @Schema(name = "id", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "id", description = "集群ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public @Nullable Long getId() {
     return id;
@@ -202,11 +203,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 集群名称
    * @return name
    */
   @NotNull @Pattern(regexp = "[0-9a-zA-Z_-]+[0-9a-zA-Z_.-]*")
-  @Schema(name = "name", description = "", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "name", description = "集群名称", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -222,11 +223,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 应用ID
    * @return appId
    */
   @NotNull
-  @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "appId", description = "应用ID", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("appId")
   public String getAppId() {
     return appId;
@@ -242,11 +243,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 父集群ID
    * @return parentClusterId
    */
 
-  @Schema(name = "parentClusterId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "parentClusterId", description = "父集群ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("parentClusterId")
   public @Nullable Long getParentClusterId() {
     return parentClusterId;
@@ -262,11 +263,11 @@ public class ClusterDTO {
   }
 
   /**
-   *
+   * 备注
    * @return comment
    */
 
-  @Schema(name = "comment", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "comment", description = "备注", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("comment")
   public @Nullable String getComment() {
     return comment;

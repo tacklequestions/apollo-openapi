@@ -16,10 +16,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * NamespaceTextModel
+ * 命名空间文本模型
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "NamespaceTextModel", description = "命名空间文本模型")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class NamespaceTextModel {
 
   private @Nullable String appId;
@@ -44,11 +45,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 应用ID
    * @return appId
    */
 
-  @Schema(name = "appId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "appId", description = "应用ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
     return appId;
@@ -64,11 +65,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 环境
    * @return env
    */
 
-  @Schema(name = "env", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "env", description = "环境", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("env")
   public @Nullable String getEnv() {
     return env;
@@ -84,11 +85,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 集群名称
    * @return clusterName
    */
 
-  @Schema(name = "clusterName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "clusterName", description = "集群名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusterName")
   public @Nullable String getClusterName() {
     return clusterName;
@@ -104,11 +105,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 命名空间名称
    * @return namespaceName
    */
 
-  @Schema(name = "namespaceName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "namespaceName", description = "命名空间名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceName")
   public @Nullable String getNamespaceName() {
     return namespaceName;
@@ -124,11 +125,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 命名空间ID
    * @return namespaceId
    */
 
-  @Schema(name = "namespaceId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "namespaceId", description = "命名空间ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceId")
   public @Nullable Long getNamespaceId() {
     return namespaceId;
@@ -144,11 +145,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 格式
    * @return format
    */
 
-  @Schema(name = "format", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "format", description = "格式", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("format")
   public @Nullable String getFormat() {
     return format;
@@ -164,11 +165,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 配置文本
    * @return configText
    */
 
-  @Schema(name = "configText", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "configText", description = "配置文本", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("configText")
   public @Nullable String getConfigText() {
     return configText;
@@ -184,11 +185,11 @@ public class NamespaceTextModel {
   }
 
   /**
-   *
+   * 操作人
    * @return operator
    */
 
-  @Schema(name = "operator", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "operator", description = "操作人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("operator")
   public @Nullable String getOperator() {
     return operator;

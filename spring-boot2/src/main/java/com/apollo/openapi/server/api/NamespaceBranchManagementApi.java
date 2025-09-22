@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Namespace Branch Management", description = "the Namespace Branch Management API")
 public interface NamespaceBranchManagementApi {
@@ -44,49 +44,6 @@ public interface NamespaceBranchManagementApi {
     default NamespaceBranchManagementApiDelegate getDelegate() {
         return new NamespaceBranchManagementApiDelegate() {};
     }
-
-    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCH_POST = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branch";
-    /**
-     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branch : 创建命名空间分支
-     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branch
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param operator  (required)
-     * @return  (status code 200)
-     */
-    @Operation(
-        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchPost",
-        summary = "创建命名空间分支",
-        description = "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branch",
-        tags = { "Namespace Branch Management" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenNamespaceDTO.class))
-            })
-        },
-        security = {
-            @SecurityRequirement(name = "ApiKeyAuth")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.POST,
-        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCH_POST,
-        produces = { "application/json" }
-    )
-
-    default ResponseEntity<OpenNamespaceDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchPost(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @NotNull @Parameter(name = "operator", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
-    ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchPost(appId, env, clusterName, namespaceName, operator);
-    }
-
 
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_DELETE = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}";
     /**
@@ -176,97 +133,6 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "NamespaceGrayDelReleaseDTO", description = "", required = true) @Valid @RequestBody NamespaceGrayDelReleaseDTO namespaceGrayDelReleaseDTO
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayDelReleasesPost(appId, env, clusterName, namespaceName, branchName, namespaceGrayDelReleaseDTO);
-    }
-
-
-    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_GRAY_RULES_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules";
-    /**
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules : 获取分支灰度发布规则
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @return  (status code 200)
-     */
-    @Operation(
-        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayRulesGet",
-        summary = "获取分支灰度发布规则",
-        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules",
-        tags = { "Namespace Branch Management" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenGrayReleaseRuleDTO.class))
-            })
-        },
-        security = {
-            @SecurityRequirement(name = "ApiKeyAuth")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_GRAY_RULES_GET,
-        produces = { "application/json" }
-    )
-
-    default ResponseEntity<OpenGrayReleaseRuleDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayRulesGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "branchName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName
-    ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayRulesGet(appId, env, clusterName, namespaceName, branchName);
-    }
-
-
-    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_GRAY_RULES_PUT = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules";
-    /**
-     * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules : 更新分支灰度发布规则
-     * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @param operator  (required)
-     * @param openGrayReleaseRuleDTO  (required)
-     * @return  (status code 200)
-     */
-    @Operation(
-        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayRulesPut",
-        summary = "更新分支灰度发布规则",
-        description = "PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-rules",
-        tags = { "Namespace Branch Management" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))
-            })
-        },
-        security = {
-            @SecurityRequirement(name = "ApiKeyAuth")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.PUT,
-        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_GRAY_RULES_PUT,
-        produces = { "application/json" },
-        consumes = { "application/json" }
-    )
-
-    default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayRulesPut(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "branchName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName,
-        @NotNull @Parameter(name = "operator", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "operator", required = true) String operator,
-        @Parameter(name = "OpenGrayReleaseRuleDTO", description = "", required = true) @Valid @RequestBody OpenGrayReleaseRuleDTO openGrayReleaseRuleDTO
-    ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayRulesPut(appId, env, clusterName, namespaceName, branchName, operator, openGrayReleaseRuleDTO);
     }
 
 
@@ -466,6 +332,140 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "NamespaceReleaseDTO", description = "", required = true) @Valid @RequestBody NamespaceReleaseDTO namespaceReleaseDTO
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameReleasesPost(appId, env, clusterName, namespaceName, branchName, namespaceReleaseDTO);
+    }
+
+
+    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_RULES_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules";
+    /**
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules : 获取分支灰度发布规则
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
+     *
+     * @param appId  (required)
+     * @param env  (required)
+     * @param clusterName  (required)
+     * @param namespaceName  (required)
+     * @param branchName  (required)
+     * @return  (status code 200)
+     */
+    @Operation(
+        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesGet",
+        summary = "获取分支灰度发布规则",
+        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules",
+        tags = { "Namespace Branch Management" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenGrayReleaseRuleDTO.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "ApiKeyAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_RULES_GET,
+        produces = { "application/json" }
+    )
+
+    default ResponseEntity<OpenGrayReleaseRuleDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesGet(
+        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "branchName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName
+    ) {
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesGet(appId, env, clusterName, namespaceName, branchName);
+    }
+
+
+    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_RULES_PUT = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules";
+    /**
+     * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules : 更新分支灰度发布规则
+     * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
+     *
+     * @param appId  (required)
+     * @param env  (required)
+     * @param clusterName  (required)
+     * @param namespaceName  (required)
+     * @param branchName  (required)
+     * @param operator  (required)
+     * @param openGrayReleaseRuleDTO  (required)
+     * @return  (status code 200)
+     */
+    @Operation(
+        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut",
+        summary = "更新分支灰度发布规则",
+        description = "PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules",
+        tags = { "Namespace Branch Management" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "ApiKeyAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_RULES_PUT,
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+
+    default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut(
+        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "branchName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName,
+        @NotNull @Parameter(name = "operator", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "operator", required = true) String operator,
+        @Parameter(name = "OpenGrayReleaseRuleDTO", description = "", required = true) @Valid @RequestBody OpenGrayReleaseRuleDTO openGrayReleaseRuleDTO
+    ) {
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut(appId, env, clusterName, namespaceName, branchName, operator, openGrayReleaseRuleDTO);
+    }
+
+
+    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_POST = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches";
+    /**
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches : 创建命名空间分支
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
+     *
+     * @param appId  (required)
+     * @param env  (required)
+     * @param clusterName  (required)
+     * @param namespaceName  (required)
+     * @param operator  (required)
+     * @return  (status code 200)
+     */
+    @Operation(
+        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesPost",
+        summary = "创建命名空间分支",
+        description = "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches",
+        tags = { "Namespace Branch Management" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenNamespaceDTO.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "ApiKeyAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_POST,
+        produces = { "application/json" }
+    )
+
+    default ResponseEntity<OpenNamespaceDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesPost(
+        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @NotNull @Parameter(name = "operator", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
+    ) {
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesPost(appId, env, clusterName, namespaceName, operator);
     }
 
 }

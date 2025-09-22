@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link InstanceManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface InstanceManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -28,16 +28,18 @@ public interface InstanceManagementApiDelegate {
     }
 
     /**
-     * GET /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances : 获取命名空间下的实例数量
-     * GET /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances : 获取命名空间下的实例数量
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
      *
+     * @param env  (required)
      * @param appId  (required)
      * @param clusterName  (required)
      * @param namespaceName  (required)
      * @return  (status code 200)
-     * @see InstanceManagementApi#openapiV1AppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet
+     * @see InstanceManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet
      */
-    default ResponseEntity<Integer> openapiV1AppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(String appId,
+    default ResponseEntity<Integer> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(String env,
+        String appId,
         String clusterName,
         String namespaceName) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -45,8 +47,8 @@ public interface InstanceManagementApiDelegate {
     }
 
     /**
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances : 查询不在指定发布版本中的实例
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances?excludeReleases&#x3D;1,2,3
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in : 查询不在指定发布版本中的实例
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in?excludeReleases&#x3D;1,2,3
      *
      * @param env  (required)
      * @param appId  (required)
@@ -54,9 +56,9 @@ public interface InstanceManagementApiDelegate {
      * @param namespaceName  (required)
      * @param excludeReleases 排除的发布ID列表，用逗号分隔 (optional)
      * @return  (status code 200)
-     * @see InstanceManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet
+     * @see InstanceManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesNotInGet
      */
-    default ResponseEntity<List<OpenInstanceDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(String env,
+    default ResponseEntity<List<OpenInstanceDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesNotInGet(String env,
         String appId,
         String clusterName,
         String namespaceName,

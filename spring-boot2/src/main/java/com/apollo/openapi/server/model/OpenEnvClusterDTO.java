@@ -19,10 +19,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * OpenEnvClusterDTO
+ * 环境与集群信息
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "OpenEnvClusterDTO", description = "环境与集群信息")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenEnvClusterDTO {
 
   private @Nullable String env;
@@ -36,11 +37,11 @@ public class OpenEnvClusterDTO {
   }
 
   /**
-   *
+   * 环境名称
    * @return env
    */
 
-  @Schema(name = "env", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "env", description = "环境名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("env")
   public @Nullable String getEnv() {
     return env;
@@ -64,11 +65,11 @@ public class OpenEnvClusterDTO {
   }
 
   /**
-   *
+   * 环境下的集群列表
    * @return clusters
    */
 
-  @Schema(name = "clusters", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "clusters", description = "环境下的集群列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusters")
   public List<String> getClusters() {
     return clusters;

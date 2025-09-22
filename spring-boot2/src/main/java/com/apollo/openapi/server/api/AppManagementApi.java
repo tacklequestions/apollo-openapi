@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "App Management", description = "应用管理相关接口，包括应用的创建、查询、更新、删除等操作")
 public interface AppManagementApi {
@@ -125,19 +125,19 @@ public interface AppManagementApi {
     }
 
 
-    public static final String PATH_OPENAPI_V1_APPS_APP_ID_ENV_CLUSTERS_GET = "/openapi/v1/apps/{appId}/env-clusters";
+    public static final String PATH_OPENAPI_V1_APPS_APP_ID_ENVCLUSTERS_GET = "/openapi/v1/apps/{appId}/envclusters";
     /**
-     * GET /openapi/v1/apps/{appId}/env-clusters : 获取应用的环境集群信息
-     * GET /openapi/v1/apps/{appId}/env-clusters
+     * GET /openapi/v1/apps/{appId}/envclusters : 获取应用的环境集群信息
+     * GET /openapi/v1/apps/{appId}/envclusters
      *
      * @param appId  (required)
      * @return 成功获取应用环境集群信息 (status code 200)
      *         or 应用不存在 (status code 404)
      */
     @Operation(
-        operationId = "openapiV1AppsAppIdEnvClustersGet",
+        operationId = "openapiV1AppsAppIdEnvclustersGet",
         summary = "获取应用的环境集群信息",
-        description = "GET /openapi/v1/apps/{appId}/env-clusters",
+        description = "GET /openapi/v1/apps/{appId}/envclusters",
         tags = { "App Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取应用环境集群信息", content = {
@@ -153,14 +153,14 @@ public interface AppManagementApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENV_CLUSTERS_GET,
+        value = AppManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENVCLUSTERS_GET,
         produces = { "application/json" }
     )
 
-    default ResponseEntity<List<OpenEnvClusterDTO>> openapiV1AppsAppIdEnvClustersGet(
+    default ResponseEntity<List<OpenEnvClusterDTO>> openapiV1AppsAppIdEnvclustersGet(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
-        return getDelegate().openapiV1AppsAppIdEnvClustersGet(appId);
+        return getDelegate().openapiV1AppsAppIdEnvclustersGet(appId);
     }
 
 
@@ -484,7 +484,7 @@ public interface AppManagementApi {
     public static final String PATH_OPENAPI_V1_APPS_GET = "/openapi/v1/apps";
     /**
      * GET /openapi/v1/apps : 获取当前Consumer授权的应用列表
-     * GET /openapi/v1/apps?authorized&#x3D;true
+     * GET /openapi/v1/apps/authorized
      *
      * @param authorized 是否只返回授权的应用 (optional)
      * @return 成功获取授权应用列表 (status code 200)
@@ -493,7 +493,7 @@ public interface AppManagementApi {
     @Operation(
         operationId = "openapiV1AppsGet",
         summary = "获取当前Consumer授权的应用列表",
-        description = "GET /openapi/v1/apps?authorized=true",
+        description = "GET /openapi/v1/apps/authorized",
         tags = { "App Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取授权应用列表", content = {

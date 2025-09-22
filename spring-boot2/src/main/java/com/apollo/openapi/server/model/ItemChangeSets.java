@@ -20,10 +20,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ItemChangeSets
+ * 配置项变更集合
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "ItemChangeSets", description = "配置项变更集合")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ItemChangeSets {
 
   private @Nullable String dataChangeCreatedBy;
@@ -53,11 +54,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 创建人
    * @return dataChangeCreatedBy
    */
 
-  @Schema(name = "dataChangeCreatedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedBy", description = "创建人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedBy")
   public @Nullable String getDataChangeCreatedBy() {
     return dataChangeCreatedBy;
@@ -73,11 +74,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 最后修改人
    * @return dataChangeLastModifiedBy
    */
 
-  @Schema(name = "dataChangeLastModifiedBy", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedBy", description = "最后修改人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedBy")
   public @Nullable String getDataChangeLastModifiedBy() {
     return dataChangeLastModifiedBy;
@@ -93,11 +94,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 创建人显示名称
    * @return dataChangeCreatedByDisplayName
    */
 
-  @Schema(name = "dataChangeCreatedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedByDisplayName", description = "创建人显示名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedByDisplayName")
   public @Nullable String getDataChangeCreatedByDisplayName() {
     return dataChangeCreatedByDisplayName;
@@ -113,11 +114,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 最后修改人显示名称
    * @return dataChangeLastModifiedByDisplayName
    */
 
-  @Schema(name = "dataChangeLastModifiedByDisplayName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedByDisplayName", description = "最后修改人显示名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedByDisplayName")
   public @Nullable String getDataChangeLastModifiedByDisplayName() {
     return dataChangeLastModifiedByDisplayName;
@@ -133,11 +134,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 创建时间
    * @return dataChangeCreatedTime
    */
 
-  @Schema(name = "dataChangeCreatedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedTime", description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
     return dataChangeCreatedTime;
@@ -153,11 +154,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 最后修改时间
    * @return dataChangeLastModifiedTime
    */
 
-  @Schema(name = "dataChangeLastModifiedTime", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedTime", description = "最后修改时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
     return dataChangeLastModifiedTime;
@@ -181,11 +182,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 新增的配置项
    * @return createItems
    */
   @Valid
-  @Schema(name = "createItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "createItems", description = "新增的配置项", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("createItems")
   public List<@Valid ItemDTO> getCreateItems() {
     return createItems;
@@ -209,11 +210,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 修改的配置项
    * @return updateItems
    */
   @Valid
-  @Schema(name = "updateItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "updateItems", description = "修改的配置项", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("updateItems")
   public List<@Valid ItemDTO> getUpdateItems() {
     return updateItems;
@@ -237,11 +238,11 @@ public class ItemChangeSets {
   }
 
   /**
-   *
+   * 删除的配置项
    * @return deleteItems
    */
   @Valid
-  @Schema(name = "deleteItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "deleteItems", description = "删除的配置项", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("deleteItems")
   public List<@Valid ItemDTO> getDeleteItems() {
     return deleteItems;

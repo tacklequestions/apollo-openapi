@@ -16,27 +16,28 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * OpenOrganizationDto
+ * 组织信息
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class OpenOrganizationDto {
+@Schema(name = "OpenOrganizationDTO", description = "组织信息")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenOrganizationDTO {
 
   private @Nullable String orgId;
 
   private @Nullable String orgName;
 
-  public OpenOrganizationDto orgId(@Nullable String orgId) {
+  public OpenOrganizationDTO orgId(@Nullable String orgId) {
     this.orgId = orgId;
     return this;
   }
 
   /**
-   *
+   * 组织ID
    * @return orgId
    */
 
-  @Schema(name = "orgId", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "orgId", description = "组织ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("orgId")
   public @Nullable String getOrgId() {
     return orgId;
@@ -46,17 +47,17 @@ public class OpenOrganizationDto {
     this.orgId = orgId;
   }
 
-  public OpenOrganizationDto orgName(@Nullable String orgName) {
+  public OpenOrganizationDTO orgName(@Nullable String orgName) {
     this.orgName = orgName;
     return this;
   }
 
   /**
-   *
+   * 组织名称
    * @return orgName
    */
 
-  @Schema(name = "orgName", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "orgName", description = "组织名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("orgName")
   public @Nullable String getOrgName() {
     return orgName;
@@ -74,9 +75,9 @@ public class OpenOrganizationDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OpenOrganizationDto openOrganizationDto = (OpenOrganizationDto) o;
-    return Objects.equals(this.orgId, openOrganizationDto.orgId) &&
-        Objects.equals(this.orgName, openOrganizationDto.orgName);
+    OpenOrganizationDTO openOrganizationDTO = (OpenOrganizationDTO) o;
+    return Objects.equals(this.orgId, openOrganizationDTO.orgId) &&
+        Objects.equals(this.orgName, openOrganizationDTO.orgName);
   }
 
   @Override
@@ -87,7 +88,7 @@ public class OpenOrganizationDto {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class OpenOrganizationDto {\n");
+    sb.append("class OpenOrganizationDTO {\n");
     sb.append("    orgId: ").append(toIndentedString(orgId)).append("\n");
     sb.append("    orgName: ").append(toIndentedString(orgName)).append("\n");
     sb.append("}");

@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Cluster Management", description = "集群管理相关接口，包括集群的创建、查询、删除等操作")
 public interface ClusterManagementApi {
@@ -44,8 +44,9 @@ public interface ClusterManagementApi {
     public static final String PATH_OPENAPI_V1_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_GET = "/openapi/v1/apps/{appId}/clusters/{clusterName}";
     /**
      * GET /openapi/v1/apps/{appId}/clusters/{clusterName} : 获取指定集群信息
-     * GET /openapi/v1/apps/{appId}/clusters/{clusterName}
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}
      *
+     * @param env  (required)
      * @param appId  (required)
      * @param clusterName  (required)
      * @return 成功获取集群信息 (status code 200)
@@ -54,7 +55,7 @@ public interface ClusterManagementApi {
     @Operation(
         operationId = "openapiV1AppsAppIdClustersClusterNameGet",
         summary = "获取指定集群信息",
-        description = "GET /openapi/v1/apps/{appId}/clusters/{clusterName}",
+        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}",
         tags = { "Cluster Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取集群信息", content = {
@@ -75,18 +76,20 @@ public interface ClusterManagementApi {
     )
 
     default ResponseEntity<OpenClusterDTO> openapiV1AppsAppIdClustersClusterNameGet(
+        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName
     ) {
-        return getDelegate().openapiV1AppsAppIdClustersClusterNameGet(appId, clusterName);
+        return getDelegate().openapiV1AppsAppIdClustersClusterNameGet(env, appId, clusterName);
     }
 
 
     public static final String PATH_OPENAPI_V1_APPS_APP_ID_CLUSTERS_POST = "/openapi/v1/apps/{appId}/clusters";
     /**
      * POST /openapi/v1/apps/{appId}/clusters : 创建集群
-     * POST /openapi/v1/apps/{appId}/clusters
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters
      *
+     * @param env  (required)
      * @param appId  (required)
      * @param openClusterDTO  (required)
      * @return 集群创建成功 (status code 200)
@@ -96,7 +99,7 @@ public interface ClusterManagementApi {
     @Operation(
         operationId = "openapiV1AppsAppIdClustersPost",
         summary = "创建集群",
-        description = "POST /openapi/v1/apps/{appId}/clusters",
+        description = "POST /openapi/v1/envs/{env}/apps/{appId}/clusters",
         tags = { "Cluster Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "集群创建成功", content = {
@@ -121,10 +124,11 @@ public interface ClusterManagementApi {
     )
 
     default ResponseEntity<OpenClusterDTO> openapiV1AppsAppIdClustersPost(
+        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "OpenClusterDTO", description = "", required = true) @Valid @RequestBody OpenClusterDTO openClusterDTO
     ) {
-        return getDelegate().openapiV1AppsAppIdClustersPost(appId, openClusterDTO);
+        return getDelegate().openapiV1AppsAppIdClustersPost(env, appId, openClusterDTO);
     }
 
 

@@ -1,6 +1,6 @@
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.OpenOrganizationDto;
+import com.apollo.openapi.server.model.OpenOrganizationDTO;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link OrganizationManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface OrganizationManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -35,7 +35,7 @@ public interface OrganizationManagementApiDelegate {
      *         or 未授权访问 (status code 401)
      * @see OrganizationManagementApi#openapiV1OrganizationsGet
      */
-    default ResponseEntity<List<OpenOrganizationDto>> openapiV1OrganizationsGet() {
+    default ResponseEntity<List<OpenOrganizationDTO>> openapiV1OrganizationsGet() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

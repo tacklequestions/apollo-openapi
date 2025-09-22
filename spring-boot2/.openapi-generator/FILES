@@ -57,7 +57,7 @@ src/main/java/com/apollo/openapi/server/model/OpenInstanceDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenItemDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenNamespaceDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenNamespaceLockDTO.java
-src/main/java/com/apollo/openapi/server/model/OpenOrganizationDto.java
+src/main/java/com/apollo/openapi/server/model/OpenOrganizationDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenPageDTOOpenInstanceDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenPageDTOOpenItemDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenReleaseDTO.java

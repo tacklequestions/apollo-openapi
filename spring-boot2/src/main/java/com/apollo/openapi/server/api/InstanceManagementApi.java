@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Instance Management", description = "实例管理相关接口，包括实例查询、配置生效状态等功能")
 public interface InstanceManagementApi {
@@ -40,20 +40,21 @@ public interface InstanceManagementApi {
         return new InstanceManagementApiDelegate() {};
     }
 
-    public static final String PATH_OPENAPI_V1_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET = "/openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances";
+    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances";
     /**
-     * GET /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances : 获取命名空间下的实例数量
-     * GET /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances : 获取命名空间下的实例数量
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
      *
+     * @param env  (required)
      * @param appId  (required)
      * @param clusterName  (required)
      * @param namespaceName  (required)
      * @return  (status code 200)
      */
     @Operation(
-        operationId = "openapiV1AppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet",
+        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet",
         summary = "获取命名空间下的实例数量",
-        description = "GET /openapi/v1/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances",
+        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances",
         tags = { "Instance Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "", content = {
@@ -66,23 +67,24 @@ public interface InstanceManagementApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = InstanceManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET,
+        value = InstanceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET,
         produces = { "application/json" }
     )
 
-    default ResponseEntity<Integer> openapiV1AppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(
+    default ResponseEntity<Integer> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(
+        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
     ) {
-        return getDelegate().openapiV1AppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(appId, clusterName, namespaceName);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(env, appId, clusterName, namespaceName);
     }
 
 
-    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances";
+    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_NOT_IN_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in";
     /**
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances : 查询不在指定发布版本中的实例
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances?excludeReleases&#x3D;1,2,3
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in : 查询不在指定发布版本中的实例
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in?excludeReleases&#x3D;1,2,3
      *
      * @param env  (required)
      * @param appId  (required)
@@ -92,9 +94,9 @@ public interface InstanceManagementApi {
      * @return  (status code 200)
      */
     @Operation(
-        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet",
+        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesNotInGet",
         summary = "查询不在指定发布版本中的实例",
-        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances?excludeReleases=1,2,3",
+        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in?excludeReleases=1,2,3",
         tags = { "Instance Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "", content = {
@@ -107,18 +109,18 @@ public interface InstanceManagementApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = InstanceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_GET,
+        value = InstanceManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_INSTANCES_NOT_IN_GET,
         produces = { "application/json" }
     )
 
-    default ResponseEntity<List<OpenInstanceDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(
+    default ResponseEntity<List<OpenInstanceDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesNotInGet(
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "excludeReleases", description = "排除的发布ID列表，用逗号分隔", in = ParameterIn.QUERY) @Valid @RequestParam(value = "excludeReleases", required = false) @Nullable String excludeReleases
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesGet(env, appId, clusterName, namespaceName, excludeReleases);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameInstancesNotInGet(env, appId, clusterName, namespaceName, excludeReleases);
     }
 
 

@@ -25,7 +25,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link AppManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface AppManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -82,15 +82,15 @@ public interface AppManagementApiDelegate {
     }
 
     /**
-     * GET /openapi/v1/apps/{appId}/env-clusters : 获取应用的环境集群信息
-     * GET /openapi/v1/apps/{appId}/env-clusters
+     * GET /openapi/v1/apps/{appId}/envclusters : 获取应用的环境集群信息
+     * GET /openapi/v1/apps/{appId}/envclusters
      *
      * @param appId  (required)
      * @return 成功获取应用环境集群信息 (status code 200)
      *         or 应用不存在 (status code 404)
-     * @see AppManagementApi#openapiV1AppsAppIdEnvClustersGet
+     * @see AppManagementApi#openapiV1AppsAppIdEnvclustersGet
      */
-    default ResponseEntity<List<OpenEnvClusterDTO>> openapiV1AppsAppIdEnvClustersGet(String appId) {
+    default ResponseEntity<List<OpenEnvClusterDTO>> openapiV1AppsAppIdEnvclustersGet(String appId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -320,7 +320,7 @@ public interface AppManagementApiDelegate {
 
     /**
      * GET /openapi/v1/apps : 获取当前Consumer授权的应用列表
-     * GET /openapi/v1/apps?authorized&#x3D;true
+     * GET /openapi/v1/apps/authorized
      *
      * @param authorized 是否只返回授权的应用 (optional)
      * @return 成功获取授权应用列表 (status code 200)

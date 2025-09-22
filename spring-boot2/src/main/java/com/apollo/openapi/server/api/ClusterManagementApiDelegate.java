@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ClusterManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ClusterManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -30,15 +30,17 @@ public interface ClusterManagementApiDelegate {
 
     /**
      * GET /openapi/v1/apps/{appId}/clusters/{clusterName} : 获取指定集群信息
-     * GET /openapi/v1/apps/{appId}/clusters/{clusterName}
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}
      *
+     * @param env  (required)
      * @param appId  (required)
      * @param clusterName  (required)
      * @return 成功获取集群信息 (status code 200)
      *         or 集群不存在 (status code 404)
      * @see ClusterManagementApi#openapiV1AppsAppIdClustersClusterNameGet
      */
-    default ResponseEntity<OpenClusterDTO> openapiV1AppsAppIdClustersClusterNameGet(String appId,
+    default ResponseEntity<OpenClusterDTO> openapiV1AppsAppIdClustersClusterNameGet(String env,
+        String appId,
         String clusterName) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -60,8 +62,9 @@ public interface ClusterManagementApiDelegate {
 
     /**
      * POST /openapi/v1/apps/{appId}/clusters : 创建集群
-     * POST /openapi/v1/apps/{appId}/clusters
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters
      *
+     * @param env  (required)
      * @param appId  (required)
      * @param openClusterDTO  (required)
      * @return 集群创建成功 (status code 200)
@@ -69,7 +72,8 @@ public interface ClusterManagementApiDelegate {
      *         or 权限不足 (status code 403)
      * @see ClusterManagementApi#openapiV1AppsAppIdClustersPost
      */
-    default ResponseEntity<OpenClusterDTO> openapiV1AppsAppIdClustersPost(String appId,
+    default ResponseEntity<OpenClusterDTO> openapiV1AppsAppIdClustersPost(String env,
+        String appId,
         OpenClusterDTO openClusterDTO) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {

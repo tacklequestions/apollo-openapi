@@ -16,10 +16,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * KVEntity
+ * 键值对
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "KVEntity", description = "键值对")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class KVEntity {
 
   private @Nullable String key;
@@ -32,11 +33,11 @@ public class KVEntity {
   }
 
   /**
-   *
+   * 键
    * @return key
    */
 
-  @Schema(name = "key", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "key", description = "键", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("key")
   public @Nullable String getKey() {
     return key;
@@ -52,11 +53,11 @@ public class KVEntity {
   }
 
   /**
-   *
+   * 值
    * @return value
    */
 
-  @Schema(name = "value", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "value", description = "值", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("value")
   public @Nullable String getValue() {
     return value;

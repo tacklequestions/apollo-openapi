@@ -21,10 +21,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * NamespaceSyncModel
+ * 命名空间同步模型
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "NamespaceSyncModel", description = "命名空间同步模型")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class NamespaceSyncModel {
 
   @Valid
@@ -47,11 +48,11 @@ public class NamespaceSyncModel {
   }
 
   /**
-   *
+   * 同步到的目标命名空间
    * @return syncToNamespaces
    */
   @Valid
-  @Schema(name = "syncToNamespaces", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "syncToNamespaces", description = "同步到的目标命名空间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("syncToNamespaces")
   public List<@Valid NamespaceIdentifier> getSyncToNamespaces() {
     return syncToNamespaces;
@@ -75,11 +76,11 @@ public class NamespaceSyncModel {
   }
 
   /**
-   *
+   * 同步的配置项
    * @return syncItems
    */
   @Valid
-  @Schema(name = "syncItems", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "syncItems", description = "同步的配置项", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("syncItems")
   public List<@Valid ItemDTO> getSyncItems() {
     return syncItems;

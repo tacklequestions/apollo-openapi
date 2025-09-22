@@ -21,10 +21,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ListReleaseBO
+ * 发布业务对象列表
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-21T14:49:54.706471+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Schema(name = "ListReleaseBO", description = "发布业务对象列表")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ListReleaseBO {
 
   private @Nullable ReleaseDTO baseInfo;
@@ -66,11 +67,11 @@ public class ListReleaseBO {
   }
 
   /**
-   *
+   * 配置项列表
    * @return items
    */
   @Valid
-  @Schema(name = "items", description = "", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "items", description = "配置项列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("items")
   public List<@Valid KVEntity> getItems() {
     return items;
