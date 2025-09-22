@@ -18,15 +18,14 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 变更
+ * Change
  */
 
-@Schema(name = "Change", description = "变更")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class Change {
 
   /**
-   * 变更类型
+   * 变更类型，取值 ADDED/MODIFIED/DELETED
    */
   public enum TypeEnum {
     ADDED("ADDED"),
@@ -72,11 +71,11 @@ public class Change {
   }
 
   /**
-   * 变更类型
+   * 变更类型，取值 ADDED/MODIFIED/DELETED
    * @return type
    */
 
-  @Schema(name = "type", description = "变更类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "type", description = "变更类型，取值 ADDED/MODIFIED/DELETED", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("type")
   public @Nullable TypeEnum getType() {
     return type;

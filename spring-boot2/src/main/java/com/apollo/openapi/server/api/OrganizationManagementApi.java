@@ -5,7 +5,7 @@
  */
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.OpenOrganizationDTO;
+import com.apollo.openapi.server.model.OpenOrganizationDto;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Organization Management", description = "组织管理相关接口，包括组织信息查询等功能")
 public interface OrganizationManagementApi {
@@ -55,7 +55,7 @@ public interface OrganizationManagementApi {
         tags = { "Organization Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取组织列表", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenOrganizationDTO.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenOrganizationDto.class)))
             }),
             @ApiResponse(responseCode = "401", description = "未授权访问", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OpenapiV1AppsGet401Response.class))
@@ -71,7 +71,7 @@ public interface OrganizationManagementApi {
         produces = { "application/json" }
     )
 
-    default ResponseEntity<List<OpenOrganizationDTO>> openapiV1OrganizationsGet(
+    default ResponseEntity<List<OpenOrganizationDto>> openapiV1OrganizationsGet(
 
     ) {
         return getDelegate().openapiV1OrganizationsGet();

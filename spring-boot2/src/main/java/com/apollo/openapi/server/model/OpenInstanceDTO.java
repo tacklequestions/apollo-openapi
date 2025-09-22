@@ -20,11 +20,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 实例信息
+ * OpenInstanceDTO
  */
 
-@Schema(name = "OpenInstanceDTO", description = "实例信息")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenInstanceDTO {
 
   private @Nullable Long id;
@@ -68,11 +67,11 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 应用ID
+   * 实例所属应用ID
    * @return appId
    */
 
-  @Schema(name = "appId", description = "应用ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "appId", description = "实例所属应用ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
     return appId;
@@ -88,11 +87,11 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 集群名称
+   * 实例所属集群名称
    * @return clusterName
    */
 
-  @Schema(name = "clusterName", description = "集群名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "clusterName", description = "实例所属集群名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusterName")
   public @Nullable String getClusterName() {
     return clusterName;
@@ -108,11 +107,11 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 数据中心
+   * 数据中心/机房标识
    * @return dataCenter
    */
 
-  @Schema(name = "dataCenter", description = "数据中心", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataCenter", description = "数据中心/机房标识", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataCenter")
   public @Nullable String getDataCenter() {
     return dataCenter;
@@ -128,11 +127,11 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * IP地址
+   * 实例IP地址
    * @return ip
    */
 
-  @Schema(name = "ip", description = "IP地址", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "ip", description = "实例IP地址", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ip")
   public @Nullable String getIp() {
     return ip;
@@ -156,11 +155,11 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 配置列表
+   * 实例当前生效的配置列表
    * @return configs
    */
   @Valid
-  @Schema(name = "configs", description = "配置列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "configs", description = "实例当前生效的配置列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("configs")
   public List<@Valid OpenInstanceConfigDTO> getConfigs() {
     return configs;
@@ -176,11 +175,11 @@ public class OpenInstanceDTO {
   }
 
   /**
-   * 创建时间
+   * 数据创建时间（ISO 8601）
    * @return dataChangeCreatedTime
    */
 
-  @Schema(name = "dataChangeCreatedTime", description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedTime", description = "数据创建时间（ISO 8601）", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
     return dataChangeCreatedTime;

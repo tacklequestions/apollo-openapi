@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Namespace Management", description = "命名空间管理相关接口，包括命名空间的创建、查询、配置等操作")
 public interface NamespaceManagementApi {
@@ -117,9 +117,9 @@ public interface NamespaceManagementApi {
      * GET /openapi/v1/apps/{appId}/appnamespaces/{namespaceName} : 获取指定的AppNamespace
      * GET /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
      *
-     * @param appId  (required)
-     * @param namespaceName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @return 成功获取AppNamespace (status code 200)
      */
     @Operation(
         operationId = "openapiV1AppsAppIdAppnamespacesNamespaceNameGet",
@@ -127,7 +127,7 @@ public interface NamespaceManagementApi {
         description = "GET /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}",
         tags = { "Namespace Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "成功获取AppNamespace", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OpenAppNamespaceDTO.class))
             })
         },
@@ -142,8 +142,8 @@ public interface NamespaceManagementApi {
     )
 
     default ResponseEntity<OpenAppNamespaceDTO> openapiV1AppsAppIdAppnamespacesNamespaceNameGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
     ) {
         return getDelegate().openapiV1AppsAppIdAppnamespacesNamespaceNameGet(appId, namespaceName);
     }
@@ -200,10 +200,10 @@ public interface NamespaceManagementApi {
      * GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/integrity-check : 检查缺失的Namespace
      * GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/integrity-check
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @return 缺失的命名空间名称列表 (status code 200)
      */
     @Operation(
         operationId = "openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesIntegrityCheckGet",
@@ -211,7 +211,7 @@ public interface NamespaceManagementApi {
         description = "GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/integrity-check",
         tags = { "Namespace Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "缺失的命名空间名称列表", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))
             })
         },
@@ -226,9 +226,9 @@ public interface NamespaceManagementApi {
     )
 
     default ResponseEntity<List<String>> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesIntegrityCheckGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName
     ) {
         return getDelegate().openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesIntegrityCheckGet(appId, env, clusterName);
     }
@@ -239,11 +239,11 @@ public interface NamespaceManagementApi {
      * GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/public-association : 获取关联的公共Namespace
      * GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/public-association
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @return 成功获取关联的公共Namespace (status code 200)
      */
     @Operation(
         operationId = "openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNamePublicAssociationGet",
@@ -251,7 +251,7 @@ public interface NamespaceManagementApi {
         description = "GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/public-association",
         tags = { "Namespace Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "成功获取关联的公共Namespace", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OpenNamespaceDTO.class))
             })
         },
@@ -266,10 +266,10 @@ public interface NamespaceManagementApi {
     )
 
     default ResponseEntity<OpenNamespaceDTO> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNamePublicAssociationGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
     ) {
         return getDelegate().openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNamePublicAssociationGet(appId, env, clusterName, namespaceName);
     }
@@ -280,11 +280,11 @@ public interface NamespaceManagementApi {
      * GET /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances : 获取公共AppNamespace的所有实例
      * GET /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances
      *
-     * @param env  (required)
-     * @param publicNamespaceName  (required)
-     * @param page  (required)
-     * @param size  (required)
-     * @return  (status code 200)
+     * @param env 环境标识 (required)
+     * @param publicNamespaceName 公共命名空间名称 (required)
+     * @param page 页码，从0开始 (required)
+     * @param size 每页数量 (required)
+     * @return 成功获取实例列表 (status code 200)
      */
     @Operation(
         operationId = "openapiV1EnvsEnvAppnamespacesPublicNamespaceNameInstancesGet",
@@ -292,7 +292,7 @@ public interface NamespaceManagementApi {
         description = "GET /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances",
         tags = { "Namespace Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "成功获取实例列表", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenNamespaceDTO.class)))
             })
         },
@@ -307,10 +307,10 @@ public interface NamespaceManagementApi {
     )
 
     default ResponseEntity<List<OpenNamespaceDTO>> openapiV1EnvsEnvAppnamespacesPublicNamespaceNameInstancesGet(
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "publicNamespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("publicNamespaceName") String publicNamespaceName,
-        @NotNull @Parameter(name = "page", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = true) Integer page,
-        @NotNull @Parameter(name = "size", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "size", required = true) Integer size
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "publicNamespaceName", description = "公共命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("publicNamespaceName") String publicNamespaceName,
+        @NotNull @Parameter(name = "page", description = "页码，从0开始", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = true) Integer page,
+        @NotNull @Parameter(name = "size", description = "每页数量", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "size", required = true) Integer size
     ) {
         return getDelegate().openapiV1EnvsEnvAppnamespacesPublicNamespaceNameInstancesGet(env, publicNamespaceName, page, size);
     }

@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Item Management", description = "配置项管理相关接口，包括配置的增删改查、批量操作、同步等功能")
 public interface ItemManagementApi {
@@ -94,20 +94,20 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ENCODED_ITEMS_KEY_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}";
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key} : 通过查询参数获取配置项（支持编码的key）
-     * GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items?key&#x3D;{key}&amp;encoded&#x3D;{true|false}
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名（需要URL编码） (required)
      * @return 成功获取配置项（支持编码key） (status code 200)
      *         or 配置项不存在 (status code 404)
      */
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyGet",
         summary = "通过查询参数获取配置项（支持编码的key）",
-        description = "GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items?key={key}&encoded={true|false}",
+        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取配置项（支持编码key）", content = {
@@ -128,11 +128,11 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<OpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "key", description = "", required = true, in = ParameterIn.PATH) @PathVariable("key") String key
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "key", description = "配置项键名（需要URL编码）", required = true, in = ParameterIn.PATH) @PathVariable("key") String key
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyGet(appId, env, clusterName, namespaceName, key);
     }
@@ -143,12 +143,12 @@ public interface ItemManagementApi {
      * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key} : 通过编码的key更新配置项
      * PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
-     * @param createIfNotExists  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名（需要URL编码） (required)
+     * @param createIfNotExists 若不存在则创建（true/false） (required)
      * @param openItemDTO  (required)
      * @return 配置项更新成功（编码key） (status code 200)
      *         or 请求参数错误 (status code 400)
@@ -186,12 +186,12 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyPut(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "key", description = "", required = true, in = ParameterIn.PATH) @PathVariable("key") String key,
-        @NotNull @Parameter(name = "createIfNotExists", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "createIfNotExists", required = true) Boolean createIfNotExists,
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "key", description = "配置项键名（需要URL编码）", required = true, in = ParameterIn.PATH) @PathVariable("key") String key,
+        @NotNull @Parameter(name = "createIfNotExists", description = "若不存在则创建（true/false）", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "createIfNotExists", required = true) Boolean createIfNotExists,
         @Parameter(name = "OpenItemDTO", description = "", required = true) @Valid @RequestBody OpenItemDTO openItemDTO
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyPut(appId, env, clusterName, namespaceName, key, createIfNotExists, openItemDTO);
@@ -201,7 +201,7 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_BATCH_UPDATE_PUT = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate";
     /**
      * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate : 通过文本批量修改配置项
-     * PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate
+     * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate
      *
      * @param appId  (required)
      * @param env  (required)
@@ -215,7 +215,7 @@ public interface ItemManagementApi {
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsBatchUpdatePut",
         summary = "通过文本批量修改配置项",
-        description = "PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate",
+        description = "PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "批量更新配置项成功", content = {
@@ -253,19 +253,19 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_COMPARE_POST = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare";
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare : 对比命名空间配置差异
-     * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param namespaceSyncModel  (required)
      * @return 成功对比命名空间配置差异 (status code 200)
      */
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost",
         summary = "对比命名空间配置差异",
-        description = "POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare",
+        description = "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功对比命名空间配置差异", content = {
@@ -284,10 +284,10 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<List<ListItemDiffs>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "NamespaceSyncModel", description = "", required = true) @Valid @RequestBody NamespaceSyncModel namespaceSyncModel
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(appId, env, clusterName, namespaceName, namespaceSyncModel);
@@ -297,21 +297,21 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items";
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items : 获取命名空间下的配置项列表
+     * 获取指定命名空间的配置项列表，支持分页
      *
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param page  (required)
-     * @param size  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param page 页码，从0开始 (required)
+     * @param size 每页数量 (required)
      * @return 成功获取配置项列表 (status code 200)
      *         or 命名空间不存在 (status code 404)
      */
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsGet",
         summary = "获取命名空间下的配置项列表",
-        description = "",
+        description = "获取指定命名空间的配置项列表，支持分页",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取配置项列表", content = {
@@ -332,12 +332,12 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<OpenPageDTOOpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @NotNull @Parameter(name = "page", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = true) Integer page,
-        @NotNull @Parameter(name = "size", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "size", required = true) Integer size
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @NotNull @Parameter(name = "page", description = "页码，从0开始", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = true) Integer page,
+        @NotNull @Parameter(name = "size", description = "每页数量", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "size", required = true) Integer size
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsGet(appId, env, clusterName, namespaceName, page, size);
     }
@@ -348,13 +348,13 @@ public interface ItemManagementApi {
      * DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key} : 删除配置项
      * DELETE /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
-     * @param operator  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名 (required)
+     * @param operator 操作人用户名 (required)
+     * @return 配置项删除成功 (status code 200)
      */
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyDelete",
@@ -362,7 +362,7 @@ public interface ItemManagementApi {
         description = "DELETE /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}",
         tags = { "Item Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "配置项删除成功", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))
             })
         },
@@ -377,12 +377,12 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyDelete(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "key", description = "", required = true, in = ParameterIn.PATH) @PathVariable("key") String key,
-        @NotNull @Parameter(name = "operator", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "key", description = "配置项键名", required = true, in = ParameterIn.PATH) @PathVariable("key") String key,
+        @NotNull @Parameter(name = "operator", description = "操作人用户名", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyDelete(appId, env, clusterName, namespaceName, key, operator);
     }
@@ -391,20 +391,20 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_KEY_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}";
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key} : 获取单个配置项
-     * GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名 (required)
      * @return 成功获取配置项 (status code 200)
      *         or 配置项不存在 (status code 404)
      */
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyGet",
         summary = "获取单个配置项",
-        description = "GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}",
+        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取配置项", content = {
@@ -425,11 +425,11 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<OpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "key", description = "", required = true, in = ParameterIn.PATH) @PathVariable("key") String key
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "key", description = "配置项键名", required = true, in = ParameterIn.PATH) @PathVariable("key") String key
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyGet(appId, env, clusterName, namespaceName, key);
     }
@@ -441,9 +441,9 @@ public interface ItemManagementApi {
      * PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
      *
      * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param key  (required)
      * @param createIfNotExists  (required)
      * @param openItemDTO  (required)
@@ -484,9 +484,9 @@ public interface ItemManagementApi {
 
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyPut(
         @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "key", description = "", required = true, in = ParameterIn.PATH) @PathVariable("key") String key,
         @NotNull @Parameter(name = "createIfNotExists", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "createIfNotExists", required = true) Boolean createIfNotExists,
         @Parameter(name = "OpenItemDTO", description = "", required = true) @Valid @RequestBody OpenItemDTO openItemDTO
@@ -500,10 +500,10 @@ public interface ItemManagementApi {
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items : 创建新的配置项
      * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param openItemDTO  (required)
      * @return 配置项创建成功 (status code 200)
      *         or 请求参数错误 (status code 400)
@@ -537,10 +537,10 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<OpenItemDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsPost(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "OpenItemDTO", description = "", required = true) @Valid @RequestBody OpenItemDTO openItemDTO
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsPost(appId, env, clusterName, namespaceName, openItemDTO);
@@ -550,7 +550,7 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_REVERT_POST = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert";
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert : 撤销配置项更改
-     * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
      *
      * @param appId  (required)
      * @param env  (required)
@@ -563,7 +563,7 @@ public interface ItemManagementApi {
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsRevertPost",
         summary = "撤销配置项更改",
-        description = "POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert",
+        description = "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "配置项更改撤销成功", content = {
@@ -599,12 +599,12 @@ public interface ItemManagementApi {
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_ITEMS_SYNC_POST = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync";
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync : 同步配置项到多个命名空间
-     * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param namespaceSyncModel  (required)
      * @return 配置项同步成功 (status code 200)
      *         or 请求参数错误 (status code 400)
@@ -613,7 +613,7 @@ public interface ItemManagementApi {
     @Operation(
         operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsSyncPost",
         summary = "同步配置项到多个命名空间",
-        description = "POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync",
+        description = "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync",
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "配置项同步成功", content = {
@@ -638,10 +638,10 @@ public interface ItemManagementApi {
     )
 
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsSyncPost(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "NamespaceSyncModel", description = "", required = true) @Valid @RequestBody NamespaceSyncModel namespaceSyncModel
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsSyncPost(appId, env, clusterName, namespaceName, namespaceSyncModel);

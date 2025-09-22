@@ -25,7 +25,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link NamespaceBranchManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface NamespaceBranchManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -36,13 +36,13 @@ public interface NamespaceBranchManagementApiDelegate {
      * DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName} : 删除命名空间分支
      * DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}
      *
-     * @param env  (required)
-     * @param appId  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @param operator  (required)
-     * @return  (status code 200)
+     * @param env 环境标识 (required)
+     * @param appId 应用ID (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
+     * @param operator 操作人用户名 (required)
+     * @return 分支删除成功 (status code 200)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameDelete
      */
     default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameDelete(String env,
@@ -89,13 +89,13 @@ public interface NamespaceBranchManagementApiDelegate {
 
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items : 获取分支下的配置项
-     * GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
      * @return 成功获取分支下的配置项列表 (status code 200)
      *         or 分支不存在 (status code 404)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet
@@ -125,14 +125,14 @@ public interface NamespaceBranchManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/merge : 合并分支
+     * 合并灰度分支并可选择删除分支
      *
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @param deleteBranch  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
+     * @param deleteBranch 合并后是否删除分支（true/false） (required)
      * @param namespaceReleaseDTO  (required)
      * @return 分支合并成功 (status code 200)
      *         or 合并参数错误 (status code 400)
@@ -173,15 +173,15 @@ public interface NamespaceBranchManagementApiDelegate {
      * PATCH /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName} : 合并分支到主分支
      * PATCH /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}  使用 PATCH 方法表示部分更新操作（将分支状态从\&quot;独立\&quot;更新为\&quot;合并\&quot;）
      *
-     * @param env  (required)
-     * @param appId  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @param deleteBranch  (required)
-     * @param xApolloOperator  (required)
+     * @param env 环境标识 (required)
+     * @param appId 应用ID (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
+     * @param deleteBranch 合并后是否删除分支（true/false） (required)
+     * @param xApolloOperator 操作人用户名 (required)
      * @param namespaceReleaseDTO  (required)
-     * @return  (status code 200)
+     * @return 分支合并成功 (status code 200)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNamePatch
      */
     default ResponseEntity<OpenReleaseDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNamePatch(String env,
@@ -207,15 +207,15 @@ public interface NamespaceBranchManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/releases : 创建灰度发布
+     * 在分支上创建灰度发布
      *
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
      * @param namespaceReleaseDTO  (required)
-     * @return  (status code 200)
+     * @return 灰度发布创建成功 (status code 200)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameReleasesPost
      */
     default ResponseEntity<OpenReleaseDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameReleasesPost(String appId,
@@ -241,12 +241,12 @@ public interface NamespaceBranchManagementApiDelegate {
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules : 获取分支灰度发布规则
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
+     * @return 成功获取灰度发布规则 (status code 200)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesGet
      */
     default ResponseEntity<OpenGrayReleaseRuleDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesGet(String appId,
@@ -271,14 +271,14 @@ public interface NamespaceBranchManagementApiDelegate {
      * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules : 更新分支灰度发布规则
      * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param branchName  (required)
-     * @param operator  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
+     * @param operator 操作人用户名 (required)
      * @param openGrayReleaseRuleDTO  (required)
-     * @return  (status code 200)
+     * @return 灰度规则更新成功 (status code 200)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut
      */
     default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut(String appId,
@@ -296,12 +296,12 @@ public interface NamespaceBranchManagementApiDelegate {
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches : 创建命名空间分支
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param operator  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param operator 操作人用户名 (required)
+     * @return 命名空间分支创建成功 (status code 200)
      * @see NamespaceBranchManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesPost
      */
     default ResponseEntity<OpenNamespaceDTO> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesPost(String appId,

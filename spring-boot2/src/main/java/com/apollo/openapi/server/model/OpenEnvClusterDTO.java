@@ -19,11 +19,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 环境与集群信息
+ * OpenEnvClusterDTO
  */
 
-@Schema(name = "OpenEnvClusterDTO", description = "环境与集群信息")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenEnvClusterDTO {
 
   private @Nullable String env;
@@ -37,11 +36,11 @@ public class OpenEnvClusterDTO {
   }
 
   /**
-   * 环境名称
+   * 环境标识，例如 DEV、FAT、UAT、PROD
    * @return env
    */
 
-  @Schema(name = "env", description = "环境名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "env", description = "环境标识，例如 DEV、FAT、UAT、PROD", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("env")
   public @Nullable String getEnv() {
     return env;
@@ -65,11 +64,11 @@ public class OpenEnvClusterDTO {
   }
 
   /**
-   * 环境下的集群列表
+   * 该环境下的集群名称列表
    * @return clusters
    */
 
-  @Schema(name = "clusters", description = "环境下的集群列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "clusters", description = "该环境下的集群名称列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusters")
   public List<String> getClusters() {
     return clusters;

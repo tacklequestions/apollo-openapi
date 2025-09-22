@@ -18,11 +18,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 配置项差异列表
+ * ListItemDiffs
  */
 
-@Schema(name = "ListItemDiffs", description = "配置项差异列表")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ListItemDiffs {
 
   private @Nullable NamespaceIdentifier namespace;
@@ -77,11 +76,11 @@ public class ListItemDiffs {
   }
 
   /**
-   * 扩展信息
+   * Get extInfo
    * @return extInfo
    */
 
-  @Schema(name = "extInfo", description = "扩展信息", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "extInfo", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("extInfo")
   public @Nullable String getExtInfo() {
     return extInfo;

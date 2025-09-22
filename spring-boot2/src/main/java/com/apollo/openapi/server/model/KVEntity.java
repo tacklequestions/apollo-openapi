@@ -16,11 +16,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 键值对
+ * KVEntity
  */
 
-@Schema(name = "KVEntity", description = "键值对")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class KVEntity {
 
   private @Nullable String key;

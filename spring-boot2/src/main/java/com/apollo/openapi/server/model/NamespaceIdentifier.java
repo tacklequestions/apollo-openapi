@@ -16,11 +16,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 命名空间标识
+ * NamespaceIdentifier
  */
 
-@Schema(name = "NamespaceIdentifier", description = "命名空间标识")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class NamespaceIdentifier {
 
   private @Nullable String appId;
@@ -37,11 +36,11 @@ public class NamespaceIdentifier {
   }
 
   /**
-   * 应用ID
+   * 应用唯一标识
    * @return appId
    */
 
-  @Schema(name = "appId", description = "应用ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "appId", description = "应用唯一标识", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("appId")
   public @Nullable String getAppId() {
     return appId;
@@ -57,11 +56,11 @@ public class NamespaceIdentifier {
   }
 
   /**
-   * 环境
+   * 环境标识
    * @return env
    */
 
-  @Schema(name = "env", description = "环境", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "env", description = "环境标识", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("env")
   public @Nullable String getEnv() {
     return env;

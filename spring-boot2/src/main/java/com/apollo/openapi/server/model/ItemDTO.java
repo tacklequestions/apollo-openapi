@@ -16,11 +16,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 配置项
+ * ItemDTO
  */
 
-@Schema(name = "ItemDTO", description = "配置项")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class ItemDTO {
 
   private @Nullable String dataChangeCreatedBy;
@@ -55,11 +54,11 @@ public class ItemDTO {
   }
 
   /**
-   * 创建人
+   * 配置项创建者用户名
    * @return dataChangeCreatedBy
    */
 
-  @Schema(name = "dataChangeCreatedBy", description = "创建人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedBy", description = "配置项创建者用户名", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedBy")
   public @Nullable String getDataChangeCreatedBy() {
     return dataChangeCreatedBy;
@@ -75,11 +74,11 @@ public class ItemDTO {
   }
 
   /**
-   * 最后修改人
+   * 配置项最后修改者用户名
    * @return dataChangeLastModifiedBy
    */
 
-  @Schema(name = "dataChangeLastModifiedBy", description = "最后修改人", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedBy", description = "配置项最后修改者用户名", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedBy")
   public @Nullable String getDataChangeLastModifiedBy() {
     return dataChangeLastModifiedBy;
@@ -95,11 +94,11 @@ public class ItemDTO {
   }
 
   /**
-   * 创建人显示名称
+   * 创建者显示名
    * @return dataChangeCreatedByDisplayName
    */
 
-  @Schema(name = "dataChangeCreatedByDisplayName", description = "创建人显示名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedByDisplayName", description = "创建者显示名", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedByDisplayName")
   public @Nullable String getDataChangeCreatedByDisplayName() {
     return dataChangeCreatedByDisplayName;
@@ -115,11 +114,11 @@ public class ItemDTO {
   }
 
   /**
-   * 最后修改人显示名称
+   * 最后修改者显示名
    * @return dataChangeLastModifiedByDisplayName
    */
 
-  @Schema(name = "dataChangeLastModifiedByDisplayName", description = "最后修改人显示名称", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedByDisplayName", description = "最后修改者显示名", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedByDisplayName")
   public @Nullable String getDataChangeLastModifiedByDisplayName() {
     return dataChangeLastModifiedByDisplayName;
@@ -135,11 +134,11 @@ public class ItemDTO {
   }
 
   /**
-   * 创建时间
+   * 配置项创建时间（ISO 8601）
    * @return dataChangeCreatedTime
    */
 
-  @Schema(name = "dataChangeCreatedTime", description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeCreatedTime", description = "配置项创建时间（ISO 8601）", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeCreatedTime")
   public @Nullable String getDataChangeCreatedTime() {
     return dataChangeCreatedTime;
@@ -155,11 +154,11 @@ public class ItemDTO {
   }
 
   /**
-   * 最后修改时间
+   * 配置项最后修改时间（ISO 8601）
    * @return dataChangeLastModifiedTime
    */
 
-  @Schema(name = "dataChangeLastModifiedTime", description = "最后修改时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "dataChangeLastModifiedTime", description = "配置项最后修改时间（ISO 8601）", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dataChangeLastModifiedTime")
   public @Nullable String getDataChangeLastModifiedTime() {
     return dataChangeLastModifiedTime;
@@ -195,11 +194,11 @@ public class ItemDTO {
   }
 
   /**
-   * 命名空间ID
+   * 所属命名空间ID
    * @return namespaceId
    */
 
-  @Schema(name = "namespaceId", description = "命名空间ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "namespaceId", description = "所属命名空间ID", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("namespaceId")
   public @Nullable Long getNamespaceId() {
     return namespaceId;
@@ -215,11 +214,11 @@ public class ItemDTO {
   }
 
   /**
-   * 配置项的key
+   * 配置项键名
    * @return key
    */
 
-  @Schema(name = "key", description = "配置项的key", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "key", description = "配置项键名", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("key")
   public @Nullable String getKey() {
     return key;
@@ -235,11 +234,11 @@ public class ItemDTO {
   }
 
   /**
-   * 类型
+   * 配置项类型，0表示普通，1表示文件
    * @return type
    */
 
-  @Schema(name = "type", description = "类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "type", description = "配置项类型，0表示普通，1表示文件", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("type")
   public @Nullable Integer getType() {
     return type;
@@ -255,11 +254,11 @@ public class ItemDTO {
   }
 
   /**
-   * 配置项的值
+   * 配置项值
    * @return value
    */
 
-  @Schema(name = "value", description = "配置项的值", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "value", description = "配置项值", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("value")
   public @Nullable String getValue() {
     return value;
@@ -275,11 +274,11 @@ public class ItemDTO {
   }
 
   /**
-   * 备注
+   * 配置项备注
    * @return comment
    */
 
-  @Schema(name = "comment", description = "备注", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "comment", description = "配置项备注", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("comment")
   public @Nullable String getComment() {
     return comment;
@@ -295,11 +294,11 @@ public class ItemDTO {
   }
 
   /**
-   * 行号
+   * 在配置文件中的行号（从1开始）
    * @return lineNum
    */
 
-  @Schema(name = "lineNum", description = "行号", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "lineNum", description = "在配置文件中的行号（从1开始）", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("lineNum")
   public @Nullable Integer getLineNum() {
     return lineNum;

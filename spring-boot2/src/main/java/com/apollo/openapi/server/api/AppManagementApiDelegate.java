@@ -25,7 +25,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link AppManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface AppManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -36,9 +36,9 @@ public interface AppManagementApiDelegate {
      * DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName} : 删除AppNamespace
      * DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
      *
-     * @param appId  (required)
-     * @param namespaceName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @return AppNamespace删除成功 (status code 200)
      * @see AppManagementApi#openapiV1AppsAppIdAppnamespacesNamespaceNameDelete
      */
     default ResponseEntity<Object> openapiV1AppsAppIdAppnamespacesNamespaceNameDelete(String appId,
@@ -51,7 +51,7 @@ public interface AppManagementApiDelegate {
      * DELETE /openapi/v1/apps/{appId} : 删除应用
      * DELETE /openapi/v1/apps/{appId}
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 应用删除成功 (status code 200)
      *         or 权限不足，需要超级管理员权限 (status code 403)
      *         or 应用不存在 (status code 404)
@@ -85,7 +85,7 @@ public interface AppManagementApiDelegate {
      * GET /openapi/v1/apps/{appId}/envclusters : 获取应用的环境集群信息
      * GET /openapi/v1/apps/{appId}/envclusters
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用环境集群信息 (status code 200)
      *         or 应用不存在 (status code 404)
      * @see AppManagementApi#openapiV1AppsAppIdEnvclustersGet
@@ -113,11 +113,11 @@ public interface AppManagementApiDelegate {
      * DELETE /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links : 删除关联的Namespace
      * DELETE /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @return 解除关联成功 (status code 200)
      * @see AppManagementApi#openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameLinksDelete
      */
     default ResponseEntity<Object> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameLinksDelete(String appId,
@@ -132,7 +132,7 @@ public interface AppManagementApiDelegate {
      * GET /openapi/v1/apps/{appId} : 获取单个应用信息
      * GET /openapi/v1/apps/{appId}
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用信息 (status code 200)
      *         or 应用不存在 (status code 404)
      * @see AppManagementApi#openapiV1AppsAppIdGet
@@ -160,7 +160,7 @@ public interface AppManagementApiDelegate {
      * GET /openapi/v1/apps/{appId}/miss_envs : 查找缺失的环境
      * GET /openapi/v1/apps/{appId}/miss_envs
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用缺失的环境列表 (status code 200)
      *         or 应用不存在 (status code 404)
      * @see AppManagementApi#openapiV1AppsAppIdMissEnvsGet
@@ -188,8 +188,8 @@ public interface AppManagementApiDelegate {
      * GET /openapi/v1/apps/{appId}/namespaces/releases/status : 获取应用下所有Namespace的发布状态
      * GET /openapi/v1/apps/{appId}/namespaces/releases/status
      *
-     * @param appId  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @return 成功获取发布状态映射 (status code 200)
      * @see AppManagementApi#openapiV1AppsAppIdNamespacesReleasesStatusGet
      */
     default ResponseEntity<Map<String, Map<String, Boolean>>> openapiV1AppsAppIdNamespacesReleasesStatusGet(String appId) {
@@ -201,7 +201,7 @@ public interface AppManagementApiDelegate {
      * GET /openapi/v1/apps/{appId}/navtree : 获取应用导航树
      * GET /openapi/v1/apps/{appId}/navtree
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用导航树 (status code 200)
      * @see AppManagementApi#openapiV1AppsAppIdNavtreeGet
      */
@@ -223,9 +223,9 @@ public interface AppManagementApiDelegate {
      * PUT /openapi/v1/apps/{appId} : 更新应用
      * PUT /openapi/v1/apps/{appId}
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @param openAppDTO  (required)
-     * @return  (status code 200)
+     * @return 应用更新成功 (status code 200)
      *         or 请求参数错误 (status code 400)
      *         or 权限不足 (status code 403)
      * @see AppManagementApi#openapiV1AppsAppIdPut
@@ -286,7 +286,7 @@ public interface AppManagementApiDelegate {
      * POST /openapi/v1/apps/envs/{env} : 在指定环境创建应用
      * POST /openapi/v1/apps/envs/{env}
      *
-     * @param env  (required)
+     * @param env 环境标识，例如 DEV、FAT、UAT、PROD (required)
      * @param openAppDTO  (required)
      * @return 应用在指定环境创建成功 (status code 200)
      *         or 请求参数错误 (status code 400)

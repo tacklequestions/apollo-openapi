@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "App Management", description = "应用管理相关接口，包括应用的创建、查询、更新、删除等操作")
 public interface AppManagementApi {
@@ -50,9 +50,9 @@ public interface AppManagementApi {
      * DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName} : 删除AppNamespace
      * DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
      *
-     * @param appId  (required)
-     * @param namespaceName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @return AppNamespace删除成功 (status code 200)
      */
     @Operation(
         operationId = "openapiV1AppsAppIdAppnamespacesNamespaceNameDelete",
@@ -60,7 +60,7 @@ public interface AppManagementApi {
         description = "DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}",
         tags = { "App Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "AppNamespace删除成功", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))
             })
         },
@@ -75,8 +75,8 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<Object> openapiV1AppsAppIdAppnamespacesNamespaceNameDelete(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
     ) {
         return getDelegate().openapiV1AppsAppIdAppnamespacesNamespaceNameDelete(appId, namespaceName);
     }
@@ -87,7 +87,7 @@ public interface AppManagementApi {
      * DELETE /openapi/v1/apps/{appId} : 删除应用
      * DELETE /openapi/v1/apps/{appId}
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 应用删除成功 (status code 200)
      *         or 权限不足，需要超级管理员权限 (status code 403)
      *         or 应用不存在 (status code 404)
@@ -119,7 +119,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1AppsAppIdDelete(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdDelete(appId);
     }
@@ -130,7 +130,7 @@ public interface AppManagementApi {
      * GET /openapi/v1/apps/{appId}/envclusters : 获取应用的环境集群信息
      * GET /openapi/v1/apps/{appId}/envclusters
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用环境集群信息 (status code 200)
      *         or 应用不存在 (status code 404)
      */
@@ -158,7 +158,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<List<OpenEnvClusterDTO>> openapiV1AppsAppIdEnvclustersGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdEnvclustersGet(appId);
     }
@@ -169,11 +169,11 @@ public interface AppManagementApi {
      * DELETE /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links : 删除关联的Namespace
      * DELETE /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @return 解除关联成功 (status code 200)
      */
     @Operation(
         operationId = "openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameLinksDelete",
@@ -181,7 +181,7 @@ public interface AppManagementApi {
         description = "DELETE /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links",
         tags = { "App Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "解除关联成功", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))
             })
         },
@@ -196,10 +196,10 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<Object> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameLinksDelete(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName
     ) {
         return getDelegate().openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameLinksDelete(appId, env, clusterName, namespaceName);
     }
@@ -210,7 +210,7 @@ public interface AppManagementApi {
      * GET /openapi/v1/apps/{appId} : 获取单个应用信息
      * GET /openapi/v1/apps/{appId}
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用信息 (status code 200)
      *         or 应用不存在 (status code 404)
      */
@@ -238,7 +238,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<OpenAppDTO> openapiV1AppsAppIdGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdGet(appId);
     }
@@ -249,7 +249,7 @@ public interface AppManagementApi {
      * GET /openapi/v1/apps/{appId}/miss_envs : 查找缺失的环境
      * GET /openapi/v1/apps/{appId}/miss_envs
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用缺失的环境列表 (status code 200)
      *         or 应用不存在 (status code 404)
      */
@@ -277,7 +277,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<List<String>> openapiV1AppsAppIdMissEnvsGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdMissEnvsGet(appId);
     }
@@ -288,8 +288,8 @@ public interface AppManagementApi {
      * GET /openapi/v1/apps/{appId}/namespaces/releases/status : 获取应用下所有Namespace的发布状态
      * GET /openapi/v1/apps/{appId}/namespaces/releases/status
      *
-     * @param appId  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @return 成功获取发布状态映射 (status code 200)
      */
     @Operation(
         operationId = "openapiV1AppsAppIdNamespacesReleasesStatusGet",
@@ -297,7 +297,7 @@ public interface AppManagementApi {
         description = "GET /openapi/v1/apps/{appId}/namespaces/releases/status",
         tags = { "App Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "")
+            @ApiResponse(responseCode = "200", description = "成功获取发布状态映射")
         },
         security = {
             @SecurityRequirement(name = "ApiKeyAuth")
@@ -310,7 +310,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<Map<String, Map<String, Boolean>>> openapiV1AppsAppIdNamespacesReleasesStatusGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdNamespacesReleasesStatusGet(appId);
     }
@@ -321,7 +321,7 @@ public interface AppManagementApi {
      * GET /openapi/v1/apps/{appId}/navtree : 获取应用导航树
      * GET /openapi/v1/apps/{appId}/navtree
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @return 成功获取应用导航树 (status code 200)
      */
     @Operation(
@@ -345,7 +345,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<List<EnvClusterInfo>> openapiV1AppsAppIdNavtreeGet(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdNavtreeGet(appId);
     }
@@ -356,9 +356,9 @@ public interface AppManagementApi {
      * PUT /openapi/v1/apps/{appId} : 更新应用
      * PUT /openapi/v1/apps/{appId}
      *
-     * @param appId  (required)
+     * @param appId 应用ID (required)
      * @param openAppDTO  (required)
-     * @return  (status code 200)
+     * @return 应用更新成功 (status code 200)
      *         or 请求参数错误 (status code 400)
      *         or 权限不足 (status code 403)
      */
@@ -368,7 +368,7 @@ public interface AppManagementApi {
         description = "PUT /openapi/v1/apps/{appId}",
         tags = { "App Management" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "", content = {
+            @ApiResponse(responseCode = "200", description = "应用更新成功", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OpenAppDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "请求参数错误", content = {
@@ -390,7 +390,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<OpenAppDTO> openapiV1AppsAppIdPut(
-        @Parameter(name = "appId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "OpenAppDTO", description = "", required = true) @Valid @RequestBody OpenAppDTO openAppDTO
     ) {
         return getDelegate().openapiV1AppsAppIdPut(appId, openAppDTO);
@@ -440,7 +440,7 @@ public interface AppManagementApi {
      * POST /openapi/v1/apps/envs/{env} : 在指定环境创建应用
      * POST /openapi/v1/apps/envs/{env}
      *
-     * @param env  (required)
+     * @param env 环境标识，例如 DEV、FAT、UAT、PROD (required)
      * @param openAppDTO  (required)
      * @return 应用在指定环境创建成功 (status code 200)
      *         or 请求参数错误 (status code 400)
@@ -474,7 +474,7 @@ public interface AppManagementApi {
     )
 
     default ResponseEntity<OpenapiV1AppsGet401Response> openapiV1AppsEnvsEnvPost(
-        @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "env", description = "环境标识，例如 DEV、FAT、UAT、PROD", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "OpenAppDTO", description = "", required = true) @Valid @RequestBody OpenAppDTO openAppDTO
     ) {
         return getDelegate().openapiV1AppsEnvsEnvPost(env, openAppDTO);

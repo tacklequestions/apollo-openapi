@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ItemManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ItemManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -58,13 +58,13 @@ public interface ItemManagementApiDelegate {
 
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key} : 通过查询参数获取配置项（支持编码的key）
-     * GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items?key&#x3D;{key}&amp;encoded&#x3D;{true|false}
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名（需要URL编码） (required)
      * @return 成功获取配置项（支持编码key） (status code 200)
      *         or 配置项不存在 (status code 404)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameEncodedItemsKeyGet
@@ -96,12 +96,12 @@ public interface ItemManagementApiDelegate {
      * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key} : 通过编码的key更新配置项
      * PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
-     * @param createIfNotExists  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名（需要URL编码） (required)
+     * @param createIfNotExists 若不存在则创建（true/false） (required)
      * @param openItemDTO  (required)
      * @return 配置项更新成功（编码key） (status code 200)
      *         or 请求参数错误 (status code 400)
@@ -146,7 +146,7 @@ public interface ItemManagementApiDelegate {
 
     /**
      * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate : 通过文本批量修改配置项
-     * PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate
+     * PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate
      *
      * @param appId  (required)
      * @param env  (required)
@@ -188,12 +188,12 @@ public interface ItemManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare : 对比命名空间配置差异
-     * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param namespaceSyncModel  (required)
      * @return 成功对比命名空间配置差异 (status code 200)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost
@@ -218,14 +218,14 @@ public interface ItemManagementApiDelegate {
 
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items : 获取命名空间下的配置项列表
+     * 获取指定命名空间的配置项列表，支持分页
      *
-     *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param page  (required)
-     * @param size  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param page 页码，从0开始 (required)
+     * @param size 每页数量 (required)
      * @return 成功获取配置项列表 (status code 200)
      *         or 命名空间不存在 (status code 404)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsGet
@@ -258,13 +258,13 @@ public interface ItemManagementApiDelegate {
      * DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key} : 删除配置项
      * DELETE /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
-     * @param operator  (required)
-     * @return  (status code 200)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名 (required)
+     * @param operator 操作人用户名 (required)
+     * @return 配置项删除成功 (status code 200)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyDelete
      */
     default ResponseEntity<Object> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyDelete(String appId,
@@ -279,13 +279,13 @@ public interface ItemManagementApiDelegate {
 
     /**
      * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key} : 获取单个配置项
-     * GET /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
-     * @param key  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param key 配置项键名 (required)
      * @return 成功获取配置项 (status code 200)
      *         or 配置项不存在 (status code 404)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsKeyGet
@@ -318,9 +318,9 @@ public interface ItemManagementApiDelegate {
      * PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
      *
      * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param key  (required)
      * @param createIfNotExists  (required)
      * @param openItemDTO  (required)
@@ -369,10 +369,10 @@ public interface ItemManagementApiDelegate {
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items : 创建新的配置项
      * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param openItemDTO  (required)
      * @return 配置项创建成功 (status code 200)
      *         or 请求参数错误 (status code 400)
@@ -409,7 +409,7 @@ public interface ItemManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert : 撤销配置项更改
-     * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
      *
      * @param appId  (required)
      * @param env  (required)
@@ -449,12 +449,12 @@ public interface ItemManagementApiDelegate {
 
     /**
      * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync : 同步配置项到多个命名空间
-     * POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync
+     * POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync
      *
-     * @param appId  (required)
-     * @param env  (required)
-     * @param clusterName  (required)
-     * @param namespaceName  (required)
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
      * @param namespaceSyncModel  (required)
      * @return 配置项同步成功 (status code 200)
      *         or 请求参数错误 (status code 400)

@@ -17,11 +17,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * 键值对实体对
+ * EntityPairKVEntity
  */
 
-@Schema(name = "EntityPairKVEntity", description = "键值对实体对")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T21:41:13.496995+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class EntityPairKVEntity {
 
   private @Nullable KVEntity firstEntity;
