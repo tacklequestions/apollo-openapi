@@ -39,7 +39,6 @@ src/main/java/com/apollo/openapi/server/model/ItemDTO.java
 src/main/java/com/apollo/openapi/server/model/KVEntity.java
 src/main/java/com/apollo/openapi/server/model/ListItemDiffs.java
 src/main/java/com/apollo/openapi/server/model/ListReleaseBO.java
-src/main/java/com/apollo/openapi/server/model/MapString.java
 src/main/java/com/apollo/openapi/server/model/NamespaceGrayDelReleaseDTO.java
 src/main/java/com/apollo/openapi/server/model/NamespaceIdentifier.java
 src/main/java/com/apollo/openapi/server/model/NamespaceReleaseDTO.java

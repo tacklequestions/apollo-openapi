@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Release Management", description = "发布管理相关接口，包括配置发布、发布历史、灰度发布等功能")
 public interface ReleaseManagementApi {

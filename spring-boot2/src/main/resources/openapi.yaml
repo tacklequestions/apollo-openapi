@@ -4411,12 +4411,8 @@ components:
           type: string
       type: object
     MapString:
-      description: 字符串映射对象，用于表示键值对的配置数据结构
-      example:
-        key: key
-      properties:
-        key:
-          type: string
+      additionalProperties:
+        type: string
       type: object
     OpenReleaseDTO:
       description: Apollo发布信息数据传输对象，表示一次配置发布的完整信息
@@ -4424,7 +4420,7 @@ components:
         dataChangeCreatedTime: dataChangeCreatedTime
         dataChangeLastModifiedBy: dataChangeLastModifiedBy
         configurations:
-          key: key
+          key: configurations
         appId: appId
         clusterName: clusterName
         dataChangeCreatedBy: dataChangeCreatedBy
@@ -4463,7 +4459,9 @@ components:
           description: 发布名称，用于标识这次发布的版本或描述
           type: string
         configurations:
-          $ref: "#/components/schemas/MapString"
+          additionalProperties:
+            type: string
+          type: object
         comment:
           description: 发布备注，描述本次发布的变更内容和目的
           type: string
@@ -4743,7 +4741,7 @@ components:
               dataChangeCreatedTime: dataChangeCreatedTime
               dataChangeLastModifiedBy: dataChangeLastModifiedBy
               configurations:
-                key: key
+                key: configurations
               appId: appId
               clusterName: clusterName
               dataChangeCreatedBy: dataChangeCreatedBy
@@ -4758,7 +4756,7 @@ components:
               dataChangeCreatedTime: dataChangeCreatedTime
               dataChangeLastModifiedBy: dataChangeLastModifiedBy
               configurations:
-                key: key
+                key: configurations
               appId: appId
               clusterName: clusterName
               dataChangeCreatedBy: dataChangeCreatedBy
@@ -4780,7 +4778,7 @@ components:
               dataChangeCreatedTime: dataChangeCreatedTime
               dataChangeLastModifiedBy: dataChangeLastModifiedBy
               configurations:
-                key: key
+                key: configurations
               appId: appId
               clusterName: clusterName
               dataChangeCreatedBy: dataChangeCreatedBy
@@ -4795,7 +4793,7 @@ components:
               dataChangeCreatedTime: dataChangeCreatedTime
               dataChangeLastModifiedBy: dataChangeLastModifiedBy
               configurations:
-                key: key
+                key: configurations
               appId: appId
               clusterName: clusterName
               dataChangeCreatedBy: dataChangeCreatedBy
@@ -5480,7 +5478,7 @@ components:
           dataChangeCreatedTime: dataChangeCreatedTime
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
           configurations:
-            key: key
+            key: configurations
           appId: appId
           clusterName: clusterName
           dataChangeCreatedBy: dataChangeCreatedBy
@@ -5508,7 +5506,7 @@ components:
             dataChangeCreatedTime: dataChangeCreatedTime
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
             configurations:
-              key: key
+              key: configurations
             appId: appId
             clusterName: clusterName
             dataChangeCreatedBy: dataChangeCreatedBy
@@ -5523,7 +5521,7 @@ components:
             dataChangeCreatedTime: dataChangeCreatedTime
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
             configurations:
-              key: key
+              key: configurations
             appId: appId
             clusterName: clusterName
             dataChangeCreatedBy: dataChangeCreatedBy

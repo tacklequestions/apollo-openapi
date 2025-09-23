@@ -2,9 +2,10 @@ package com.apollo.openapi.server.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.apollo.openapi.server.model.MapString;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -21,7 +22,7 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "OpenReleaseDTO", description = "Apollo发布信息数据传输对象，表示一次配置发布的完整信息")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-22T23:08:20.540165+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenReleaseDTO {
 
   private @Nullable String dataChangeCreatedBy;
@@ -42,7 +43,8 @@ public class OpenReleaseDTO {
 
   private @Nullable String name;
 
-  private @Nullable MapString configurations;
+  @Valid
+  private Map<String, String> configurations = new HashMap<>();
 
   private @Nullable String comment;
 
@@ -226,8 +228,16 @@ public class OpenReleaseDTO {
     this.name = name;
   }
 
-  public OpenReleaseDTO configurations(@Nullable MapString configurations) {
+  public OpenReleaseDTO configurations(Map<String, String> configurations) {
     this.configurations = configurations;
+    return this;
+  }
+
+  public OpenReleaseDTO putConfigurationsItem(String key, String configurationsItem) {
+    if (this.configurations == null) {
+      this.configurations = new HashMap<>();
+    }
+    this.configurations.put(key, configurationsItem);
     return this;
   }
 
@@ -235,14 +245,14 @@ public class OpenReleaseDTO {
    * Get configurations
    * @return configurations
    */
-  @Valid
+
   @Schema(name = "configurations", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("configurations")
-  public @Nullable MapString getConfigurations() {
+  public Map<String, String> getConfigurations() {
     return configurations;
   }
 
-  public void setConfigurations(@Nullable MapString configurations) {
+  public void setConfigurations(Map<String, String> configurations) {
     this.configurations = configurations;
   }
 

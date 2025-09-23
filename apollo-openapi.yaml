@@ -4002,10 +4002,8 @@ components:
       description: Apollo集群信息数据传输对象，表示应用在特定环境下的集群配置
     MapString:
       type: object
-      properties:
-        key:
+      additionalProperties:
           type: string
-      description: 字符串映射对象，用于表示键值对的配置数据结构
     OpenReleaseDTO:
       type: object
       properties:
