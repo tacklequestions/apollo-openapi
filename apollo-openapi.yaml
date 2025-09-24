@@ -566,13 +566,13 @@ paths:
                     type: string
               example:
                 message: 'App not found'
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
     get:
       summary: 获取单个配置项
       deprecated: false
       description: >-
         GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
       tags:
         - Item Management
       parameters:
@@ -639,7 +639,7 @@ paths:
       deprecated: false
       description: >-
         PUT
-        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
       tags:
         - Item Management
       parameters:
@@ -744,7 +744,7 @@ paths:
       deprecated: false
       description: >-
         DELETE
-        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
       tags:
         - Item Management
       parameters:
@@ -781,7 +781,7 @@ paths:
         - name: operator
           in: query
           description: 操作人用户名
-          required: true
+          required: false
           schema:
             type: string
       responses:
@@ -793,7 +793,7 @@ paths:
                 type: object
                 properties: {}
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:
     get:
       summary: 获取命名空间下的配置项列表
       deprecated: false
@@ -892,7 +892,7 @@ paths:
       deprecated: false
       description: >-
         POST
-        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items
       tags:
         - Item Management
       parameters:
@@ -972,13 +972,13 @@ paths:
                     type: string
               example:
                 message: 'Access is denied'
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
     get:
       summary: 通过查询参数获取配置项（支持编码的key）
       deprecated: false
       description: >-
         GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
       tags:
         - Item Management
       parameters:
@@ -1187,7 +1187,7 @@ paths:
         - name: operator
           in: query
           description: ''
-          required: true
+          required: false
           schema:
             type: string
       responses:
@@ -1199,7 +1199,7 @@ paths:
                 type: object
                 properties: {}
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate:
     put:
       summary: 通过文本批量修改配置项
       deprecated: false
@@ -1241,7 +1241,6 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/OpenNamespaceTextModel'
               required:
-                - operator
                 - format
                 - configText
               description: 批量更新配置文本请求体
@@ -1258,17 +1257,6 @@ paths:
                     type: string
               example:
                 message: 'Batch update configuration items successfully'
-        '400':
-          description: '请求参数错误'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'operator should not be null or empty'
         '403':
           description: '权限不足'
           content:
@@ -1281,13 +1269,13 @@ paths:
               example:
                 message: 'Access is denied'
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
     get:
       summary: 获取分支下的配置项
       deprecated: false
       description: >-
         GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
       tags:
         - Namespace Branch Management
       parameters:
@@ -1359,13 +1347,13 @@ paths:
                     type: string
               example:
                 message: 'Branch not found'
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare:
+  /openapi/v1/namespaces/items:compare:
     post:
       summary: 对比命名空间配置差异
       deprecated: false
       description: >-
         POST
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare
+        /openapi/v1/namespaces/items:compare
       tags:
         - Item Management
       parameters:
@@ -1471,13 +1459,13 @@ paths:
                         lineNum: 0
                   extInfo: ''
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync:
+  /openapi/v1/apps/{appId}/namespaces/{namespaceName}/items:sync:
     post:
       summary: 同步配置项到多个命名空间
       deprecated: false
       description: >-
         POST
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync
+        /openapi/v1/apps/{appId}/namespaces/{namespaceName}/items:sync
       tags:
         - Item Management
       parameters:
@@ -1490,12 +1478,6 @@ paths:
         - name: env
           in: path
           description: 环境标识
-          required: true
-          schema:
-            type: string
-        - name: clusterName
-          in: path
-          description: 集群名称
           required: true
           schema:
             type: string
@@ -1552,13 +1534,14 @@ paths:
               example:
                 message: 'Access is denied'
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate:
+  /openapi/apps/{appId}/env/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate:
     post:
       summary: 验证配置文本语法
+      operationId: validateItems
       deprecated: false
       description: >-
         POST
-        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate
+        /openapi/apps/{appId}/env/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate
       tags:
         - Item Management
       parameters:
@@ -1606,12 +1589,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  valid:
-                    type: boolean
                   message:
                     type: string
               example:
-                valid: true
                 message: 'Configuration syntax is valid'
         '400':
           description: '配置文本语法错误'
@@ -1620,28 +1600,18 @@ paths:
               schema:
                 type: object
                 properties:
-                  valid:
-                    type: boolean
                   message:
                     type: string
-                  errors:
-                    type: array
-                    items:
-                      type: string
               example:
-                valid: false
                 message: 'Configuration syntax validation failed'
-                errors:
-                  - 'Line 3: Invalid property format'
-                  - 'Line 7: Missing value for key "database.port"'
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert:
     post:
       summary: 撤销配置项更改
       deprecated: false
       description: >-
         POST
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
+        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
       tags:
         - Item Management
       parameters:
@@ -2321,7 +2291,7 @@ paths:
         - name: operator
           in: query
           description: 操作人用户名
-          required: true
+          required: false
           schema:
             type: string
       responses:
@@ -3497,7 +3467,7 @@ paths:
         - name: operator
           in: query
           description: 操作人用户名
-          required: true
+          required: false
           schema:
             type: string
       responses:
@@ -3571,7 +3541,7 @@ paths:
         - name: operator
           in: query
           description: 操作人用户名
-          required: true
+          required: false
           schema:
             type: string
       responses:
@@ -3632,12 +3602,6 @@ paths:
           example: 'true'
           schema:
             type: boolean
-        - name: X-Apollo-Operator
-          in: header
-          description: 操作人用户名
-          required: true
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
@@ -3774,9 +3738,9 @@ paths:
           schema:
             type: string
         - name: operator
-          in: header
+          in: query
           description: 操作人用户名
-          required: true
+          required: false
           schema:
             type: string
       requestBody:

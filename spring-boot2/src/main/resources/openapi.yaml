@@ -552,10 +552,10 @@ paths:
       - application/json
       x-tags:
       - tag: App Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
     delete:
       deprecated: false
-      description: "DELETE /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}"
+      description: "DELETE /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}"
       parameters:
       - description: 应用ID
         explode: false
@@ -601,7 +601,7 @@ paths:
         explode: true
         in: query
         name: operator
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -622,7 +622,7 @@ paths:
       - tag: Item Management
     get:
       deprecated: false
-      description: "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}"
+      description: "GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}"
       parameters:
       - description: 应用ID
         explode: false
@@ -697,7 +697,7 @@ paths:
       - tag: Item Management
     put:
       deprecated: false
-      description: "PUT /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}"
+      description: "PUT /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}"
       parameters:
       - description: ""
         explode: false
@@ -803,7 +803,7 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:
     get:
       deprecated: false
       description: 获取指定命名空间的配置项列表，支持分页
@@ -911,7 +911,7 @@ paths:
       - tag: Item Management
     post:
       deprecated: false
-      description: "POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items"
+      description: "POST /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items"
       parameters:
       - description: 应用ID
         explode: false
@@ -998,7 +998,7 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
     delete:
       deprecated: false
       description: "DELETE /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}"
@@ -1047,7 +1047,7 @@ paths:
         explode: true
         in: query
         name: operator
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -1068,7 +1068,7 @@ paths:
       - tag: Item Management
     get:
       deprecated: false
-      description: "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}"
+      description: "GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}"
       parameters:
       - description: 应用ID
         explode: false
@@ -1249,7 +1249,7 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate:
     put:
       deprecated: false
       description: "PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate"
@@ -1296,7 +1296,6 @@ paths:
               required:
               - configText
               - format
-              - operator
               type: object
         required: true
       responses:
@@ -1308,14 +1307,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/_openapi_v1_apps_get_401_response"
           description: 批量更新配置项成功
-        "400":
-          content:
-            application/json:
-              example:
-                message: operator should not be null or empty
-              schema:
-                $ref: "#/components/schemas/_openapi_v1_apps_get_401_response"
-          description: 请求参数错误
         "403":
           content:
             application/json:
@@ -1332,10 +1323,10 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
     get:
       deprecated: false
-      description: "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items"
+      description: "GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items"
       parameters:
       - description: 应用ID
         explode: false
@@ -1418,10 +1409,10 @@ paths:
       - application/json
       x-tags:
       - tag: Namespace Branch Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare:
+  /openapi/v1/namespaces/items:compare:
     post:
       deprecated: false
-      description: "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:compare"
+      description: POST /openapi/v1/namespaces/items:compare
       parameters:
       - description: 应用ID
         explode: false
@@ -1540,10 +1531,10 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync:
+  /openapi/v1/apps/{appId}/namespaces/{namespaceName}/items:sync:
     post:
       deprecated: false
-      description: "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:sync"
+      description: "POST /openapi/v1/apps/{appId}/namespaces/{namespaceName}/items:sync"
       parameters:
       - description: 应用ID
         explode: false
@@ -1557,14 +1548,6 @@ paths:
         explode: false
         in: path
         name: env
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: 集群名称
-        explode: false
-        in: path
-        name: clusterName
         required: true
         schema:
           type: string
@@ -1622,10 +1605,11 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate:
+  /openapi/apps/{appId}/env/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate:
     post:
       deprecated: false
-      description: "POST /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate"
+      description: "POST /openapi/apps/{appId}/env/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate"
+      operationId: validateItems
       parameters:
       - description: ""
         explode: false
@@ -1676,22 +1660,17 @@ paths:
           content:
             application/json:
               example:
-                valid: true
                 message: Configuration syntax is valid
               schema:
-                $ref: "#/components/schemas/_openapi_v1_envs__env__apps__appId__clusters__clusterName__namespaces__namespaceName__items_validate_post_200_response"
+                $ref: "#/components/schemas/_openapi_v1_apps_get_401_response"
           description: 配置文本语法验证通过
         "400":
           content:
             application/json:
               example:
-                valid: false
                 message: Configuration syntax validation failed
-                errors:
-                - "Line 3: Invalid property format"
-                - "Line 7: Missing value for key \"database.port\""
               schema:
-                $ref: "#/components/schemas/_openapi_v1_envs__env__apps__appId__clusters__clusterName__namespaces__namespaceName__items_validate_post_400_response"
+                $ref: "#/components/schemas/_openapi_v1_apps_get_401_response"
           description: 配置文本语法错误
       summary: 验证配置文本语法
       tags:
@@ -1701,10 +1680,10 @@ paths:
       - application/json
       x-tags:
       - tag: Item Management
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert:
+  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert:
     post:
       deprecated: false
-      description: "POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert"
+      description: "POST /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert"
       parameters:
       - description: ""
         explode: false
@@ -2448,7 +2427,7 @@ paths:
         explode: true
         in: query
         name: operator
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -3811,7 +3790,7 @@ paths:
         explode: true
         in: query
         name: operator
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -3898,7 +3877,7 @@ paths:
         explode: true
         in: query
         name: operator
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -3973,14 +3952,6 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: 操作人用户名
-        explode: false
-        in: header
-        name: X-Apollo-Operator
-        required: true
-        schema:
-          type: string
-        style: simple
       requestBody:
         content:
           application/json:
@@ -4141,13 +4112,13 @@ paths:
           type: string
         style: simple
       - description: 操作人用户名
-        explode: false
-        in: header
+        explode: true
+        in: query
         name: operator
-        required: true
+        required: false
         schema:
           type: string
-        style: simple
+        style: form
       requestBody:
         content:
           application/json:
@@ -5248,33 +5219,6 @@ components:
           type: string
         exception:
           type: string
-      type: object
-    _openapi_v1_envs__env__apps__appId__clusters__clusterName__namespaces__namespaceName__items_validate_post_200_response:
-      example:
-        valid: true
-        message: message
-      properties:
-        valid:
-          type: boolean
-        message:
-          type: string
-      type: object
-    _openapi_v1_envs__env__apps__appId__clusters__clusterName__namespaces__namespaceName__items_validate_post_400_response:
-      example:
-        valid: true
-        message: message
-        errors:
-        - errors
-        - errors
-      properties:
-        valid:
-          type: boolean
-        message:
-          type: string
-        errors:
-          items:
-            type: string
-          type: array
       type: object
   securitySchemes:
     ApiKeyAuth:

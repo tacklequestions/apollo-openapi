@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-25T00:40:29.983824+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Namespace Branch Management", description = "the Namespace Branch Management API")
 public interface NamespaceBranchManagementApi {
@@ -44,6 +44,53 @@ public interface NamespaceBranchManagementApi {
     default NamespaceBranchManagementApiDelegate getDelegate() {
         return new NamespaceBranchManagementApiDelegate() {};
     }
+
+    public static final String PATH_OPENAPI_V1_APPS_APP_ID_ENVS_ENV_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_ITEMS_GET = "/openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items";
+    /**
+     * GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items : 获取分支下的配置项
+     * GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
+     *
+     * @param appId 应用ID (required)
+     * @param env 环境标识 (required)
+     * @param clusterName 集群名称 (required)
+     * @param namespaceName 命名空间名称 (required)
+     * @param branchName 分支名称 (required)
+     * @return 成功获取分支下的配置项列表 (status code 200)
+     *         or 分支不存在 (status code 404)
+     */
+    @Operation(
+        operationId = "openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet",
+        summary = "获取分支下的配置项",
+        description = "GET /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items",
+        tags = { "Namespace Branch Management" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "成功获取分支下的配置项列表", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenItemDTO.class)))
+            }),
+            @ApiResponse(responseCode = "404", description = "分支不存在", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenapiV1AppsGet401Response.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "ApiKeyAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_APPS_APP_ID_ENVS_ENV_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_ITEMS_GET,
+        produces = { "application/json" }
+    )
+
+    default ResponseEntity<List<OpenItemDTO>> openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet(
+        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
+        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
+        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
+        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
+        @Parameter(name = "branchName", description = "分支名称", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName
+    ) {
+        return getDelegate().openapiV1AppsAppIdEnvsEnvClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet(appId, env, clusterName, namespaceName, branchName);
+    }
+
 
     public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_DELETE = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}";
     /**
@@ -55,7 +102,7 @@ public interface NamespaceBranchManagementApi {
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
      * @param branchName 分支名称 (required)
-     * @param operator 操作人用户名 (required)
+     * @param operator 操作人用户名 (optional)
      * @return 分支删除成功 (status code 200)
      */
     @Operation(
@@ -84,7 +131,7 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "branchName", description = "分支名称", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName,
-        @NotNull @Parameter(name = "operator", description = "操作人用户名", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
+        @Parameter(name = "operator", description = "操作人用户名", in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = false) @Nullable String operator
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameDelete(env, appId, clusterName, namespaceName, branchName, operator);
     }
@@ -133,53 +180,6 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "NamespaceGrayDelReleaseDTO", description = "", required = true) @Valid @RequestBody NamespaceGrayDelReleaseDTO namespaceGrayDelReleaseDTO
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameGrayDelReleasesPost(appId, env, clusterName, namespaceName, branchName, namespaceGrayDelReleaseDTO);
-    }
-
-
-    public static final String PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_ITEMS_GET = "/openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items";
-    /**
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items : 获取分支下的配置项
-     * GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
-     *
-     * @param appId 应用ID (required)
-     * @param env 环境标识 (required)
-     * @param clusterName 集群名称 (required)
-     * @param namespaceName 命名空间名称 (required)
-     * @param branchName 分支名称 (required)
-     * @return 成功获取分支下的配置项列表 (status code 200)
-     *         or 分支不存在 (status code 404)
-     */
-    @Operation(
-        operationId = "openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet",
-        summary = "获取分支下的配置项",
-        description = "GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items",
-        tags = { "Namespace Branch Management" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "成功获取分支下的配置项列表", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenItemDTO.class)))
-            }),
-            @ApiResponse(responseCode = "404", description = "分支不存在", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenapiV1AppsGet401Response.class))
-            })
-        },
-        security = {
-            @SecurityRequirement(name = "ApiKeyAuth")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = NamespaceBranchManagementApi.PATH_OPENAPI_V1_ENVS_ENV_APPS_APP_ID_CLUSTERS_CLUSTER_NAME_NAMESPACES_NAMESPACE_NAME_BRANCHES_BRANCH_NAME_ITEMS_GET,
-        produces = { "application/json" }
-    )
-
-    default ResponseEntity<List<OpenItemDTO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet(
-        @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
-        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
-        @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "branchName", description = "分支名称", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName
-    ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameItemsGet(appId, env, clusterName, namespaceName, branchName);
     }
 
 
@@ -250,7 +250,6 @@ public interface NamespaceBranchManagementApi {
      * @param namespaceName 命名空间名称 (required)
      * @param branchName 分支名称 (required)
      * @param deleteBranch 合并后是否删除分支（true/false） (required)
-     * @param xApolloOperator 操作人用户名 (required)
      * @param namespaceReleaseDTO  (required)
      * @return 分支合并成功 (status code 200)
      */
@@ -282,10 +281,9 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "branchName", description = "分支名称", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName,
         @NotNull @Parameter(name = "deleteBranch", description = "合并后是否删除分支（true/false）", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "deleteBranch", required = true) Boolean deleteBranch,
-        @NotNull @Parameter(name = "X-Apollo-Operator", description = "操作人用户名", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Apollo-Operator", required = true) String xApolloOperator,
         @Parameter(name = "NamespaceReleaseDTO", description = "", required = true) @Valid @RequestBody NamespaceReleaseDTO namespaceReleaseDTO
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNamePatch(env, appId, clusterName, namespaceName, branchName, deleteBranch, xApolloOperator, namespaceReleaseDTO);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNamePatch(env, appId, clusterName, namespaceName, branchName, deleteBranch, namespaceReleaseDTO);
     }
 
 
@@ -388,8 +386,8 @@ public interface NamespaceBranchManagementApi {
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
      * @param branchName 分支名称 (required)
-     * @param operator 操作人用户名 (required)
      * @param openGrayReleaseRuleDTO  (required)
+     * @param operator 操作人用户名 (optional)
      * @return 灰度规则更新成功 (status code 200)
      */
     @Operation(
@@ -419,10 +417,10 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
         @Parameter(name = "branchName", description = "分支名称", required = true, in = ParameterIn.PATH) @PathVariable("branchName") String branchName,
-        @NotNull @Parameter(name = "operator", description = "操作人用户名", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "operator", required = true) String operator,
-        @Parameter(name = "OpenGrayReleaseRuleDTO", description = "", required = true) @Valid @RequestBody OpenGrayReleaseRuleDTO openGrayReleaseRuleDTO
+        @Parameter(name = "OpenGrayReleaseRuleDTO", description = "", required = true) @Valid @RequestBody OpenGrayReleaseRuleDTO openGrayReleaseRuleDTO,
+        @Parameter(name = "operator", description = "操作人用户名", in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = false) @Nullable String operator
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut(appId, env, clusterName, namespaceName, branchName, operator, openGrayReleaseRuleDTO);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesBranchNameRulesPut(appId, env, clusterName, namespaceName, branchName, openGrayReleaseRuleDTO, operator);
     }
 
 
@@ -435,7 +433,7 @@ public interface NamespaceBranchManagementApi {
      * @param env 环境标识 (required)
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
-     * @param operator 操作人用户名 (required)
+     * @param operator 操作人用户名 (optional)
      * @return 命名空间分支创建成功 (status code 200)
      */
     @Operation(
@@ -463,7 +461,7 @@ public interface NamespaceBranchManagementApi {
         @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @NotNull @Parameter(name = "operator", description = "操作人用户名", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
+        @Parameter(name = "operator", description = "操作人用户名", in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = false) @Nullable String operator
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameBranchesPost(appId, env, clusterName, namespaceName, operator);
     }

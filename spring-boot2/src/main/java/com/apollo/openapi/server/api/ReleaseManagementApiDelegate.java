@@ -22,7 +22,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ReleaseManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-25T00:40:29.983824+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ReleaseManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -199,7 +199,7 @@ public interface ReleaseManagementApiDelegate {
      *
      * @param env 环境标识 (required)
      * @param releaseId 发布ID (required)
-     * @param operator 操作人用户名 (required)
+     * @param operator 操作人用户名 (optional)
      * @return 发布回滚成功 (status code 200)
      * @see ReleaseManagementApi#openapiV1EnvsEnvReleasesReleaseIdRollbackPut
      */

@@ -59,8 +59,6 @@ src/main/java/com/apollo/openapi/server/model/OpenReleaseDTO.java
 src/main/java/com/apollo/openapi/server/model/OpenapiV1AppsGet401Response.java
 src/main/java/com/apollo/openapi/server/model/OpenapiV1AppsPost400Response.java
 src/main/java/com/apollo/openapi/server/model/OpenapiV1AppsPostRequest.java
-src/main/java/com/apollo/openapi/server/model/OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost200Response.java
-src/main/java/com/apollo/openapi/server/model/OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost400Response.java
 src/main/resources/application.properties
 src/main/resources/openapi.yaml
 src/test/java/com/apollo/openapi/server/OpenApiGeneratorApplicationTests.java

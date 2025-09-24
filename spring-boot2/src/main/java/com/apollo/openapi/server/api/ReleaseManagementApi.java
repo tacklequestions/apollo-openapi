@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-25T00:40:29.983824+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Release Management", description = "发布管理相关接口，包括配置发布、发布历史、灰度发布等功能")
 public interface ReleaseManagementApi {
@@ -273,7 +273,7 @@ public interface ReleaseManagementApi {
      *
      * @param env 环境标识 (required)
      * @param releaseId 发布ID (required)
-     * @param operator 操作人用户名 (required)
+     * @param operator 操作人用户名 (optional)
      * @return 发布回滚成功 (status code 200)
      */
     @Operation(
@@ -299,7 +299,7 @@ public interface ReleaseManagementApi {
     default ResponseEntity<Object> openapiV1EnvsEnvReleasesReleaseIdRollbackPut(
         @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "releaseId", description = "发布ID", required = true, in = ParameterIn.PATH) @PathVariable("releaseId") Integer releaseId,
-        @NotNull @Parameter(name = "operator", description = "操作人用户名", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = true) String operator
+        @Parameter(name = "operator", description = "操作人用户名", in = ParameterIn.QUERY) @Valid @RequestParam(value = "operator", required = false) @Nullable String operator
     ) {
         return getDelegate().openapiV1EnvsEnvReleasesReleaseIdRollbackPut(env, releaseId, operator);
     }
