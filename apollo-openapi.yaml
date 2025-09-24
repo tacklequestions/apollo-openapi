@@ -2,36 +2,22 @@ openapi: 3.0.1
 info:
   title: Apollo OpenAPI
   description: |
-    Apollo配置中心OpenAPI接口文档
+    <p>Apollo配置中心OpenAPI接口文档</p>
 
-    ## 认证方式
+    <h2>认证方式</h2>
+    <p>所有 API 接口都需要通过 <code>Authorization</code> header 进行身份验证。</p>
 
-    所有API接口都需要通过Authorization header进行身份验证。
+    <h3>获取 Token 的方式：</h3>
+    <ol>
+      <li><b>Portal 管理界面获取</b>：登录 Portal → 管理员工具 → 开放平台授权管理 → 创建第三方应用，获取 Token。</li>
+      <li><b>Token 格式</b>：<code>Authorization: token_value</code></li>
+      <li><b>Token 权限</b>：按应用/环境/命名空间授予，建议不同用途分别创建。</li>
+    </ol>
 
-    ### 获取Token的方式：
+    <h3>使用示例</h3>
+    <pre><code class="language-bash">curl -X GET "http://localhost:8070/openapi/v1/apps" \
+    -H "Authorization: your_token_here"</code></pre>
 
-    1. **Portal管理界面获取**：
-       - 登录Apollo Portal管理界面
-       - 进入"管理员工具" -> "开放平台授权管理"
-       - 创建第三方应用，获取Token
-
-    2. **Token格式**：
-       ```
-       Authorization: token_value
-       ```
-
-    3. **Token权限**：
-       - Token具有对应应用的读写权限
-       - 不同Token可能有不同的环境和命名空间权限
-       - 建议为不同用途创建不同的Token
-
-    ---
-
-    ### 使用示例：
-    ```bash
-    curl -X GET "http://localhost:8070/openapi/v1/apps" \
-         -H "Authorization: your_token_here"
-    ```
   version: 1.0.0
 security:
   - ApiKeyAuth: []
@@ -462,7 +448,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/EnvClusterInfo'
+                  $ref: '#/components/schemas/OpenEnvClusterInfo'
               example:
                 - env: 'DEV'
                   clusters:
@@ -1253,7 +1239,7 @@ paths:
             schema:
               type: object
               allOf:
-                - $ref: '#/components/schemas/NamespaceTextModel'
+                - $ref: '#/components/schemas/OpenNamespaceTextModel'
               required:
                 - operator
                 - format
@@ -1413,7 +1399,7 @@ paths:
             schema:
               type: object
               allOf:
-                - $ref: '#/components/schemas/NamespaceSyncModel'
+                - $ref: '#/components/schemas/OpenNamespaceSyncModel'
               required:
                 - syncToNamespaces
                 - syncItems
@@ -1427,7 +1413,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ListItemDiffs'
+                  $ref: '#/components/schemas/OpenItemDiffs'
               example:
                 - namespace:
                     appId: ''
@@ -1525,7 +1511,7 @@ paths:
             schema:
               type: object
               allOf:
-                - $ref: '#/components/schemas/NamespaceSyncModel'
+                - $ref: '#/components/schemas/OpenNamespaceSyncModel'
               required:
                 - syncToNamespaces
                 - syncItems
@@ -1606,7 +1592,7 @@ paths:
             schema:
               type: object
               allOf:
-                - $ref: '#/components/schemas/NamespaceTextModel'
+                - $ref: '#/components/schemas/OpenNamespaceTextModel'
               required:
                 - format
                 - configText
@@ -2444,7 +2430,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ListReleaseBO'
+                  $ref: '#/components/schemas/OpenReleaseBO'
               example:
                 - baseInfo:
                     dataChangeCreatedBy: ''
@@ -2536,55 +2522,6 @@ paths:
                   configurations:
                     '': ''
                   comment: ''
-          headers: {}
-  /openapi/v1/envs/{env}/releases/compare:
-    get:
-      summary: 对比发布
-      deprecated: false
-      description: GET /openapi/v1/envs/{env}/releases/compare
-      tags:
-        - Release Management
-      parameters:
-        - name: env
-          in: path
-          description: 环境标识
-          required: true
-          schema:
-            type: string
-        - name: baseReleaseId
-          in: query
-          description: 基准发布ID
-          required: true
-          schema:
-            type: integer
-        - name: toCompareReleaseId
-          in: query
-          description: 对比发布ID
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: 成功返回发布差异
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  changes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Change'
-              example:
-                changes:
-                  - type: ''
-                    entity:
-                      firstEntity:
-                        key: ''
-                        value: ''
-                      secondEntity:
-                        key: ''
-                        value: ''
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances:
     get:
@@ -4245,49 +4182,7 @@ components:
           items:
             type: string
           description: 该环境下的集群名称列表
-    ClusterDTO:
-      type: object
-      properties:
-        dataChangeCreatedBy:
-          type: string
-          description: 数据创建者用户名
-        dataChangeLastModifiedBy:
-          type: string
-          description: 数据最后修改者用户名
-        dataChangeCreatedByDisplayName:
-          type: string
-          description: 数据创建者显示名
-        dataChangeLastModifiedByDisplayName:
-          type: string
-          description: 数据最后修改者显示名
-        dataChangeCreatedTime:
-          type: string
-          description: 数据创建时间（ISO 8601）
-        dataChangeLastModifiedTime:
-          type: string
-          description: 数据最后修改时间（ISO 8601）
-        id:
-          type: integer
-          description: 集群ID（系统生成）
-          format: int64
-        name:
-          type: string
-          description: 集群名称，需符合命名规范
-          pattern: '[0-9a-zA-Z_-]+[0-9a-zA-Z_.-]*'
-        appId:
-          type: string
-          description: 所属应用的唯一标识
-        parentClusterId:
-          type: integer
-          description: 父集群ID（若有）
-          format: int64
-        comment:
-          type: string
-          description: 备注说明
-      required:
-        - name
-        - appId
-    EnvClusterInfo:
+    OpenEnvClusterInfo:
       type: object
       properties:
         env:
@@ -4296,11 +4191,11 @@ components:
         clusters:
           type: array
           items:
-            $ref: '#/components/schemas/ClusterDTO'
+            $ref: '#/components/schemas/OpenClusterDTO'
           description: 集群信息列表
 
 
-    NamespaceTextModel:
+    OpenNamespaceTextModel:
       type: object
       properties:
         appId:
@@ -4328,7 +4223,7 @@ components:
         operator:
           type: string
           description: 操作者用户名
-    NamespaceIdentifier:
+    OpenNamespaceIdentifier:
       type: object
       properties:
         appId:
@@ -4343,51 +4238,7 @@ components:
         namespaceName:
           type: string
           description: 命名空间名称
-    ItemDTO:
-      type: object
-      properties:
-        dataChangeCreatedBy:
-          type: string
-          description: 配置项创建者用户名
-        dataChangeLastModifiedBy:
-          type: string
-          description: 配置项最后修改者用户名
-        dataChangeCreatedByDisplayName:
-          type: string
-          description: 创建者显示名
-        dataChangeLastModifiedByDisplayName:
-          type: string
-          description: 最后修改者显示名
-        dataChangeCreatedTime:
-          type: string
-          description: 配置项创建时间（ISO 8601）
-        dataChangeLastModifiedTime:
-          type: string
-          description: 配置项最后修改时间（ISO 8601）
-        id:
-          type: integer
-          description: 配置项ID
-          format: int64
-        namespaceId:
-          type: integer
-          description: 所属命名空间ID
-          format: int64
-        key:
-          type: string
-          description: 配置项键名
-        type:
-          type: integer
-          description: 配置项类型，0表示普通，1表示文件
-        value:
-          type: string
-          description: 配置项值
-        comment:
-          type: string
-          description: 配置项备注
-        lineNum:
-          type: integer
-          description: 在配置文件中的行号（从1开始）
-    ItemChangeSets:
+    OpenItemChangeSets:
       type: object
       properties:
         dataChangeCreatedBy:
@@ -4411,94 +4262,45 @@ components:
         createItems:
           type: array
           items:
-            $ref: '#/components/schemas/ItemDTO'
+            $ref: '#/components/schemas/OpenItemDTO'
           description: 待创建的配置项列表
           default: []
         updateItems:
           type: array
           items:
-            $ref: '#/components/schemas/ItemDTO'
+            $ref: '#/components/schemas/OpenItemDTO'
           description: 待更新的配置项列表
           default: []
         deleteItems:
           type: array
           items:
-            $ref: '#/components/schemas/ItemDTO'
+            $ref: '#/components/schemas/OpenItemDTO'
           description: 待删除的配置项列表
           default: []
-    ListItemDiffs:
+    OpenItemDiffs:
       type: object
       properties:
         namespace:
-          $ref: '#/components/schemas/NamespaceIdentifier'
+          $ref: '#/components/schemas/OpenNamespaceIdentifier'
         diffs:
-          $ref: '#/components/schemas/ItemChangeSets'
+          $ref: '#/components/schemas/OpenItemChangeSets'
         extInfo:
           type: string
-    NamespaceSyncModel:
+          description: '扩展信息'
+    OpenNamespaceSyncModel:
       type: object
       properties:
         syncToNamespaces:
           type: array
           items:
-            $ref: '#/components/schemas/NamespaceIdentifier'
+            $ref: '#/components/schemas/OpenNamespaceIdentifier'
           description: 目标命名空间标识列表
         syncItems:
           type: array
           items:
-            $ref: '#/components/schemas/ItemDTO'
+            $ref: '#/components/schemas/OpenItemDTO'
           description: 需要同步的配置项列表
 
-
-    ReleaseDTO:
-      type: object
-      properties:
-        dataChangeCreatedBy:
-          type: string
-          description: 发布创建者用户名
-        dataChangeLastModifiedBy:
-          type: string
-          description: 发布最后修改者用户名
-        dataChangeCreatedByDisplayName:
-          type: string
-          description: 创建者显示名
-        dataChangeLastModifiedByDisplayName:
-          type: string
-          description: 最后修改者显示名
-        dataChangeCreatedTime:
-          type: string
-          description: 发布创建时间（ISO 8601）
-        dataChangeLastModifiedTime:
-          type: string
-          description: 发布最后修改时间（ISO 8601）
-        id:
-          type: integer
-          description: 发布记录ID（系统生成）
-          format: int64
-        releaseKey:
-          type: string
-          description: 发布键，标识该发布的唯一Key
-        name:
-          type: string
-          description: 发布名称
-        appId:
-          type: string
-          description: 所属应用的唯一标识
-        clusterName:
-          type: string
-          description: 所属集群名称
-        namespaceName:
-          type: string
-          description: 所属命名空间名称
-        configurations:
-          type: string
-          description: 本次发布的配置内容（序列化后）
-        comment:
-          type: string
-          description: 发布备注
-        isAbandoned:
-          type: boolean
-          description: 是否已废弃该发布
     KVEntity:
       type: object
       properties:
@@ -4508,34 +4310,15 @@ components:
         value:
           type: string
           description: 值
-    ListReleaseBO:
+    OpenReleaseBO:
       type: object
       properties:
         baseInfo:
-          $ref: '#/components/schemas/ReleaseDTO'
+          $ref: '#/components/schemas/OpenReleaseDTO'
         items:
           type: array
           items:
             $ref: '#/components/schemas/KVEntity'
-    EntityPairKVEntity:
-      type: object
-      properties:
-        firstEntity:
-          $ref: '#/components/schemas/KVEntity'
-        secondEntity:
-          $ref: '#/components/schemas/KVEntity'
-    Change:
-      type: object
-      properties:
-        type:
-          type: string
-          description: 变更类型，取值 ADDED/MODIFIED/DELETED
-          enum:
-            - ADDED
-            - MODIFIED
-            - DELETED
-        entity:
-          $ref: '#/components/schemas/EntityPairKVEntity'
 
     OpenInstanceConfigDTO:
       type: object

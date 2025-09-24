@@ -2,7 +2,7 @@ package com.apollo.openapi.server.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.apollo.openapi.server.model.ItemDTO;
+import com.apollo.openapi.server.model.OpenItemDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ItemChangeSets
+ * OpenItemChangeSets
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class ItemChangeSets {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenItemChangeSets {
 
   private @Nullable String dataChangeCreatedBy;
 
@@ -39,15 +39,15 @@ public class ItemChangeSets {
   private @Nullable String dataChangeLastModifiedTime;
 
   @Valid
-  private List<@Valid ItemDTO> createItems = new ArrayList<>();
+  private List<@Valid OpenItemDTO> createItems = new ArrayList<>();
 
   @Valid
-  private List<@Valid ItemDTO> updateItems = new ArrayList<>();
+  private List<@Valid OpenItemDTO> updateItems = new ArrayList<>();
 
   @Valid
-  private List<@Valid ItemDTO> deleteItems = new ArrayList<>();
+  private List<@Valid OpenItemDTO> deleteItems = new ArrayList<>();
 
-  public ItemChangeSets dataChangeCreatedBy(@Nullable String dataChangeCreatedBy) {
+  public OpenItemChangeSets dataChangeCreatedBy(@Nullable String dataChangeCreatedBy) {
     this.dataChangeCreatedBy = dataChangeCreatedBy;
     return this;
   }
@@ -67,7 +67,7 @@ public class ItemChangeSets {
     this.dataChangeCreatedBy = dataChangeCreatedBy;
   }
 
-  public ItemChangeSets dataChangeLastModifiedBy(@Nullable String dataChangeLastModifiedBy) {
+  public OpenItemChangeSets dataChangeLastModifiedBy(@Nullable String dataChangeLastModifiedBy) {
     this.dataChangeLastModifiedBy = dataChangeLastModifiedBy;
     return this;
   }
@@ -87,7 +87,7 @@ public class ItemChangeSets {
     this.dataChangeLastModifiedBy = dataChangeLastModifiedBy;
   }
 
-  public ItemChangeSets dataChangeCreatedByDisplayName(@Nullable String dataChangeCreatedByDisplayName) {
+  public OpenItemChangeSets dataChangeCreatedByDisplayName(@Nullable String dataChangeCreatedByDisplayName) {
     this.dataChangeCreatedByDisplayName = dataChangeCreatedByDisplayName;
     return this;
   }
@@ -107,7 +107,7 @@ public class ItemChangeSets {
     this.dataChangeCreatedByDisplayName = dataChangeCreatedByDisplayName;
   }
 
-  public ItemChangeSets dataChangeLastModifiedByDisplayName(@Nullable String dataChangeLastModifiedByDisplayName) {
+  public OpenItemChangeSets dataChangeLastModifiedByDisplayName(@Nullable String dataChangeLastModifiedByDisplayName) {
     this.dataChangeLastModifiedByDisplayName = dataChangeLastModifiedByDisplayName;
     return this;
   }
@@ -127,7 +127,7 @@ public class ItemChangeSets {
     this.dataChangeLastModifiedByDisplayName = dataChangeLastModifiedByDisplayName;
   }
 
-  public ItemChangeSets dataChangeCreatedTime(@Nullable String dataChangeCreatedTime) {
+  public OpenItemChangeSets dataChangeCreatedTime(@Nullable String dataChangeCreatedTime) {
     this.dataChangeCreatedTime = dataChangeCreatedTime;
     return this;
   }
@@ -147,7 +147,7 @@ public class ItemChangeSets {
     this.dataChangeCreatedTime = dataChangeCreatedTime;
   }
 
-  public ItemChangeSets dataChangeLastModifiedTime(@Nullable String dataChangeLastModifiedTime) {
+  public OpenItemChangeSets dataChangeLastModifiedTime(@Nullable String dataChangeLastModifiedTime) {
     this.dataChangeLastModifiedTime = dataChangeLastModifiedTime;
     return this;
   }
@@ -167,12 +167,12 @@ public class ItemChangeSets {
     this.dataChangeLastModifiedTime = dataChangeLastModifiedTime;
   }
 
-  public ItemChangeSets createItems(List<@Valid ItemDTO> createItems) {
+  public OpenItemChangeSets createItems(List<@Valid OpenItemDTO> createItems) {
     this.createItems = createItems;
     return this;
   }
 
-  public ItemChangeSets addCreateItemsItem(ItemDTO createItemsItem) {
+  public OpenItemChangeSets addCreateItemsItem(OpenItemDTO createItemsItem) {
     if (this.createItems == null) {
       this.createItems = new ArrayList<>();
     }
@@ -187,20 +187,20 @@ public class ItemChangeSets {
   @Valid
   @Schema(name = "createItems", description = "待创建的配置项列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("createItems")
-  public List<@Valid ItemDTO> getCreateItems() {
+  public List<@Valid OpenItemDTO> getCreateItems() {
     return createItems;
   }
 
-  public void setCreateItems(List<@Valid ItemDTO> createItems) {
+  public void setCreateItems(List<@Valid OpenItemDTO> createItems) {
     this.createItems = createItems;
   }
 
-  public ItemChangeSets updateItems(List<@Valid ItemDTO> updateItems) {
+  public OpenItemChangeSets updateItems(List<@Valid OpenItemDTO> updateItems) {
     this.updateItems = updateItems;
     return this;
   }
 
-  public ItemChangeSets addUpdateItemsItem(ItemDTO updateItemsItem) {
+  public OpenItemChangeSets addUpdateItemsItem(OpenItemDTO updateItemsItem) {
     if (this.updateItems == null) {
       this.updateItems = new ArrayList<>();
     }
@@ -215,20 +215,20 @@ public class ItemChangeSets {
   @Valid
   @Schema(name = "updateItems", description = "待更新的配置项列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("updateItems")
-  public List<@Valid ItemDTO> getUpdateItems() {
+  public List<@Valid OpenItemDTO> getUpdateItems() {
     return updateItems;
   }
 
-  public void setUpdateItems(List<@Valid ItemDTO> updateItems) {
+  public void setUpdateItems(List<@Valid OpenItemDTO> updateItems) {
     this.updateItems = updateItems;
   }
 
-  public ItemChangeSets deleteItems(List<@Valid ItemDTO> deleteItems) {
+  public OpenItemChangeSets deleteItems(List<@Valid OpenItemDTO> deleteItems) {
     this.deleteItems = deleteItems;
     return this;
   }
 
-  public ItemChangeSets addDeleteItemsItem(ItemDTO deleteItemsItem) {
+  public OpenItemChangeSets addDeleteItemsItem(OpenItemDTO deleteItemsItem) {
     if (this.deleteItems == null) {
       this.deleteItems = new ArrayList<>();
     }
@@ -243,11 +243,11 @@ public class ItemChangeSets {
   @Valid
   @Schema(name = "deleteItems", description = "待删除的配置项列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("deleteItems")
-  public List<@Valid ItemDTO> getDeleteItems() {
+  public List<@Valid OpenItemDTO> getDeleteItems() {
     return deleteItems;
   }
 
-  public void setDeleteItems(List<@Valid ItemDTO> deleteItems) {
+  public void setDeleteItems(List<@Valid OpenItemDTO> deleteItems) {
     this.deleteItems = deleteItems;
   }
 
@@ -259,16 +259,16 @@ public class ItemChangeSets {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ItemChangeSets itemChangeSets = (ItemChangeSets) o;
-    return Objects.equals(this.dataChangeCreatedBy, itemChangeSets.dataChangeCreatedBy) &&
-        Objects.equals(this.dataChangeLastModifiedBy, itemChangeSets.dataChangeLastModifiedBy) &&
-        Objects.equals(this.dataChangeCreatedByDisplayName, itemChangeSets.dataChangeCreatedByDisplayName) &&
-        Objects.equals(this.dataChangeLastModifiedByDisplayName, itemChangeSets.dataChangeLastModifiedByDisplayName) &&
-        Objects.equals(this.dataChangeCreatedTime, itemChangeSets.dataChangeCreatedTime) &&
-        Objects.equals(this.dataChangeLastModifiedTime, itemChangeSets.dataChangeLastModifiedTime) &&
-        Objects.equals(this.createItems, itemChangeSets.createItems) &&
-        Objects.equals(this.updateItems, itemChangeSets.updateItems) &&
-        Objects.equals(this.deleteItems, itemChangeSets.deleteItems);
+    OpenItemChangeSets openItemChangeSets = (OpenItemChangeSets) o;
+    return Objects.equals(this.dataChangeCreatedBy, openItemChangeSets.dataChangeCreatedBy) &&
+        Objects.equals(this.dataChangeLastModifiedBy, openItemChangeSets.dataChangeLastModifiedBy) &&
+        Objects.equals(this.dataChangeCreatedByDisplayName, openItemChangeSets.dataChangeCreatedByDisplayName) &&
+        Objects.equals(this.dataChangeLastModifiedByDisplayName, openItemChangeSets.dataChangeLastModifiedByDisplayName) &&
+        Objects.equals(this.dataChangeCreatedTime, openItemChangeSets.dataChangeCreatedTime) &&
+        Objects.equals(this.dataChangeLastModifiedTime, openItemChangeSets.dataChangeLastModifiedTime) &&
+        Objects.equals(this.createItems, openItemChangeSets.createItems) &&
+        Objects.equals(this.updateItems, openItemChangeSets.updateItems) &&
+        Objects.equals(this.deleteItems, openItemChangeSets.deleteItems);
   }
 
   @Override
@@ -279,7 +279,7 @@ public class ItemChangeSets {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ItemChangeSets {\n");
+    sb.append("class OpenItemChangeSets {\n");
     sb.append("    dataChangeCreatedBy: ").append(toIndentedString(dataChangeCreatedBy)).append("\n");
     sb.append("    dataChangeLastModifiedBy: ").append(toIndentedString(dataChangeLastModifiedBy)).append("\n");
     sb.append("    dataChangeCreatedByDisplayName: ").append(toIndentedString(dataChangeCreatedByDisplayName)).append("\n");

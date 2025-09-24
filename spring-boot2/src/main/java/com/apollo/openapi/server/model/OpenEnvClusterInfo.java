@@ -2,7 +2,7 @@ package com.apollo.openapi.server.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.apollo.openapi.server.model.ClusterDTO;
+import com.apollo.openapi.server.model.OpenClusterDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.ArrayList;
@@ -20,18 +20,18 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * EnvClusterInfo
+ * OpenEnvClusterInfo
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class EnvClusterInfo {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenEnvClusterInfo {
 
   private @Nullable String env;
 
   @Valid
-  private List<@Valid ClusterDTO> clusters = new ArrayList<>();
+  private List<@Valid OpenClusterDTO> clusters = new ArrayList<>();
 
-  public EnvClusterInfo env(@Nullable String env) {
+  public OpenEnvClusterInfo env(@Nullable String env) {
     this.env = env;
     return this;
   }
@@ -51,12 +51,12 @@ public class EnvClusterInfo {
     this.env = env;
   }
 
-  public EnvClusterInfo clusters(List<@Valid ClusterDTO> clusters) {
+  public OpenEnvClusterInfo clusters(List<@Valid OpenClusterDTO> clusters) {
     this.clusters = clusters;
     return this;
   }
 
-  public EnvClusterInfo addClustersItem(ClusterDTO clustersItem) {
+  public OpenEnvClusterInfo addClustersItem(OpenClusterDTO clustersItem) {
     if (this.clusters == null) {
       this.clusters = new ArrayList<>();
     }
@@ -71,11 +71,11 @@ public class EnvClusterInfo {
   @Valid
   @Schema(name = "clusters", description = "集群信息列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("clusters")
-  public List<@Valid ClusterDTO> getClusters() {
+  public List<@Valid OpenClusterDTO> getClusters() {
     return clusters;
   }
 
-  public void setClusters(List<@Valid ClusterDTO> clusters) {
+  public void setClusters(List<@Valid OpenClusterDTO> clusters) {
     this.clusters = clusters;
   }
 
@@ -87,9 +87,9 @@ public class EnvClusterInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EnvClusterInfo envClusterInfo = (EnvClusterInfo) o;
-    return Objects.equals(this.env, envClusterInfo.env) &&
-        Objects.equals(this.clusters, envClusterInfo.clusters);
+    OpenEnvClusterInfo openEnvClusterInfo = (OpenEnvClusterInfo) o;
+    return Objects.equals(this.env, openEnvClusterInfo.env) &&
+        Objects.equals(this.clusters, openEnvClusterInfo.clusters);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class EnvClusterInfo {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EnvClusterInfo {\n");
+    sb.append("class OpenEnvClusterInfo {\n");
     sb.append("    env: ").append(toIndentedString(env)).append("\n");
     sb.append("    clusters: ").append(toIndentedString(clusters)).append("\n");
     sb.append("}");

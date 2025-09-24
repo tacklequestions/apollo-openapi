@@ -26,7 +26,7 @@ import javax.annotation.Generated;
 
 @Schema(name = "_openapi_v1_apps_post_request", description = "创建应用请求体，包含应用基本信息与管理员设置")
 @JsonTypeName("_openapi_v1_apps_post_request")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenapiV1AppsPostRequest {
 
   private OpenAppDTO app;

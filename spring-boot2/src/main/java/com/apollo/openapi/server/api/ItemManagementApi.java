@@ -5,10 +5,10 @@
  */
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.ListItemDiffs;
-import com.apollo.openapi.server.model.NamespaceSyncModel;
-import com.apollo.openapi.server.model.NamespaceTextModel;
 import com.apollo.openapi.server.model.OpenItemDTO;
+import com.apollo.openapi.server.model.OpenItemDiffs;
+import com.apollo.openapi.server.model.OpenNamespaceSyncModel;
+import com.apollo.openapi.server.model.OpenNamespaceTextModel;
 import com.apollo.openapi.server.model.OpenPageDTOOpenItemDTO;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
 import com.apollo.openapi.server.model.OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost200Response;
@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Item Management", description = "配置项管理相关接口，包括配置的增删改查、批量操作、同步等功能")
 public interface ItemManagementApi {
@@ -207,7 +207,7 @@ public interface ItemManagementApi {
      * @param env  (required)
      * @param clusterName  (required)
      * @param namespaceName  (required)
-     * @param namespaceTextModel  (required)
+     * @param openNamespaceTextModel  (required)
      * @return 批量更新配置项成功 (status code 200)
      *         or 请求参数错误 (status code 400)
      *         or 权限不足 (status code 403)
@@ -244,9 +244,9 @@ public interface ItemManagementApi {
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "NamespaceTextModel", description = "", required = true) @Valid @RequestBody NamespaceTextModel namespaceTextModel
+        @Parameter(name = "OpenNamespaceTextModel", description = "", required = true) @Valid @RequestBody OpenNamespaceTextModel openNamespaceTextModel
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsBatchUpdatePut(appId, env, clusterName, namespaceName, namespaceTextModel);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsBatchUpdatePut(appId, env, clusterName, namespaceName, openNamespaceTextModel);
     }
 
 
@@ -259,7 +259,7 @@ public interface ItemManagementApi {
      * @param env 环境标识 (required)
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
-     * @param namespaceSyncModel  (required)
+     * @param openNamespaceSyncModel  (required)
      * @return 成功对比命名空间配置差异 (status code 200)
      */
     @Operation(
@@ -269,7 +269,7 @@ public interface ItemManagementApi {
         tags = { "Item Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功对比命名空间配置差异", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ListItemDiffs.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenItemDiffs.class)))
             })
         },
         security = {
@@ -283,14 +283,14 @@ public interface ItemManagementApi {
         consumes = { "application/json" }
     )
 
-    default ResponseEntity<List<ListItemDiffs>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(
+    default ResponseEntity<List<OpenItemDiffs>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(
         @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "NamespaceSyncModel", description = "", required = true) @Valid @RequestBody NamespaceSyncModel namespaceSyncModel
+        @Parameter(name = "OpenNamespaceSyncModel", description = "", required = true) @Valid @RequestBody OpenNamespaceSyncModel openNamespaceSyncModel
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(appId, env, clusterName, namespaceName, namespaceSyncModel);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(appId, env, clusterName, namespaceName, openNamespaceSyncModel);
     }
 
 
@@ -605,7 +605,7 @@ public interface ItemManagementApi {
      * @param env 环境标识 (required)
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
-     * @param namespaceSyncModel  (required)
+     * @param openNamespaceSyncModel  (required)
      * @return 配置项同步成功 (status code 200)
      *         or 请求参数错误 (status code 400)
      *         or 权限不足 (status code 403)
@@ -642,9 +642,9 @@ public interface ItemManagementApi {
         @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "命名空间名称", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "NamespaceSyncModel", description = "", required = true) @Valid @RequestBody NamespaceSyncModel namespaceSyncModel
+        @Parameter(name = "OpenNamespaceSyncModel", description = "", required = true) @Valid @RequestBody OpenNamespaceSyncModel openNamespaceSyncModel
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsSyncPost(appId, env, clusterName, namespaceName, namespaceSyncModel);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsSyncPost(appId, env, clusterName, namespaceName, openNamespaceSyncModel);
     }
 
 
@@ -657,7 +657,7 @@ public interface ItemManagementApi {
      * @param env  (required)
      * @param clusterName  (required)
      * @param namespaceName  (required)
-     * @param namespaceTextModel  (required)
+     * @param openNamespaceTextModel  (required)
      * @return 配置文本语法验证通过 (status code 200)
      *         or 配置文本语法错误 (status code 400)
      */
@@ -690,9 +690,9 @@ public interface ItemManagementApi {
         @Parameter(name = "env", description = "", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "clusterName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
         @Parameter(name = "namespaceName", description = "", required = true, in = ParameterIn.PATH) @PathVariable("namespaceName") String namespaceName,
-        @Parameter(name = "NamespaceTextModel", description = "", required = true) @Valid @RequestBody NamespaceTextModel namespaceTextModel
+        @Parameter(name = "OpenNamespaceTextModel", description = "", required = true) @Valid @RequestBody OpenNamespaceTextModel openNamespaceTextModel
     ) {
-        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost(appId, env, clusterName, namespaceName, namespaceTextModel);
+        return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost(appId, env, clusterName, namespaceName, openNamespaceTextModel);
     }
 
 }

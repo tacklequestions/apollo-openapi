@@ -1,10 +1,9 @@
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.ListReleaseBO;
 import com.apollo.openapi.server.model.NamespaceReleaseDTO;
+import com.apollo.openapi.server.model.OpenReleaseBO;
 import com.apollo.openapi.server.model.OpenReleaseDTO;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
-import com.apollo.openapi.server.model.OpenapiV1EnvsEnvReleasesCompareGet200Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ReleaseManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ReleaseManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -75,7 +74,7 @@ public interface ReleaseManagementApiDelegate {
      * @return 成功获取发布列表 (status code 200)
      * @see ReleaseManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesAllGet
      */
-    default ResponseEntity<List<ListReleaseBO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesAllGet(String appId,
+    default ResponseEntity<List<OpenReleaseBO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesAllGet(String appId,
         String env,
         String clusterName,
         String namespaceName,
@@ -84,7 +83,7 @@ public interface ReleaseManagementApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"baseInfo\" : { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"configurations\" : \"configurations\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"releaseKey\" : \"releaseKey\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"isAbandoned\" : true, \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"name\" : \"name\", \"comment\" : \"comment\", \"id\" : 0, \"namespaceName\" : \"namespaceName\" }, \"items\" : [ { \"value\" : \"value\", \"key\" : \"key\" }, { \"value\" : \"value\", \"key\" : \"key\" } ] }, { \"baseInfo\" : { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"configurations\" : \"configurations\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"releaseKey\" : \"releaseKey\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"isAbandoned\" : true, \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"name\" : \"name\", \"comment\" : \"comment\", \"id\" : 0, \"namespaceName\" : \"namespaceName\" }, \"items\" : [ { \"value\" : \"value\", \"key\" : \"key\" }, { \"value\" : \"value\", \"key\" : \"key\" } ] } ]";
+                    String exampleString = "[ { \"baseInfo\" : { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"configurations\" : { \"key\" : \"configurations\" }, \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"name\" : \"name\", \"comment\" : \"comment\", \"id\" : 0, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"namespaceName\" : \"namespaceName\" }, \"items\" : [ { \"value\" : \"value\", \"key\" : \"key\" }, { \"value\" : \"value\", \"key\" : \"key\" } ] }, { \"baseInfo\" : { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"configurations\" : { \"key\" : \"configurations\" }, \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"name\" : \"name\", \"comment\" : \"comment\", \"id\" : 0, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"namespaceName\" : \"namespaceName\" }, \"items\" : [ { \"value\" : \"value\", \"key\" : \"key\" }, { \"value\" : \"value\", \"key\" : \"key\" } ] } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -161,32 +160,6 @@ public interface ReleaseManagementApiDelegate {
                 }
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"message\" : \"message\" }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-    /**
-     * GET /openapi/v1/envs/{env}/releases/compare : 对比发布
-     * GET /openapi/v1/envs/{env}/releases/compare
-     *
-     * @param env 环境标识 (required)
-     * @param baseReleaseId 基准发布ID (required)
-     * @param toCompareReleaseId 对比发布ID (required)
-     * @return 成功返回发布差异 (status code 200)
-     * @see ReleaseManagementApi#openapiV1EnvsEnvReleasesCompareGet
-     */
-    default ResponseEntity<OpenapiV1EnvsEnvReleasesCompareGet200Response> openapiV1EnvsEnvReleasesCompareGet(String env,
-        Integer baseReleaseId,
-        Integer toCompareReleaseId) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"changes\" : [ { \"type\" : \"ADDED\", \"entity\" : { \"firstEntity\" : { \"value\" : \"value\", \"key\" : \"key\" }, \"secondEntity\" : { \"value\" : \"value\", \"key\" : \"key\" } } }, { \"type\" : \"ADDED\", \"entity\" : { \"firstEntity\" : { \"value\" : \"value\", \"key\" : \"key\" }, \"secondEntity\" : { \"value\" : \"value\", \"key\" : \"key\" } } } ] }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

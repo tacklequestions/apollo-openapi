@@ -2,8 +2,8 @@ package com.apollo.openapi.server.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.apollo.openapi.server.model.ItemDTO;
-import com.apollo.openapi.server.model.NamespaceIdentifier;
+import com.apollo.openapi.server.model.OpenItemDTO;
+import com.apollo.openapi.server.model.OpenNamespaceIdentifier;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.ArrayList;
@@ -21,24 +21,24 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * NamespaceSyncModel
+ * OpenNamespaceSyncModel
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class NamespaceSyncModel {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenNamespaceSyncModel {
 
   @Valid
-  private List<@Valid NamespaceIdentifier> syncToNamespaces = new ArrayList<>();
+  private List<@Valid OpenNamespaceIdentifier> syncToNamespaces = new ArrayList<>();
 
   @Valid
-  private List<@Valid ItemDTO> syncItems = new ArrayList<>();
+  private List<@Valid OpenItemDTO> syncItems = new ArrayList<>();
 
-  public NamespaceSyncModel syncToNamespaces(List<@Valid NamespaceIdentifier> syncToNamespaces) {
+  public OpenNamespaceSyncModel syncToNamespaces(List<@Valid OpenNamespaceIdentifier> syncToNamespaces) {
     this.syncToNamespaces = syncToNamespaces;
     return this;
   }
 
-  public NamespaceSyncModel addSyncToNamespacesItem(NamespaceIdentifier syncToNamespacesItem) {
+  public OpenNamespaceSyncModel addSyncToNamespacesItem(OpenNamespaceIdentifier syncToNamespacesItem) {
     if (this.syncToNamespaces == null) {
       this.syncToNamespaces = new ArrayList<>();
     }
@@ -53,20 +53,20 @@ public class NamespaceSyncModel {
   @Valid
   @Schema(name = "syncToNamespaces", description = "目标命名空间标识列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("syncToNamespaces")
-  public List<@Valid NamespaceIdentifier> getSyncToNamespaces() {
+  public List<@Valid OpenNamespaceIdentifier> getSyncToNamespaces() {
     return syncToNamespaces;
   }
 
-  public void setSyncToNamespaces(List<@Valid NamespaceIdentifier> syncToNamespaces) {
+  public void setSyncToNamespaces(List<@Valid OpenNamespaceIdentifier> syncToNamespaces) {
     this.syncToNamespaces = syncToNamespaces;
   }
 
-  public NamespaceSyncModel syncItems(List<@Valid ItemDTO> syncItems) {
+  public OpenNamespaceSyncModel syncItems(List<@Valid OpenItemDTO> syncItems) {
     this.syncItems = syncItems;
     return this;
   }
 
-  public NamespaceSyncModel addSyncItemsItem(ItemDTO syncItemsItem) {
+  public OpenNamespaceSyncModel addSyncItemsItem(OpenItemDTO syncItemsItem) {
     if (this.syncItems == null) {
       this.syncItems = new ArrayList<>();
     }
@@ -81,11 +81,11 @@ public class NamespaceSyncModel {
   @Valid
   @Schema(name = "syncItems", description = "需要同步的配置项列表", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("syncItems")
-  public List<@Valid ItemDTO> getSyncItems() {
+  public List<@Valid OpenItemDTO> getSyncItems() {
     return syncItems;
   }
 
-  public void setSyncItems(List<@Valid ItemDTO> syncItems) {
+  public void setSyncItems(List<@Valid OpenItemDTO> syncItems) {
     this.syncItems = syncItems;
   }
 
@@ -97,9 +97,9 @@ public class NamespaceSyncModel {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NamespaceSyncModel namespaceSyncModel = (NamespaceSyncModel) o;
-    return Objects.equals(this.syncToNamespaces, namespaceSyncModel.syncToNamespaces) &&
-        Objects.equals(this.syncItems, namespaceSyncModel.syncItems);
+    OpenNamespaceSyncModel openNamespaceSyncModel = (OpenNamespaceSyncModel) o;
+    return Objects.equals(this.syncToNamespaces, openNamespaceSyncModel.syncToNamespaces) &&
+        Objects.equals(this.syncItems, openNamespaceSyncModel.syncItems);
   }
 
   @Override
@@ -110,7 +110,7 @@ public class NamespaceSyncModel {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NamespaceSyncModel {\n");
+    sb.append("class OpenNamespaceSyncModel {\n");
     sb.append("    syncToNamespaces: ").append(toIndentedString(syncToNamespaces)).append("\n");
     sb.append("    syncItems: ").append(toIndentedString(syncItems)).append("\n");
     sb.append("}");

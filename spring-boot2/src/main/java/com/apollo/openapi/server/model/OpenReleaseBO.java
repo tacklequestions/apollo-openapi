@@ -3,7 +3,7 @@ package com.apollo.openapi.server.model;
 import java.net.URI;
 import java.util.Objects;
 import com.apollo.openapi.server.model.KVEntity;
-import com.apollo.openapi.server.model.ReleaseDTO;
+import com.apollo.openapi.server.model.OpenReleaseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.ArrayList;
@@ -21,18 +21,18 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ListReleaseBO
+ * OpenReleaseBO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class ListReleaseBO {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenReleaseBO {
 
-  private @Nullable ReleaseDTO baseInfo;
+  private @Nullable OpenReleaseDTO baseInfo;
 
   @Valid
   private List<@Valid KVEntity> items = new ArrayList<>();
 
-  public ListReleaseBO baseInfo(@Nullable ReleaseDTO baseInfo) {
+  public OpenReleaseBO baseInfo(@Nullable OpenReleaseDTO baseInfo) {
     this.baseInfo = baseInfo;
     return this;
   }
@@ -44,20 +44,20 @@ public class ListReleaseBO {
   @Valid
   @Schema(name = "baseInfo", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("baseInfo")
-  public @Nullable ReleaseDTO getBaseInfo() {
+  public @Nullable OpenReleaseDTO getBaseInfo() {
     return baseInfo;
   }
 
-  public void setBaseInfo(@Nullable ReleaseDTO baseInfo) {
+  public void setBaseInfo(@Nullable OpenReleaseDTO baseInfo) {
     this.baseInfo = baseInfo;
   }
 
-  public ListReleaseBO items(List<@Valid KVEntity> items) {
+  public OpenReleaseBO items(List<@Valid KVEntity> items) {
     this.items = items;
     return this;
   }
 
-  public ListReleaseBO addItemsItem(KVEntity itemsItem) {
+  public OpenReleaseBO addItemsItem(KVEntity itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<>();
     }
@@ -88,9 +88,9 @@ public class ListReleaseBO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListReleaseBO listReleaseBO = (ListReleaseBO) o;
-    return Objects.equals(this.baseInfo, listReleaseBO.baseInfo) &&
-        Objects.equals(this.items, listReleaseBO.items);
+    OpenReleaseBO openReleaseBO = (OpenReleaseBO) o;
+    return Objects.equals(this.baseInfo, openReleaseBO.baseInfo) &&
+        Objects.equals(this.items, openReleaseBO.items);
   }
 
   @Override
@@ -101,7 +101,7 @@ public class ListReleaseBO {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListReleaseBO {\n");
+    sb.append("class OpenReleaseBO {\n");
     sb.append("    baseInfo: ").append(toIndentedString(baseInfo)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");

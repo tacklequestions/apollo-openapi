@@ -1,9 +1,9 @@
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.ListItemDiffs;
-import com.apollo.openapi.server.model.NamespaceSyncModel;
-import com.apollo.openapi.server.model.NamespaceTextModel;
 import com.apollo.openapi.server.model.OpenItemDTO;
+import com.apollo.openapi.server.model.OpenItemDiffs;
+import com.apollo.openapi.server.model.OpenNamespaceSyncModel;
+import com.apollo.openapi.server.model.OpenNamespaceTextModel;
 import com.apollo.openapi.server.model.OpenPageDTOOpenItemDTO;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
 import com.apollo.openapi.server.model.OpenapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost200Response;
@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link ItemManagementApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public interface ItemManagementApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -152,7 +152,7 @@ public interface ItemManagementApiDelegate {
      * @param env  (required)
      * @param clusterName  (required)
      * @param namespaceName  (required)
-     * @param namespaceTextModel  (required)
+     * @param openNamespaceTextModel  (required)
      * @return 批量更新配置项成功 (status code 200)
      *         or 请求参数错误 (status code 400)
      *         or 权限不足 (status code 403)
@@ -162,7 +162,7 @@ public interface ItemManagementApiDelegate {
         String env,
         String clusterName,
         String namespaceName,
-        NamespaceTextModel namespaceTextModel) {
+        OpenNamespaceTextModel openNamespaceTextModel) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -194,19 +194,19 @@ public interface ItemManagementApiDelegate {
      * @param env 环境标识 (required)
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
-     * @param namespaceSyncModel  (required)
+     * @param openNamespaceSyncModel  (required)
      * @return 成功对比命名空间配置差异 (status code 200)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost
      */
-    default ResponseEntity<List<ListItemDiffs>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(String appId,
+    default ResponseEntity<List<OpenItemDiffs>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsComparePost(String appId,
         String env,
         String clusterName,
         String namespaceName,
-        NamespaceSyncModel namespaceSyncModel) {
+        OpenNamespaceSyncModel openNamespaceSyncModel) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"namespace\" : { \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"env\" : \"env\", \"namespaceName\" : \"namespaceName\" }, \"diffs\" : { \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"deleteItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" } ], \"createItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" } ], \"updateItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" } ], \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\" }, \"extInfo\" : \"extInfo\" }, { \"namespace\" : { \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"env\" : \"env\", \"namespaceName\" : \"namespaceName\" }, \"diffs\" : { \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"deleteItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" } ], \"createItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" } ], \"updateItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"type\" : 1, \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"namespaceId\" : 6, \"lineNum\" : 5, \"comment\" : \"comment\", \"id\" : 0, \"value\" : \"value\", \"key\" : \"key\" } ], \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\" }, \"extInfo\" : \"extInfo\" } ]";
+                    String exampleString = "[ { \"namespace\" : { \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"env\" : \"env\", \"namespaceName\" : \"namespaceName\" }, \"diffs\" : { \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"deleteItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" } ], \"createItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" } ], \"updateItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" } ], \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\" }, \"extInfo\" : \"extInfo\" }, { \"namespace\" : { \"appId\" : \"appId\", \"clusterName\" : \"clusterName\", \"env\" : \"env\", \"namespaceName\" : \"namespaceName\" }, \"diffs\" : { \"dataChangeLastModifiedByDisplayName\" : \"dataChangeLastModifiedByDisplayName\", \"dataChangeCreatedByDisplayName\" : \"dataChangeCreatedByDisplayName\", \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"deleteItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" } ], \"createItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" } ], \"updateItems\" : [ { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" }, { \"dataChangeCreatedTime\" : \"dataChangeCreatedTime\", \"dataChangeLastModifiedBy\" : \"dataChangeLastModifiedBy\", \"dataChangeCreatedBy\" : \"dataChangeCreatedBy\", \"comment\" : \"comment\", \"type\" : 0, \"value\" : \"value\", \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\", \"key\" : \"key\" } ], \"dataChangeLastModifiedTime\" : \"dataChangeLastModifiedTime\" }, \"extInfo\" : \"extInfo\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -455,7 +455,7 @@ public interface ItemManagementApiDelegate {
      * @param env 环境标识 (required)
      * @param clusterName 集群名称 (required)
      * @param namespaceName 命名空间名称 (required)
-     * @param namespaceSyncModel  (required)
+     * @param openNamespaceSyncModel  (required)
      * @return 配置项同步成功 (status code 200)
      *         or 请求参数错误 (status code 400)
      *         or 权限不足 (status code 403)
@@ -465,7 +465,7 @@ public interface ItemManagementApiDelegate {
         String env,
         String clusterName,
         String namespaceName,
-        NamespaceSyncModel namespaceSyncModel) {
+        OpenNamespaceSyncModel openNamespaceSyncModel) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -497,7 +497,7 @@ public interface ItemManagementApiDelegate {
      * @param env  (required)
      * @param clusterName  (required)
      * @param namespaceName  (required)
-     * @param namespaceTextModel  (required)
+     * @param openNamespaceTextModel  (required)
      * @return 配置文本语法验证通过 (status code 200)
      *         or 配置文本语法错误 (status code 400)
      * @see ItemManagementApi#openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameItemsValidatePost
@@ -506,7 +506,7 @@ public interface ItemManagementApiDelegate {
         String env,
         String clusterName,
         String namespaceName,
-        NamespaceTextModel namespaceTextModel) {
+        OpenNamespaceTextModel openNamespaceTextModel) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

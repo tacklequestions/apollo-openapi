@@ -5,10 +5,10 @@
  */
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.EnvClusterInfo;
 import java.util.Map;
 import com.apollo.openapi.server.model.OpenAppDTO;
 import com.apollo.openapi.server.model.OpenEnvClusterDTO;
+import com.apollo.openapi.server.model.OpenEnvClusterInfo;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
 import com.apollo.openapi.server.model.OpenapiV1AppsPost400Response;
 import com.apollo.openapi.server.model.OpenapiV1AppsPostRequest;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "App Management", description = "应用管理相关接口，包括应用的创建、查询、更新、删除等操作")
 public interface AppManagementApi {
@@ -331,7 +331,7 @@ public interface AppManagementApi {
         tags = { "App Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取应用导航树", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EnvClusterInfo.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenEnvClusterInfo.class)))
             })
         },
         security = {
@@ -344,7 +344,7 @@ public interface AppManagementApi {
         produces = { "application/json" }
     )
 
-    default ResponseEntity<List<EnvClusterInfo>> openapiV1AppsAppIdNavtreeGet(
+    default ResponseEntity<List<OpenEnvClusterInfo>> openapiV1AppsAppIdNavtreeGet(
         @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId
     ) {
         return getDelegate().openapiV1AppsAppIdNavtreeGet(appId);

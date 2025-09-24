@@ -1,36 +1,21 @@
 openapi: 3.0.1
 info:
   description: |
-    Apollo配置中心OpenAPI接口文档
+    <p>Apollo配置中心OpenAPI接口文档</p>
 
-    ## 认证方式
+    <h2>认证方式</h2>
+    <p>所有 API 接口都需要通过 <code>Authorization</code> header 进行身份验证。</p>
 
-    所有API接口都需要通过Authorization header进行身份验证。
+    <h3>获取 Token 的方式：</h3>
+    <ol>
+      <li><b>Portal 管理界面获取</b>：登录 Portal → 管理员工具 → 开放平台授权管理 → 创建第三方应用，获取 Token。</li>
+      <li><b>Token 格式</b>：<code>Authorization: token_value</code></li>
+      <li><b>Token 权限</b>：按应用/环境/命名空间授予，建议不同用途分别创建。</li>
+    </ol>
 
-    ### 获取Token的方式：
-
-    1. **Portal管理界面获取**：
-       - 登录Apollo Portal管理界面
-       - 进入"管理员工具" -> "开放平台授权管理"
-       - 创建第三方应用，获取Token
-
-    2. **Token格式**：
-       ```
-       Authorization: token_value
-       ```
-
-    3. **Token权限**：
-       - Token具有对应应用的读写权限
-       - 不同Token可能有不同的环境和命名空间权限
-       - 建议为不同用途创建不同的Token
-
-    ---
-
-    ### 使用示例：
-    ```bash
-    curl -X GET "http://localhost:8070/openapi/v1/apps" \
-         -H "Authorization: your_token_here"
-    ```
+    <h3>使用示例</h3>
+    <pre><code class="language-bash">curl -X GET "http://localhost:8070/openapi/v1/apps" \
+    -H "Authorization: your_token_here"</code></pre>
   title: Apollo OpenAPI
   version: 1.0.0
 servers:
@@ -456,7 +441,7 @@ paths:
                   comment: Default cluster
               schema:
                 items:
-                  $ref: "#/components/schemas/EnvClusterInfo"
+                  $ref: "#/components/schemas/OpenEnvClusterInfo"
                 type: array
           description: 成功获取应用导航树
       summary: 获取应用导航树
@@ -1306,7 +1291,7 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: "#/components/schemas/NamespaceTextModel"
+              - $ref: "#/components/schemas/OpenNamespaceTextModel"
               description: 批量更新配置文本请求体
               required:
               - configText
@@ -1475,7 +1460,7 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: "#/components/schemas/NamespaceSyncModel"
+              - $ref: "#/components/schemas/OpenNamespaceSyncModel"
               description: 对比配置差异请求体
               required:
               - syncItems
@@ -1544,7 +1529,7 @@ paths:
                 extInfo: ""
               schema:
                 items:
-                  $ref: "#/components/schemas/ListItemDiffs"
+                  $ref: "#/components/schemas/OpenItemDiffs"
                 type: array
           description: 成功对比命名空间配置差异
       summary: 对比命名空间配置差异
@@ -1597,7 +1582,7 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: "#/components/schemas/NamespaceSyncModel"
+              - $ref: "#/components/schemas/OpenNamespaceSyncModel"
               description: 同步配置项请求体
               required:
               - syncItems
@@ -1679,7 +1664,7 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: "#/components/schemas/NamespaceTextModel"
+              - $ref: "#/components/schemas/OpenNamespaceTextModel"
               description: ""
               required:
               - configText
@@ -2612,7 +2597,7 @@ paths:
                   value: ""
               schema:
                 items:
-                  $ref: "#/components/schemas/ListReleaseBO"
+                  $ref: "#/components/schemas/OpenReleaseBO"
                 type: array
           description: 成功获取发布列表
       summary: 获取所有发布（分页）
@@ -2701,59 +2686,6 @@ paths:
                 type: array
           description: 成功获取活跃发布列表
       summary: 获取活跃发布（分页）
-      tags:
-      - Release Management
-      x-accepts:
-      - application/json
-      x-tags:
-      - tag: Release Management
-  /openapi/v1/envs/{env}/releases/compare:
-    get:
-      deprecated: false
-      description: "GET /openapi/v1/envs/{env}/releases/compare"
-      parameters:
-      - description: 环境标识
-        explode: false
-        in: path
-        name: env
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: 基准发布ID
-        explode: true
-        in: query
-        name: baseReleaseId
-        required: true
-        schema:
-          type: integer
-        style: form
-      - description: 对比发布ID
-        explode: true
-        in: query
-        name: toCompareReleaseId
-        required: true
-        schema:
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                changes:
-                - type: ""
-                  entity:
-                    firstEntity:
-                      key: ""
-                      value: ""
-                    secondEntity:
-                      key: ""
-                      value: ""
-              schema:
-                $ref: "#/components/schemas/_openapi_v1_envs__env__releases_compare_get_200_response"
-          description: 成功返回发布差异
-      summary: 对比发布
       tags:
       - Release Management
       x-accepts:
@@ -4842,85 +4774,21 @@ components:
             type: string
           type: array
       type: object
-    ClusterDTO:
-      example:
-        dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-        dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
-        dataChangeCreatedTime: dataChangeCreatedTime
-        dataChangeLastModifiedBy: dataChangeLastModifiedBy
-        appId: appId
-        dataChangeCreatedBy: dataChangeCreatedBy
-        name: name
-        parentClusterId: 6
-        comment: comment
-        id: 0
-        dataChangeLastModifiedTime: dataChangeLastModifiedTime
-      properties:
-        dataChangeCreatedBy:
-          description: 数据创建者用户名
-          type: string
-        dataChangeLastModifiedBy:
-          description: 数据最后修改者用户名
-          type: string
-        dataChangeCreatedByDisplayName:
-          description: 数据创建者显示名
-          type: string
-        dataChangeLastModifiedByDisplayName:
-          description: 数据最后修改者显示名
-          type: string
-        dataChangeCreatedTime:
-          description: 数据创建时间（ISO 8601）
-          type: string
-        dataChangeLastModifiedTime:
-          description: 数据最后修改时间（ISO 8601）
-          type: string
-        id:
-          description: 集群ID（系统生成）
-          format: int64
-          type: integer
-        name:
-          description: 集群名称，需符合命名规范
-          pattern: "[0-9a-zA-Z_-]+[0-9a-zA-Z_.-]*"
-          type: string
-        appId:
-          description: 所属应用的唯一标识
-          type: string
-        parentClusterId:
-          description: 父集群ID（若有）
-          format: int64
-          type: integer
-        comment:
-          description: 备注说明
-          type: string
-      required:
-      - appId
-      - name
-      type: object
-    EnvClusterInfo:
+    OpenEnvClusterInfo:
       example:
         env: env
         clusters:
-        - dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
-          dataChangeCreatedTime: dataChangeCreatedTime
+        - dataChangeCreatedTime: dataChangeCreatedTime
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
           appId: appId
           dataChangeCreatedBy: dataChangeCreatedBy
           name: name
-          parentClusterId: 6
-          comment: comment
-          id: 0
           dataChangeLastModifiedTime: dataChangeLastModifiedTime
-        - dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
-          dataChangeCreatedTime: dataChangeCreatedTime
+        - dataChangeCreatedTime: dataChangeCreatedTime
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
           appId: appId
           dataChangeCreatedBy: dataChangeCreatedBy
           name: name
-          parentClusterId: 6
-          comment: comment
-          id: 0
           dataChangeLastModifiedTime: dataChangeLastModifiedTime
       properties:
         env:
@@ -4929,10 +4797,10 @@ components:
         clusters:
           description: 集群信息列表
           items:
-            $ref: "#/components/schemas/ClusterDTO"
+            $ref: "#/components/schemas/OpenClusterDTO"
           type: array
       type: object
-    NamespaceTextModel:
+    OpenNamespaceTextModel:
       example:
         configText: configText
         namespaceId: 0
@@ -4969,7 +4837,7 @@ components:
           description: 操作者用户名
           type: string
       type: object
-    NamespaceIdentifier:
+    OpenNamespaceIdentifier:
       example:
         appId: appId
         clusterName: clusterName
@@ -4989,65 +4857,7 @@ components:
           description: 命名空间名称
           type: string
       type: object
-    ItemDTO:
-      example:
-        dataChangeCreatedTime: dataChangeCreatedTime
-        dataChangeCreatedBy: dataChangeCreatedBy
-        type: 1
-        dataChangeLastModifiedTime: dataChangeLastModifiedTime
-        dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-        dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
-        dataChangeLastModifiedBy: dataChangeLastModifiedBy
-        namespaceId: 6
-        lineNum: 5
-        comment: comment
-        id: 0
-        value: value
-        key: key
-      properties:
-        dataChangeCreatedBy:
-          description: 配置项创建者用户名
-          type: string
-        dataChangeLastModifiedBy:
-          description: 配置项最后修改者用户名
-          type: string
-        dataChangeCreatedByDisplayName:
-          description: 创建者显示名
-          type: string
-        dataChangeLastModifiedByDisplayName:
-          description: 最后修改者显示名
-          type: string
-        dataChangeCreatedTime:
-          description: 配置项创建时间（ISO 8601）
-          type: string
-        dataChangeLastModifiedTime:
-          description: 配置项最后修改时间（ISO 8601）
-          type: string
-        id:
-          description: 配置项ID
-          format: int64
-          type: integer
-        namespaceId:
-          description: 所属命名空间ID
-          format: int64
-          type: integer
-        key:
-          description: 配置项键名
-          type: string
-        type:
-          description: 配置项类型，0表示普通，1表示文件
-          type: integer
-        value:
-          description: 配置项值
-          type: string
-        comment:
-          description: 配置项备注
-          type: string
-        lineNum:
-          description: 在配置文件中的行号（从1开始）
-          type: integer
-      type: object
-    ItemChangeSets:
+    OpenItemChangeSets:
       example:
         dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
         dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
@@ -5056,84 +4866,54 @@ components:
         dataChangeCreatedBy: dataChangeCreatedBy
         deleteItems:
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         createItems:
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         updateItems:
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         dataChangeLastModifiedTime: dataChangeLastModifiedTime
       properties:
@@ -5159,22 +4939,22 @@ components:
           default: []
           description: 待创建的配置项列表
           items:
-            $ref: "#/components/schemas/ItemDTO"
+            $ref: "#/components/schemas/OpenItemDTO"
           type: array
         updateItems:
           default: []
           description: 待更新的配置项列表
           items:
-            $ref: "#/components/schemas/ItemDTO"
+            $ref: "#/components/schemas/OpenItemDTO"
           type: array
         deleteItems:
           default: []
           description: 待删除的配置项列表
           items:
-            $ref: "#/components/schemas/ItemDTO"
+            $ref: "#/components/schemas/OpenItemDTO"
           type: array
       type: object
-    ListItemDiffs:
+    OpenItemDiffs:
       example:
         namespace:
           appId: appId
@@ -5189,123 +4969,84 @@ components:
           dataChangeCreatedBy: dataChangeCreatedBy
           deleteItems:
           - dataChangeCreatedTime: dataChangeCreatedTime
-            dataChangeCreatedBy: dataChangeCreatedBy
-            type: 1
-            dataChangeLastModifiedTime: dataChangeLastModifiedTime
-            dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-            dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
-            namespaceId: 6
-            lineNum: 5
+            dataChangeCreatedBy: dataChangeCreatedBy
             comment: comment
-            id: 0
+            type: 0
             value: value
+            dataChangeLastModifiedTime: dataChangeLastModifiedTime
             key: key
           - dataChangeCreatedTime: dataChangeCreatedTime
-            dataChangeCreatedBy: dataChangeCreatedBy
-            type: 1
-            dataChangeLastModifiedTime: dataChangeLastModifiedTime
-            dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-            dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
-            namespaceId: 6
-            lineNum: 5
+            dataChangeCreatedBy: dataChangeCreatedBy
             comment: comment
-            id: 0
+            type: 0
             value: value
+            dataChangeLastModifiedTime: dataChangeLastModifiedTime
             key: key
           createItems:
           - dataChangeCreatedTime: dataChangeCreatedTime
-            dataChangeCreatedBy: dataChangeCreatedBy
-            type: 1
-            dataChangeLastModifiedTime: dataChangeLastModifiedTime
-            dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-            dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
-            namespaceId: 6
-            lineNum: 5
+            dataChangeCreatedBy: dataChangeCreatedBy
             comment: comment
-            id: 0
+            type: 0
             value: value
+            dataChangeLastModifiedTime: dataChangeLastModifiedTime
             key: key
           - dataChangeCreatedTime: dataChangeCreatedTime
-            dataChangeCreatedBy: dataChangeCreatedBy
-            type: 1
-            dataChangeLastModifiedTime: dataChangeLastModifiedTime
-            dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-            dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
-            namespaceId: 6
-            lineNum: 5
+            dataChangeCreatedBy: dataChangeCreatedBy
             comment: comment
-            id: 0
+            type: 0
             value: value
+            dataChangeLastModifiedTime: dataChangeLastModifiedTime
             key: key
           updateItems:
           - dataChangeCreatedTime: dataChangeCreatedTime
-            dataChangeCreatedBy: dataChangeCreatedBy
-            type: 1
-            dataChangeLastModifiedTime: dataChangeLastModifiedTime
-            dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-            dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
-            namespaceId: 6
-            lineNum: 5
+            dataChangeCreatedBy: dataChangeCreatedBy
             comment: comment
-            id: 0
+            type: 0
             value: value
+            dataChangeLastModifiedTime: dataChangeLastModifiedTime
             key: key
           - dataChangeCreatedTime: dataChangeCreatedTime
-            dataChangeCreatedBy: dataChangeCreatedBy
-            type: 1
-            dataChangeLastModifiedTime: dataChangeLastModifiedTime
-            dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-            dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
             dataChangeLastModifiedBy: dataChangeLastModifiedBy
-            namespaceId: 6
-            lineNum: 5
+            dataChangeCreatedBy: dataChangeCreatedBy
             comment: comment
-            id: 0
+            type: 0
             value: value
+            dataChangeLastModifiedTime: dataChangeLastModifiedTime
             key: key
           dataChangeLastModifiedTime: dataChangeLastModifiedTime
         extInfo: extInfo
       properties:
         namespace:
-          $ref: "#/components/schemas/NamespaceIdentifier"
+          $ref: "#/components/schemas/OpenNamespaceIdentifier"
         diffs:
-          $ref: "#/components/schemas/ItemChangeSets"
+          $ref: "#/components/schemas/OpenItemChangeSets"
         extInfo:
+          description: 扩展信息
           type: string
       type: object
-    NamespaceSyncModel:
+    OpenNamespaceSyncModel:
       example:
         syncItems:
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         - dataChangeCreatedTime: dataChangeCreatedTime
-          dataChangeCreatedBy: dataChangeCreatedBy
-          type: 1
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
-          namespaceId: 6
-          lineNum: 5
+          dataChangeCreatedBy: dataChangeCreatedBy
           comment: comment
-          id: 0
+          type: 0
           value: value
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           key: key
         syncToNamespaces:
         - appId: appId
@@ -5320,78 +5061,13 @@ components:
         syncToNamespaces:
           description: 目标命名空间标识列表
           items:
-            $ref: "#/components/schemas/NamespaceIdentifier"
+            $ref: "#/components/schemas/OpenNamespaceIdentifier"
           type: array
         syncItems:
           description: 需要同步的配置项列表
           items:
-            $ref: "#/components/schemas/ItemDTO"
+            $ref: "#/components/schemas/OpenItemDTO"
           type: array
-      type: object
-    ReleaseDTO:
-      example:
-        dataChangeCreatedTime: dataChangeCreatedTime
-        configurations: configurations
-        dataChangeCreatedBy: dataChangeCreatedBy
-        releaseKey: releaseKey
-        dataChangeLastModifiedTime: dataChangeLastModifiedTime
-        isAbandoned: true
-        dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-        dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
-        dataChangeLastModifiedBy: dataChangeLastModifiedBy
-        appId: appId
-        clusterName: clusterName
-        name: name
-        comment: comment
-        id: 0
-        namespaceName: namespaceName
-      properties:
-        dataChangeCreatedBy:
-          description: 发布创建者用户名
-          type: string
-        dataChangeLastModifiedBy:
-          description: 发布最后修改者用户名
-          type: string
-        dataChangeCreatedByDisplayName:
-          description: 创建者显示名
-          type: string
-        dataChangeLastModifiedByDisplayName:
-          description: 最后修改者显示名
-          type: string
-        dataChangeCreatedTime:
-          description: 发布创建时间（ISO 8601）
-          type: string
-        dataChangeLastModifiedTime:
-          description: 发布最后修改时间（ISO 8601）
-          type: string
-        id:
-          description: 发布记录ID（系统生成）
-          format: int64
-          type: integer
-        releaseKey:
-          description: 发布键，标识该发布的唯一Key
-          type: string
-        name:
-          description: 发布名称
-          type: string
-        appId:
-          description: 所属应用的唯一标识
-          type: string
-        clusterName:
-          description: 所属集群名称
-          type: string
-        namespaceName:
-          description: 所属命名空间名称
-          type: string
-        configurations:
-          description: 本次发布的配置内容（序列化后）
-          type: string
-        comment:
-          description: 发布备注
-          type: string
-        isAbandoned:
-          description: 是否已废弃该发布
-          type: boolean
       type: object
     KVEntity:
       example:
@@ -5405,23 +5081,20 @@ components:
           description: 值
           type: string
       type: object
-    ListReleaseBO:
+    OpenReleaseBO:
       example:
         baseInfo:
           dataChangeCreatedTime: dataChangeCreatedTime
-          configurations: configurations
-          dataChangeCreatedBy: dataChangeCreatedBy
-          releaseKey: releaseKey
-          dataChangeLastModifiedTime: dataChangeLastModifiedTime
-          isAbandoned: true
-          dataChangeLastModifiedByDisplayName: dataChangeLastModifiedByDisplayName
-          dataChangeCreatedByDisplayName: dataChangeCreatedByDisplayName
           dataChangeLastModifiedBy: dataChangeLastModifiedBy
+          configurations:
+            key: configurations
           appId: appId
           clusterName: clusterName
+          dataChangeCreatedBy: dataChangeCreatedBy
           name: name
           comment: comment
           id: 0
+          dataChangeLastModifiedTime: dataChangeLastModifiedTime
           namespaceName: namespaceName
         items:
         - value: value
@@ -5430,46 +5103,11 @@ components:
           key: key
       properties:
         baseInfo:
-          $ref: "#/components/schemas/ReleaseDTO"
+          $ref: "#/components/schemas/OpenReleaseDTO"
         items:
           items:
             $ref: "#/components/schemas/KVEntity"
           type: array
-      type: object
-    EntityPairKVEntity:
-      example:
-        firstEntity:
-          value: value
-          key: key
-        secondEntity:
-          value: value
-          key: key
-      properties:
-        firstEntity:
-          $ref: "#/components/schemas/KVEntity"
-        secondEntity:
-          $ref: "#/components/schemas/KVEntity"
-      type: object
-    Change:
-      example:
-        type: ADDED
-        entity:
-          firstEntity:
-            value: value
-            key: key
-          secondEntity:
-            value: value
-            key: key
-      properties:
-        type:
-          description: 变更类型，取值 ADDED/MODIFIED/DELETED
-          enum:
-          - ADDED
-          - MODIFIED
-          - DELETED
-          type: string
-        entity:
-          $ref: "#/components/schemas/EntityPairKVEntity"
       type: object
     OpenInstanceConfigDTO:
       example:
@@ -5636,31 +5274,6 @@ components:
         errors:
           items:
             type: string
-          type: array
-      type: object
-    _openapi_v1_envs__env__releases_compare_get_200_response:
-      example:
-        changes:
-        - type: ADDED
-          entity:
-            firstEntity:
-              value: value
-              key: key
-            secondEntity:
-              value: value
-              key: key
-        - type: ADDED
-          entity:
-            firstEntity:
-              value: value
-              key: key
-            secondEntity:
-              value: value
-              key: key
-      properties:
-        changes:
-          items:
-            $ref: "#/components/schemas/Change"
           type: array
       type: object
   securitySchemes:

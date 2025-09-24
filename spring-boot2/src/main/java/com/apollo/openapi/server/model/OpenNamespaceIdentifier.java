@@ -16,11 +16,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * NamespaceIdentifier
+ * OpenNamespaceIdentifier
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class NamespaceIdentifier {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenNamespaceIdentifier {
 
   private @Nullable String appId;
 
@@ -30,7 +30,7 @@ public class NamespaceIdentifier {
 
   private @Nullable String namespaceName;
 
-  public NamespaceIdentifier appId(@Nullable String appId) {
+  public OpenNamespaceIdentifier appId(@Nullable String appId) {
     this.appId = appId;
     return this;
   }
@@ -50,7 +50,7 @@ public class NamespaceIdentifier {
     this.appId = appId;
   }
 
-  public NamespaceIdentifier env(@Nullable String env) {
+  public OpenNamespaceIdentifier env(@Nullable String env) {
     this.env = env;
     return this;
   }
@@ -70,7 +70,7 @@ public class NamespaceIdentifier {
     this.env = env;
   }
 
-  public NamespaceIdentifier clusterName(@Nullable String clusterName) {
+  public OpenNamespaceIdentifier clusterName(@Nullable String clusterName) {
     this.clusterName = clusterName;
     return this;
   }
@@ -90,7 +90,7 @@ public class NamespaceIdentifier {
     this.clusterName = clusterName;
   }
 
-  public NamespaceIdentifier namespaceName(@Nullable String namespaceName) {
+  public OpenNamespaceIdentifier namespaceName(@Nullable String namespaceName) {
     this.namespaceName = namespaceName;
     return this;
   }
@@ -118,11 +118,11 @@ public class NamespaceIdentifier {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NamespaceIdentifier namespaceIdentifier = (NamespaceIdentifier) o;
-    return Objects.equals(this.appId, namespaceIdentifier.appId) &&
-        Objects.equals(this.env, namespaceIdentifier.env) &&
-        Objects.equals(this.clusterName, namespaceIdentifier.clusterName) &&
-        Objects.equals(this.namespaceName, namespaceIdentifier.namespaceName);
+    OpenNamespaceIdentifier openNamespaceIdentifier = (OpenNamespaceIdentifier) o;
+    return Objects.equals(this.appId, openNamespaceIdentifier.appId) &&
+        Objects.equals(this.env, openNamespaceIdentifier.env) &&
+        Objects.equals(this.clusterName, openNamespaceIdentifier.clusterName) &&
+        Objects.equals(this.namespaceName, openNamespaceIdentifier.namespaceName);
   }
 
   @Override
@@ -133,7 +133,7 @@ public class NamespaceIdentifier {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NamespaceIdentifier {\n");
+    sb.append("class OpenNamespaceIdentifier {\n");
     sb.append("    appId: ").append(toIndentedString(appId)).append("\n");
     sb.append("    env: ").append(toIndentedString(env)).append("\n");
     sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");

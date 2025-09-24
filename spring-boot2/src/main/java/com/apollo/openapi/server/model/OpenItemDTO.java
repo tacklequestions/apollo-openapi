@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "OpenItemDTO", description = "Apollo配置项数据传输对象，表示一个具体的配置键值对及其元数据")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 public class OpenItemDTO {
 
   private @Nullable String dataChangeCreatedBy;

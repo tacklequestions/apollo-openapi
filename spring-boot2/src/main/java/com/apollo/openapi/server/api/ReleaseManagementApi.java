@@ -5,11 +5,10 @@
  */
 package com.apollo.openapi.server.api;
 
-import com.apollo.openapi.server.model.ListReleaseBO;
 import com.apollo.openapi.server.model.NamespaceReleaseDTO;
+import com.apollo.openapi.server.model.OpenReleaseBO;
 import com.apollo.openapi.server.model.OpenReleaseDTO;
 import com.apollo.openapi.server.model.OpenapiV1AppsGet401Response;
-import com.apollo.openapi.server.model.OpenapiV1EnvsEnvReleasesCompareGet200Response;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
 @Validated
 @Tag(name = "Release Management", description = "发布管理相关接口，包括配置发布、发布历史、灰度发布等功能")
 public interface ReleaseManagementApi {
@@ -108,7 +107,7 @@ public interface ReleaseManagementApi {
         tags = { "Release Management" },
         responses = {
             @ApiResponse(responseCode = "200", description = "成功获取发布列表", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ListReleaseBO.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OpenReleaseBO.class)))
             })
         },
         security = {
@@ -121,7 +120,7 @@ public interface ReleaseManagementApi {
         produces = { "application/json" }
     )
 
-    default ResponseEntity<List<ListReleaseBO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesAllGet(
+    default ResponseEntity<List<OpenReleaseBO>> openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesAllGet(
         @Parameter(name = "appId", description = "应用ID", required = true, in = ParameterIn.PATH) @PathVariable("appId") String appId,
         @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
         @Parameter(name = "clusterName", description = "集群名称", required = true, in = ParameterIn.PATH) @PathVariable("clusterName") String clusterName,
@@ -227,45 +226,6 @@ public interface ReleaseManagementApi {
         @Parameter(name = "NamespaceReleaseDTO", description = "", required = true) @Valid @RequestBody NamespaceReleaseDTO namespaceReleaseDTO
     ) {
         return getDelegate().openapiV1EnvsEnvAppsAppIdClustersClusterNameNamespacesNamespaceNameReleasesPost(appId, env, clusterName, namespaceName, namespaceReleaseDTO);
-    }
-
-
-    public static final String PATH_OPENAPI_V1_ENVS_ENV_RELEASES_COMPARE_GET = "/openapi/v1/envs/{env}/releases/compare";
-    /**
-     * GET /openapi/v1/envs/{env}/releases/compare : 对比发布
-     * GET /openapi/v1/envs/{env}/releases/compare
-     *
-     * @param env 环境标识 (required)
-     * @param baseReleaseId 基准发布ID (required)
-     * @param toCompareReleaseId 对比发布ID (required)
-     * @return 成功返回发布差异 (status code 200)
-     */
-    @Operation(
-        operationId = "openapiV1EnvsEnvReleasesCompareGet",
-        summary = "对比发布",
-        description = "GET /openapi/v1/envs/{env}/releases/compare",
-        tags = { "Release Management" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "成功返回发布差异", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenapiV1EnvsEnvReleasesCompareGet200Response.class))
-            })
-        },
-        security = {
-            @SecurityRequirement(name = "ApiKeyAuth")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = ReleaseManagementApi.PATH_OPENAPI_V1_ENVS_ENV_RELEASES_COMPARE_GET,
-        produces = { "application/json" }
-    )
-
-    default ResponseEntity<OpenapiV1EnvsEnvReleasesCompareGet200Response> openapiV1EnvsEnvReleasesCompareGet(
-        @Parameter(name = "env", description = "环境标识", required = true, in = ParameterIn.PATH) @PathVariable("env") String env,
-        @NotNull @Parameter(name = "baseReleaseId", description = "基准发布ID", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "baseReleaseId", required = true) Integer baseReleaseId,
-        @NotNull @Parameter(name = "toCompareReleaseId", description = "对比发布ID", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "toCompareReleaseId", required = true) Integer toCompareReleaseId
-    ) {
-        return getDelegate().openapiV1EnvsEnvReleasesCompareGet(env, baseReleaseId, toCompareReleaseId);
     }
 
 

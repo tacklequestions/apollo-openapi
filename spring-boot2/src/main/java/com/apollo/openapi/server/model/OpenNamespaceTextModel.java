@@ -16,11 +16,11 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * NamespaceTextModel
+ * OpenNamespaceTextModel
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-23T16:12:19.656458+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
-public class NamespaceTextModel {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-24T12:04:41.703370+08:00[Asia/Shanghai]", comments = "Generator version: 7.15.0")
+public class OpenNamespaceTextModel {
 
   private @Nullable String appId;
 
@@ -38,7 +38,7 @@ public class NamespaceTextModel {
 
   private @Nullable String operator;
 
-  public NamespaceTextModel appId(@Nullable String appId) {
+  public OpenNamespaceTextModel appId(@Nullable String appId) {
     this.appId = appId;
     return this;
   }
@@ -58,7 +58,7 @@ public class NamespaceTextModel {
     this.appId = appId;
   }
 
-  public NamespaceTextModel env(@Nullable String env) {
+  public OpenNamespaceTextModel env(@Nullable String env) {
     this.env = env;
     return this;
   }
@@ -78,7 +78,7 @@ public class NamespaceTextModel {
     this.env = env;
   }
 
-  public NamespaceTextModel clusterName(@Nullable String clusterName) {
+  public OpenNamespaceTextModel clusterName(@Nullable String clusterName) {
     this.clusterName = clusterName;
     return this;
   }
@@ -98,7 +98,7 @@ public class NamespaceTextModel {
     this.clusterName = clusterName;
   }
 
-  public NamespaceTextModel namespaceName(@Nullable String namespaceName) {
+  public OpenNamespaceTextModel namespaceName(@Nullable String namespaceName) {
     this.namespaceName = namespaceName;
     return this;
   }
@@ -118,7 +118,7 @@ public class NamespaceTextModel {
     this.namespaceName = namespaceName;
   }
 
-  public NamespaceTextModel namespaceId(@Nullable Long namespaceId) {
+  public OpenNamespaceTextModel namespaceId(@Nullable Long namespaceId) {
     this.namespaceId = namespaceId;
     return this;
   }
@@ -138,7 +138,7 @@ public class NamespaceTextModel {
     this.namespaceId = namespaceId;
   }
 
-  public NamespaceTextModel format(@Nullable String format) {
+  public OpenNamespaceTextModel format(@Nullable String format) {
     this.format = format;
     return this;
   }
@@ -158,7 +158,7 @@ public class NamespaceTextModel {
     this.format = format;
   }
 
-  public NamespaceTextModel configText(@Nullable String configText) {
+  public OpenNamespaceTextModel configText(@Nullable String configText) {
     this.configText = configText;
     return this;
   }
@@ -178,7 +178,7 @@ public class NamespaceTextModel {
     this.configText = configText;
   }
 
-  public NamespaceTextModel operator(@Nullable String operator) {
+  public OpenNamespaceTextModel operator(@Nullable String operator) {
     this.operator = operator;
     return this;
   }
@@ -206,15 +206,15 @@ public class NamespaceTextModel {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NamespaceTextModel namespaceTextModel = (NamespaceTextModel) o;
-    return Objects.equals(this.appId, namespaceTextModel.appId) &&
-        Objects.equals(this.env, namespaceTextModel.env) &&
-        Objects.equals(this.clusterName, namespaceTextModel.clusterName) &&
-        Objects.equals(this.namespaceName, namespaceTextModel.namespaceName) &&
-        Objects.equals(this.namespaceId, namespaceTextModel.namespaceId) &&
-        Objects.equals(this.format, namespaceTextModel.format) &&
-        Objects.equals(this.configText, namespaceTextModel.configText) &&
-        Objects.equals(this.operator, namespaceTextModel.operator);
+    OpenNamespaceTextModel openNamespaceTextModel = (OpenNamespaceTextModel) o;
+    return Objects.equals(this.appId, openNamespaceTextModel.appId) &&
+        Objects.equals(this.env, openNamespaceTextModel.env) &&
+        Objects.equals(this.clusterName, openNamespaceTextModel.clusterName) &&
+        Objects.equals(this.namespaceName, openNamespaceTextModel.namespaceName) &&
+        Objects.equals(this.namespaceId, openNamespaceTextModel.namespaceId) &&
+        Objects.equals(this.format, openNamespaceTextModel.format) &&
+        Objects.equals(this.configText, openNamespaceTextModel.configText) &&
+        Objects.equals(this.operator, openNamespaceTextModel.operator);
   }
 
   @Override
@@ -225,7 +225,7 @@ public class NamespaceTextModel {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NamespaceTextModel {\n");
+    sb.append("class OpenNamespaceTextModel {\n");
     sb.append("    appId: ").append(toIndentedString(appId)).append("\n");
     sb.append("    env: ").append(toIndentedString(env)).append("\n");
     sb.append("    clusterName: ").append(toIndentedString(clusterName)).append("\n");
