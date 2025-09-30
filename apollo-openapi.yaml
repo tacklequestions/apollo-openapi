@@ -41,7 +41,8 @@ tags:
 paths:
   /openapi/v1/apps:
     post:
-      summary: 创建应用
+      summary: 创建应用 (original openapi) # which means this belongs to initial openapi endpoints and should not be modified this time
+      operationId: createApp
       deprecated: false
       description: POST /openapi/v1/apps
       tags:
@@ -50,24 +51,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenCreateAppDTO'
-              required:
-                - app
-                - admins
-                - assignAppRoleToSelf
-              properties:
-                app:
-                  allOf:
-                    - $ref: '#/components/schemas/OpenAppDTO'
-                  required:
-                    - appId
-                    - name
-                    - orgId
-                    - orgName
-                    - ownerName
-              description: 创建应用请求体，包含应用基本信息与管理员设置
+              $ref: '#/components/schemas/OpenCreateAppDTO' # this is for avoiding openapi-generator of generating a new schema(OpenAppDTO with restriction)
         required: true
       responses:
         '200':
@@ -94,42 +78,34 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-                  exception:
-                    type: string
-              example:
-                message: 'App is null'
-                exception: 'BadRequestException'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse' # This is to avoid openapi-generator generating completely different error responses for each error
         '403':
-          description: '权限不足'
+          description: 权限不足
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     get:
-      summary: 获取当前Consumer授权的应用列表
+      summary: 查找应用 (original openapi)
+      operationId: findApps
       deprecated: false
-      description: GET /openapi/v1/apps/authorized
+      description: POST /openapi/v1/apps
       tags:
         - App Management
       parameters:
-        - name: authorized
+        - name: appIds
           in: query
-          description: '是否只返回授权的应用'
+          description: 查找应用
           required: false
-          example: 'true'
+          example: '123'
           schema:
             type: string
       responses:
         '200':
-          description: '成功获取授权应用列表'
+          description: 成功获取应用列表
           content:
             application/json:
               schema:
@@ -164,14 +140,59 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
+  /openapi/v1/apps/authorized:
+    get:
+      summary: 获取当前Consumer授权的应用列表 (original openapi)
+      operationId: findAppsAuthorized
+      deprecated: false
+      description: GET /openapi/v1/apps/authorized
+      tags:
+        - App Management
+      responses:
+        '200':
+          description: 成功获取授权应用列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenAppDTO'
               example:
-                message: 'Unauthorized'
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'apollo'
+                  dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
+                  name: 'Sample Application'
+                  appId: 'sample-app'
+                  orgId: 'default'
+                  orgName: 'Default Organization'
+                  ownerName: 'Apollo Admin'
+                  ownerEmail: 'admin@apollo.com'
+                - dataChangeCreatedBy: 'apollo'
+                  dataChangeLastModifiedBy: 'apollo'
+                  dataChangeCreatedTime: '2024-01-10T14:20:00.000Z'
+                  dataChangeLastModifiedTime: '2024-01-12T16:45:00.000Z'
+                  name: 'User Service'
+                  appId: 'user-service'
+                  orgId: 'microservices'
+                  orgName: 'Microservices Team'
+                  ownerName: 'Dev Team'
+                  ownerEmail: 'dev@company.com'
+          headers: { }
+        '401':
+          description: '未授权访问'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/apps/{appId}/envclusters:
     get:
-      summary: 获取应用的环境集群信息
+      summary: 获取应用的环境集群信息 (original openapi)
+      operationId: getEnvClusterInfo
       deprecated: false
       description: GET /openapi/v1/apps/{appId}/envclusters
       tags:
@@ -211,14 +232,12 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'App not found: invalid-app-id'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/apps/{appId}:
     get:
-      summary: 获取单个应用信息
+      summary: 获取单个应用信息(new added) # which means this is a new added openapi endpoint
+      operationId: getApp
       deprecated: false
       description: GET /openapi/v1/apps/{appId}
       tags:
@@ -226,7 +245,7 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: ''
           required: true
           schema:
             type: string
@@ -255,13 +274,11 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'App not found: invalid-app-id'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     put:
-      summary: 更新应用
+      summary: 更新应用(new added)
+      operationId: updateApp
       deprecated: false
       description: PUT /openapi/v1/apps/{appId}
       tags:
@@ -269,7 +286,7 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
@@ -277,20 +294,11 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenAppDTO'
-              required:
-                - appId
-                - name
-                - orgId
-                - orgName
-                - ownerName
-              description: 更新应用请求体
+              $ref: '#/components/schemas/OpenAppDTO'
         required: true
       responses:
         '200':
-          description: 应用更新成功
+          description: '应用更新成功'
           content:
             application/json:
               schema:
@@ -313,24 +321,19 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Invalid app data'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     delete:
-      summary: 删除应用
+      summary: 删除应用(new added)
+      operationId: deleteApp
       deprecated: false
       description: DELETE /openapi/v1/apps/{appId}
       tags:
@@ -338,7 +341,7 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
@@ -349,41 +352,48 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'App deleted successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '403':
           description: '权限不足，需要超级管理员权限'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '404':
           description: '应用不存在'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'App not found: invalid-app-id'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
   /openapi/v1/apps/by-self:
     get:
-      summary: 获取当前Consumer的应用列表（分页）
+      summary: 获取当前Consumer的应用列表（分页）(new added)
+      operationId: getAppsBySelf
       deprecated: false
       description: GET /openapi/v1/apps/by-self
       tags:
         - App Management
+      parameters:
+        - name: page
+          in: query
+          description: '页数'
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+        - name: size
+          in: query
+          description: '页大小'
+          required: true
+          schema:
+            type: integer
+            minimum: 0
       responses:
         '200':
           description: '成功获取Consumer的应用列表'
@@ -421,14 +431,12 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Unauthorized'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/apps/{appId}/navtree:
     get:
-      summary: 获取应用导航树
+      summary: 获取应用导航树(new added)
+      operationId: getAppNavTree
       deprecated: false
       description: GET /openapi/v1/apps/{appId}/navtree
       tags:
@@ -436,7 +444,7 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
@@ -466,7 +474,8 @@ paths:
           headers: {}
   /openapi/v1/apps/envs/{env}:
     post:
-      summary: 在指定环境创建应用
+      summary: 在指定环境创建应用(new added)
+      operationId: createAppInEnv
       deprecated: false
       description: POST /openapi/v1/apps/envs/{env}
       tags:
@@ -482,16 +491,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenAppDTO'
-              required:
-                - appId
-                - name
-                - orgId
-                - orgName
-                - ownerName
-              description: 在指定环境创建应用的请求体
+              $ref: '#/components/schemas/OpenAppDTO'
         required: true
       responses:
         '200':
@@ -500,37 +500,29 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'App created in environment successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
           description: '请求参数错误'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'appId should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
   /openapi/v1/apps/{appId}/miss_envs:
     get:
-      summary: 查找缺失的环境
+      summary: 查找缺失的环境(new added)
+      operationId: findMissEnvs
       deprecated: false
       description: GET /openapi/v1/apps/{appId}/miss_envs
       tags:
@@ -538,7 +530,7 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
@@ -551,9 +543,6 @@ paths:
                 type: array
                 items:
                   type: string
-              example:
-                - 'UAT'
-                - 'PRO'
           headers: {}
         '404':
           description: '应用不存在'
@@ -561,48 +550,44 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'App not found'
-  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}:
     get:
-      summary: 获取单个配置项
+      summary: 获取单个配置项 (original openapi)
+      operationId: getItem
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: key
           in: path
-          description: 配置项键名
+          description: '配置项键名'
           required: true
           schema:
             type: string
@@ -629,17 +614,13 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration item not found'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     put:
-      summary: 更新配置项
+      summary: 更新配置项 (original openapi)
+      operationId: updateItem
       deprecated: false
-      description: >-
-        PUT
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+      description: PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
       tags:
         - Item Management
       parameters:
@@ -651,19 +632,19 @@ paths:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
@@ -680,18 +661,12 @@ paths:
           example: 'false'
           schema:
             type: boolean
+            default: false
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenItemDTO'
-              required:
-                - key
-                - dataChangeLastModifiedBy
-                - value
-              description: ''
+              $ref: '#/components/schemas/OpenItemDTO'
         required: true
       responses:
         '200':
@@ -700,102 +675,91 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration item updated successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
           description: '请求参数错误'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'key, value and dataChangeLastModifiedBy should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '404':
           description: '配置项不存在'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration item not found'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
     delete:
-      summary: 删除配置项
+      summary: 删除配置项 (original openapi)
+      operationId: deleteItem
       deprecated: false
-      description: >-
-        DELETE
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
+      description: DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/{key}
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: key
           in: path
-          description: 配置项键名
+          description: '配置项键名'
           required: true
           schema:
             type: string
         - name: operator
           in: query
-          description: 操作人用户名
+          description: '操作人用户名'
           required: false
           schema:
             type: string
       responses:
         '200':
-          description: 配置项删除成功
+          description: '配置项删除成功'
           content:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
-  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:
     get:
-      summary: 获取命名空间下的配置项列表
+      summary: 获取命名空间下的配置项列表 (original openapi)
+      operationId: findItemsByNamespace
       deprecated: false
       description: 获取指定命名空间的配置项列表，支持分页
       tags:
@@ -803,42 +767,44 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: page
           in: query
-          description: 页码，从0开始
+          description: '页码，从0开始'
           required: true
           example: 0
           schema:
             type: integer
+            minimum: 0
         - name: size
           in: query
-          description: 每页数量
+          description: '每页数量'
           required: true
           example: 50
           schema:
             type: integer
+            minimum: 0
       responses:
         '200':
           description: '成功获取配置项列表'
@@ -882,41 +848,37 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Namespace not found'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     post:
-      summary: 创建新的配置项
+      summary: 创建新的配置项 (original openapi)
+      operationId: createItem
       deprecated: false
-      description: >-
-        POST
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items
+      description: POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
@@ -924,14 +886,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenItemDTO'
-              required:
-                - key
-                - dataChangeCreatedBy
-                - value
-              description: 创建配置项请求体
+              $ref: '#/components/schemas/OpenItemDTO'
         required: true
       responses:
         '200':
@@ -956,59 +911,52 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'key and dataChangeCreatedBy should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
-  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}:
     get:
-      summary: 通过查询参数获取配置项（支持编码的key）
+      summary: 通过查询参数获取配置项（支持编码的key） (original openapi)
+      operationId: getItemByEncodedKey
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: ''
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: key
           in: path
-          description: 配置项键名（需要URL编码）
+          description: '配置项键名（需要URL编码）'
           required: true
           schema:
             type: string
@@ -1035,69 +983,59 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration item not found'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     put:
-      summary: 通过编码的key更新配置项
+      summary: 通过编码的key更新配置项 (original openapi)
+      operationId: updateItemByEncodedKey
       deprecated: false
-      description: >-
-        PUT
-        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
+      description: PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: key
           in: path
-          description: 配置项键名（需要URL编码）
+          description: '配置项键名（需要URL编码）'
           required: true
           schema:
             type: string
         - name: createIfNotExists
           in: query
-          description: 若不存在则创建（true/false）
+          description: '若不存在则创建（true/false）'
           required: true
           example: 'false'
           schema:
             type: boolean
+            default: false
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenItemDTO'
-              required:
-                - key
-                - dataChangeLastModifiedBy
-                - value
-              description: 更新配置项请求体（编码key）
+              $ref: '#/components/schemas/OpenItemDTO'
         required: true
       responses:
         '200':
@@ -1106,51 +1044,38 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration item updated successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
-          description: '请求参数错误'
+          description: 请求参数错误
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'key, value and dataChangeLastModifiedBy should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '404':
           description: '配置项不存在'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration item not found'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
     delete:
-      summary: 通过编码的key删除配置项
+      summary: 通过编码的key删除配置项 (original openapi)
+      operationId: deleteItemByEncodedKey
       deprecated: false
-      description: >-
-        DELETE
-        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
+      description: DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/encodedItems/{key}
       tags:
         - Item Management
       parameters:
@@ -1197,15 +1122,17 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
-  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/batchUpdate:
     put:
-      summary: 通过文本批量修改配置项
+      summary: 通过文本批量修改配置项 (new added)
+      operationId: batchUpdateItemsByText
       deprecated: false
       description: >-
         PUT
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items:batchUpdate
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/batchUpdate:
       tags:
         - Item Management
       parameters:
@@ -1237,13 +1164,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenNamespaceTextModel'
-              required:
-                - format
-                - configText
-              description: 批量更新配置文本请求体
+              $ref: '#/components/schemas/OpenNamespaceTextModel'
         required: true
       responses:
         '200':
@@ -1252,60 +1173,55 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Batch update configuration items successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
-  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
     get:
-      summary: 获取分支下的配置项
+      summary: 获取分支下的配置项 (new added)
+      operationId: getBranchItems
       deprecated: false
       description: >-
         GET
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/items:
       tags:
-        - Namespace Branch Management
+        - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
@@ -1342,42 +1258,40 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Branch not found'
-  /openapi/v1/namespaces/items:compare:
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/compare:
     post:
-      summary: 对比命名空间配置差异
+      summary: 对比命名空间配置差异 (new added)
+      operationId: compareItems
       deprecated: false
       description: >-
         POST
-        /openapi/v1/namespaces/items:compare
+        /apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/compare
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
@@ -1385,13 +1299,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenNamespaceSyncModel'
-              required:
-                - syncToNamespaces
-                - syncItems
-              description: 对比配置差异请求体
+              $ref: '#/components/schemas/OpenNamespaceSyncModel'
         required: true
       responses:
         '200':
@@ -1459,31 +1367,38 @@ paths:
                         lineNum: 0
                   extInfo: ''
           headers: {}
-  /openapi/v1/apps/{appId}/namespaces/{namespaceName}/items:sync:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/sync:
     post:
-      summary: 同步配置项到多个命名空间
+      summary: 同步配置项到多个命名空间 (new added)
+      operationId: syncItems
       deprecated: false
       description: >-
         POST
-        /openapi/v1/apps/{appId}/namespaces/{namespaceName}/items:sync
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/sync:
       tags:
         - Item Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
+          required: true
+          schema:
+            type: string
+        - name: clusterName
+          in: path
+          description: ''
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: ''
           required: true
           schema:
             type: string
@@ -1491,13 +1406,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenNamespaceSyncModel'
-              required:
-                - syncToNamespaces
-                - syncItems
-              description: 同步配置项请求体
+              $ref: '#/components/schemas/OpenNamespaceSyncModel'
         required: true
       responses:
         '200':
@@ -1506,42 +1415,33 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration items synced successfully to target namespaces'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
           description: '请求参数错误'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'syncToNamespaces should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
-  /openapi/apps/{appId}/env/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/validate:
     post:
-      summary: 验证配置文本语法
+      summary: 验证配置文本语法 (new added)
       operationId: validateItems
       deprecated: false
       description: >-
         POST
-        /openapi/apps/{appId}/env/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:validate
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/validate
       tags:
         - Item Management
       parameters:
@@ -1573,13 +1473,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenNamespaceTextModel'
-              required:
-                - format
-                - configText
-              description: ''
+              $ref: '#/components/schemas/OpenNamespaceTextModel'
         required: true
       responses:
         '200':
@@ -1588,30 +1482,25 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration syntax is valid'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
           description: '配置文本语法错误'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration syntax validation failed'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
-  /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/revert:
     post:
-      summary: 撤销配置项更改
+      summary: 撤销配置项更改 (new added)
+      operationId: revertItems
       deprecated: false
       description: >-
         POST
-        /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/items:revert
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/items/revert
       tags:
         - Item Management
       parameters:
@@ -1646,37 +1535,29 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Configuration changes reverted successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
           description: '请求参数错误'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Invalid revert request'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}:
     get:
-      summary: 获取指定集群信息
+      summary: 获取指定集群信息 (original openapi)
+      operationId: getCluster
       deprecated: false
       description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}
       tags:
@@ -1702,32 +1583,30 @@ paths:
             type: string
       responses:
         '200':
-          description: '成功获取集群信息'
+          description: 成功获取集群信息
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OpenClusterDTO'
               example:
-                dataChangeCreatedBy: 'apollo'
-                dataChangeLastModifiedBy: 'ops-user'
+                dataChangeCreatedBy: apollo
+                dataChangeLastModifiedBy: ops-user
                 dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
                 dataChangeLastModifiedTime: '2024-01-18T09:15:00.000Z'
-                name: 'production'
-                appId: 'sample-app'
+                name: production
+                appId: sample-app
           headers: {}
         '404':
-          description: '集群不存在'
+          description: 集群不存在
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Cluster not found'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     delete:
-      summary: 删除集群
+      summary: 删除集群 (new added)
+      operationId: deleteCluster
       deprecated: false
       description: DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}
       tags:
@@ -1758,48 +1637,37 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Cluster deleted successfully'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
         '400':
           description: '删除失败，集群可能包含配置'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Cannot delete cluster with existing configurations'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '404':
           description: '集群不存在'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Cluster not found'
-          headers: { }
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
+          headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters:
     post:
-      summary: 创建集群
+      summary: 创建集群 (original openapi)
+      operationId: createCluster
       deprecated: false
       description: POST /openapi/v1/envs/{env}/apps/{appId}/clusters
       tags:
@@ -1820,75 +1688,63 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenClusterDTO'
-              required:
-                - name
-                - appId
-                - dataChangeCreatedBy
-              description: 创建集群请求体
+              $ref: '#/components/schemas/OpenClusterDTO'
         required: true
       responses:
         '200':
-          description: '集群创建成功'
+          description: 集群创建成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OpenClusterDTO'
               example:
-                dataChangeCreatedBy: 'apollo'
-                dataChangeLastModifiedBy: 'apollo'
+                dataChangeCreatedBy: apollo
+                dataChangeLastModifiedBy: apollo
                 dataChangeCreatedTime: '2024-01-15T10:30:00.000Z'
                 dataChangeLastModifiedTime: '2024-01-15T10:30:00.000Z'
-                name: 'test-cluster'
-                appId: 'sample-app'
+                name: test-cluster
+                appId: sample-app
           headers: {}
         '400':
-          description: '请求参数错误'
+          description: 请求参数错误
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'name and dataChangeCreatedBy should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
-          description: '权限不足'
+          description: 权限不足
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases:
     post:
-      summary: 创建发布
+      summary: 创建发布 (original openapi)
+      operationId: createRelease
       deprecated: false
-      description: 创建并发布当前命名空间的配置
+      description: '创建发布'
       tags:
         - Release Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: 'app标识'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: ''
           required: true
           schema:
             type: string
@@ -1902,17 +1758,11 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/NamespaceReleaseDTO'
-              required:
-                - releaseTitle
-                - releasedBy
-              description: 创建发布请求体
+              $ref: '#/components/schemas/NamespaceReleaseDTO'
         required: true
       responses:
         '200':
-          description: '发布创建成功'
+          description: 发布创建成功
           content:
             application/json:
               schema:
@@ -1939,51 +1789,46 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Params(releaseTitle and releasedBy) can not be empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/latest:
     get:
-      summary: 获取最新活跃发布
+      summary: 获取最新活跃发布 (original openapi)
+      operationId: loadLatestActiveRelease
       deprecated: false
-      description: 查询命名空间最新活跃发布
+      description: '查询命名空间最新活跃发布'
       tags:
         - Release Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
@@ -2017,52 +1862,50 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'No active release found for this namespace'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/merge:
     post:
-      summary: 合并分支
+      summary: 合并分支 (original openapi)
+      operationId: merge
       deprecated: false
-      description: 合并灰度分支并可选择删除分支
+      description: '合并灰度分支并可选择删除分支'
       tags:
-        - Namespace Branch Management
+        - Release Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
         - name: deleteBranch
           in: query
-          description: 合并后是否删除分支（true/false）
+          description: '合并后是否删除分支（true/false）'
           required: true
           example: 'true'
           schema:
@@ -2071,13 +1914,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/NamespaceReleaseDTO'
-              required:
-                - releaseTitle
-                - releasedBy
-              description: 合并分支并发布的请求体
+              $ref: '#/components/schemas/NamespaceReleaseDTO'
         required: true
       responses:
         '200':
@@ -2109,57 +1946,52 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'releaseTitle and releasedBy should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/releases:
     post:
-      summary: 创建灰度发布
+      summary: 创建灰度发布 (original openapi)
+      operationId: createGrayRelease
       deprecated: false
-      description: 在分支上创建灰度发布
+      description: '创建灰度发布'
       tags:
-        - Namespace Branch Management
+        - Release Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: 'app标识'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
@@ -2167,13 +1999,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/NamespaceReleaseDTO'
-              required:
-                - releaseTitle
-                - releasedBy
-              description: 创建灰度发布请求体
+              $ref: '#/components/schemas/NamespaceReleaseDTO'
         required: true
       responses:
         '200':
@@ -2198,11 +2024,12 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/gray-del-releases:
     post:
-      summary: 创建灰度删除发布
+      summary: 创建灰度删除发布 (original openapi)
+      operationId: createGrayDelRelease
       deprecated: false
       description: ''
       tags:
-        - Namespace Branch Management
+        - Release Management
       parameters:
         - name: appId
           in: path
@@ -2238,14 +2065,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/NamespaceGrayDelReleaseDTO'
-              required:
-                - releaseTitle
-                - releasedBy
-                - grayDelKeys
-              description: ''
+              $ref: '#/components/schemas/NamespaceGrayDelReleaseDTO'
         required: true
       responses:
         '200':
@@ -2270,7 +2090,8 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/releases/{releaseId}/rollback:
     put:
-      summary: 回滚发布
+      summary: 回滚发布 (original openapi)
+      operationId: rollback
       deprecated: false
       description: 回滚到指定的发布版本
       tags:
@@ -2278,34 +2099,37 @@ paths:
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: releaseId
           in: path
-          description: 发布ID
+          description: '发布ID'
           required: true
           schema:
             type: integer
+            format: int64
         - name: operator
           in: query
-          description: 操作人用户名
+          description: '操作人用户名'
           required: false
           schema:
             type: string
       responses:
         '200':
-          description: 发布回滚成功
+          description: '发布回滚成功'
           content:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
   /openapi/v1/envs/{env}/releases/{releaseId}:
     get:
-      summary: 获取发布详情
+      summary: 获取发布详情 (new added)
+      operationId: getReleaseById
       deprecated: false
       description: GET /openapi/v1/envs/{env}/releases/{releaseId}
       tags:
@@ -2313,19 +2137,19 @@ paths:
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: releaseId
           in: path
-          description: 发布ID
+          description: '发布ID'
           required: true
           schema:
             type: integer
       responses:
         '200':
-          description: 成功获取发布详情
+          description: '成功获取发布详情'
           content:
             application/json:
               schema:
@@ -2346,7 +2170,8 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/all:
     get:
-      summary: 获取所有发布（分页）
+      summary: 获取所有发布（分页） (new added)
+      operationId: findAllReleases
       deprecated: false
       description: >-
         GET
@@ -2356,45 +2181,45 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: page
           in: query
-          description: 页码，从0开始
+          description: '页码，从0开始'
           required: true
           example: 0
           schema:
             type: integer
         - name: size
           in: query
-          description: 每页数量
+          description: '每页数量'
           required: true
           example: 5
           schema:
             type: integer
       responses:
         '200':
-          description: 成功获取发布列表
+          description: '成功获取发布列表'
           content:
             application/json:
               schema:
@@ -2424,7 +2249,8 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/releases/active:
     get:
-      summary: 获取活跃发布（分页）
+      summary: 获取活跃发布（分页） (new added)
+      operationId: findActiveReleases
       deprecated: false
       description: >-
         GET
@@ -2434,45 +2260,45 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: page
           in: query
-          description: 页码，从0开始
+          description: '页码，从0开始'
           required: true
           example: 0
           schema:
             type: integer
         - name: size
           in: query
-          description: 每页数量
+          description: '每页数量'
           required: true
           example: 5
           schema:
             type: integer
       responses:
         '200':
-          description: 成功获取活跃发布列表
+          description: '成功获取活跃发布列表'
           content:
             application/json:
               schema:
@@ -2495,11 +2321,10 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances:
     get:
-      summary: 获取命名空间下的实例数量
+      summary: 获取命名空间下的实例数量 (original openapi)
+      operationId: getInstanceCountByNamespace
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances
       tags:
         - Instance Management
       parameters:
@@ -2510,81 +2335,67 @@ paths:
             type: string
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 成功返回实例数量
+          description: '成功返回实例数量'
           content:
             application/json:
               schema:
                 type: integer
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_search:
+  /openapi/v1/envs/{env}/releases/{releaseId}/instances:
     get:
-      summary: 根据发布版本查询实例（支持分页）
+      summary: 根据发布版本查询实例（支持分页） (new added)
       deprecated: false
-      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_search
+      description: GET /openapi/v1/envs/{env}/releases/{releaseId}/instances
       tags:
         - Instance Management
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: ''
           required: true
           schema:
             type: string
-        - name: appId
+        - name: releaseId
           in: path
+          description: ''
           required: true
           schema:
-            type: string
-        - name: clusterName
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: namespaceName
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: instanceAppId
-          in: query
-          required: false
-          schema:
-            type: string
+            type: integer
         - name: page
           in: query
-          description: 页码，从0开始
+          description: ''
           required: true
           example: 0
           schema:
             type: integer
         - name: size
           in: query
-          description: 每页数量
+          description: ''
           required: true
           example: 20
           schema:
             type: integer
       responses:
         '200':
-          description: 成功获取实例列表
+          description: ''
           content:
             application/json:
               schema:
@@ -2617,37 +2428,37 @@ paths:
                         dataChangeLastModifiedTime: ''
                     dataChangeCreatedTime: ''
           headers: {}
-  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in:
+  /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_int: # avoidng confliction with other server endpoint
     get:
-      summary: 查询不在指定发布版本中的实例
+      summary: 查询不在指定发布版本中的实例 (new added)
       deprecated: false
       description: >-
         GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances_not_in?excludeReleases=1,2,3
+        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/instances?excludeReleases=1,2,3
       tags:
         - Instance Management
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
@@ -2659,7 +2470,7 @@ paths:
             type: string
       responses:
         '200':
-          description: 成功返回实例列表
+          description: ''
           content:
             application/json:
               schema:
@@ -2692,7 +2503,8 @@ paths:
           headers: {}
   /openapi/v1/apps/{appId}/appnamespaces:
     post:
-      summary: 创建AppNamespace
+      summary: 创建AppNamespace (original openapi)
+      operationId: createNamespace
       deprecated: false
       description: POST /openapi/v1/apps/{appId}/appnamespaces
       tags:
@@ -2708,15 +2520,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenAppNamespaceDTO'
-              required:
-                - appId
-                - name
-                - format
-                - dataChangeCreatedBy
-              description: ''
+              $ref: '#/components/schemas/OpenAppNamespaceDTO'
         required: true
       responses:
         '200':
@@ -2743,24 +2547,19 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'appId, name, format and dataChangeCreatedBy should not be null or empty'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
         '403':
           description: '权限不足'
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Access is denied'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     get:
-      summary: 获取指定应用的AppNamespace
+      summary: 获取指定应用的AppNamespace (new added)
+      operationId: getAppNamespacesByApp
       deprecated: false
       description: GET /openapi/v1/apps/{appId}/appnamespaces
       tags:
@@ -2795,11 +2594,10 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces:
     get:
-      summary: 获取指定集群下的所有Namespace
+      summary: 获取指定集群下的所有Namespace (original openapi)
+      operationId: findNamespaces
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces
       tags:
         - Namespace Management
       parameters:
@@ -2828,6 +2626,7 @@ paths:
           example: 'true'
           schema:
             type: boolean
+            default: true
       responses:
         '200':
           description: ''
@@ -2860,13 +2659,12 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}:
     get:
-      summary: 获取指定的Namespace
+      summary: 获取指定的Namespace (original openapi)
+      operationId: loadNamespace
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}
       tags:
-        - Cluster Management
+        - Namespace Management
       parameters:
         - name: appId
           in: path
@@ -2899,6 +2697,7 @@ paths:
           example: 'true'
           schema:
             type: boolean
+            default: true
       responses:
         '200':
           description: ''
@@ -2929,11 +2728,10 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/lock:
     get:
-      summary: 获取Namespace的锁状态
+      summary: 获取Namespace的锁状态 (original openapi)
+      operationId: getNamespaceLock
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/lock
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/lock
       tags:
         - Namespace Management
       parameters:
@@ -2975,7 +2773,8 @@ paths:
           headers: {}
   /openapi/v1/appnamespaces:
     get:
-      summary: 获取所有公共AppNamespace
+      summary: 获取所有公共AppNamespace (new added)
+      operationId: getAppNamespaces
       deprecated: false
       description: GET /openapi/v1/appnamespaces?public=true
       tags:
@@ -3011,7 +2810,8 @@ paths:
           headers: {}
   /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}:
     get:
-      summary: 获取指定的AppNamespace
+      summary: 获取指定的AppNamespace (new added)
+      operationId: getAppNamespace
       deprecated: false
       description: GET /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
       tags:
@@ -3019,19 +2819,19 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 成功获取AppNamespace
+          description: '成功获取AppNamespace'
           content:
             application/json:
               schema:
@@ -3049,65 +2849,62 @@ paths:
                 comment: ''
           headers: {}
     delete:
-      summary: 删除AppNamespace
+      summary: 删除AppNamespace (new added)
+      operationId: deleteAppNamespace
       deprecated: false
       description: DELETE /openapi/v1/apps/{appId}/appnamespaces/{namespaceName}
       tags:
-        - App Management
+        - Namespace Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: AppNamespace删除成功
+          description: 'AppNamespace删除成功'
           content:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
   /openapi/v1/apps/{appId}/namespaces/releases/status:
     get:
-      summary: 获取应用下所有Namespace的发布状态
+      summary: 获取应用下所有Namespace的发布状态 (new added)
+      operationId: getNamespacesReleaseStatus
       deprecated: false
       description: GET /openapi/v1/apps/{appId}/namespaces/releases/status
       tags:
-        - App Management
+        - Namespace Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 成功获取发布状态映射
+          description: '成功获取发布状态映射'
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: object
-                  additionalProperties:
-                    type: boolean
-              example:
-                '':
-                  '': false
+                $ref: '#/components/schemas/StringToStringBoolMap'
           headers: {}
   /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances:
     get:
-      summary: 获取公共AppNamespace的所有实例
+      summary: 获取公共AppNamespace的所有实例 (new added)
+      operationId: getPublicAppNamespaceInstances
       deprecated: false
       description: GET /openapi/v1/envs/{env}/appnamespaces/{publicNamespaceName}/instances
       tags:
@@ -3115,33 +2912,33 @@ paths:
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: publicNamespaceName
           in: path
-          description: 公共命名空间名称
+          description: '公共命名空间名称'
           required: true
           schema:
             type: string
         - name: page
           in: query
-          description: 页码，从0开始
+          description: '页码，从0开始'
           required: true
           example: 0
           schema:
             type: integer
         - name: size
           in: query
-          description: 每页数量
+          description: '每页数量'
           required: true
           example: 10
           schema:
             type: integer
       responses:
         '200':
-          description: 成功获取实例列表
+          description: '成功获取实例列表'
           content:
             application/json:
               schema:
@@ -3171,7 +2968,8 @@ paths:
           headers: {}
   /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/public-association:
     get:
-      summary: 获取关联的公共Namespace
+      summary: 获取关联的公共Namespace (new added)
+      operationId: getPublicNamespaceAssociation
       deprecated: false
       description: >-
         GET
@@ -3181,31 +2979,31 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 成功获取关联的公共Namespace
+          description: '成功获取关联的公共Namespace'
           content:
             application/json:
               schema:
@@ -3233,7 +3031,8 @@ paths:
           headers: {}
   /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/integrity-check:
     get:
-      summary: 检查缺失的Namespace
+      summary: 检查缺失的Namespace (new added)
+      operationId: checkNamespaceIntegrity
       deprecated: false
       description: >-
         GET
@@ -3243,25 +3042,25 @@ paths:
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 缺失的命名空间名称列表
+          description: '缺失的命名空间名称列表'
           content:
             application/json:
               schema:
@@ -3273,50 +3072,53 @@ paths:
           headers: {}
   /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links:
     delete:
-      summary: 删除关联的Namespace
+      summary: 删除关联的Namespace (new added)
+      operationId: deleteNamespaceLinks
       deprecated: false
       description: >-
         DELETE
         /openapi/v1/apps/{appId}/envs/{env}/clusters/{clusterName}/namespaces/{namespaceName}/links
       tags:
-        - App Management
+        - Namespace Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 解除关联成功
+          description: '解除关联成功'
           content:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
   /openapi/v1/organizations:
     get:
-      summary: 获取所有组织信息
+      summary: 获取所有组织信息 (original openapi)
+      operationId: getOrganization
       deprecated: false
       description: GET /openapi/v1/organizations
       tags:
@@ -3345,48 +3147,44 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Unauthorized'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches:
     get:
-      summary: 获取命名空间分支信息
+      summary: 获取命名空间分支信息 (original openapi)
+      operationId: findBranch
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
       tags:
-        - Cluster Management
+        - Namespace Branch Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 成功获取分支信息
+          description: '成功获取分支信息'
           content:
             application/json:
               schema:
@@ -3426,53 +3224,49 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: 'Branch not found for this namespace'
+                allOf:
+                  - $ref: '#/components/schemas/ExceptionResponse'
     post:
-      summary: 创建命名空间分支
+      summary: 创建命名空间分支 (original openapi)
       deprecated: false
-      description: >-
-        POST
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
+      operationId: createBranch
+      description: POST /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches
       tags:
         - Namespace Branch Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: 'app标识'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: operator
           in: query
-          description: 操作人用户名
+          description: '操作人用户名'
           required: false
           schema:
             type: string
       responses:
         '200':
-          description: 命名空间分支创建成功
+          description: '命名空间分支创建成功'
           content:
             application/json:
               schema:
@@ -3500,41 +3294,40 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}:
     delete:
-      summary: 删除命名空间分支
+      summary: 删除命名空间分支 (original openapi)
       deprecated: false
-      description: >-
-        DELETE
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}
+      operationId: deleteBranch
+      description: DELETE /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}
       tags:
         - Namespace Branch Management
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
@@ -3546,15 +3339,17 @@ paths:
             type: string
       responses:
         '200':
-          description: 分支删除成功
+          description: '分支删除成功'
           content:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
     patch:
-      summary: 合并分支到主分支
+      summary: 合并分支到主分支 (new added)
+      operationId: mergeBranch
       deprecated: false
       description: >-
         PATCH
@@ -3567,37 +3362,37 @@ paths:
       parameters:
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
         - name: deleteBranch
           in: query
-          description: 合并后是否删除分支（true/false）
+          description: '合并后是否删除分支（true/false）'
           required: true
           example: 'true'
           schema:
@@ -3606,17 +3401,11 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/NamespaceReleaseDTO'
-              required:
-                - releaseTitle
-                - releasedBy
-              description: 合并分支发布请求体
+              $ref: '#/components/schemas/NamespaceReleaseDTO'
         required: true
       responses:
         '200':
-          description: 分支合并成功
+          description: '分支合并成功'
           content:
             application/json:
               schema:
@@ -3637,47 +3426,46 @@ paths:
           headers: {}
   /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules:
     get:
-      summary: 获取分支灰度发布规则
+      summary: 获取分支灰度发布规则 (original openapi)
+      operationId: getBranchGrayRules
       deprecated: false
-      description: >-
-        GET
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
+      description: GET /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
       tags:
         - Namespace Branch Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: 'app标识'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: 成功获取灰度发布规则
+          description: '成功获取灰度发布规则'
           content:
             application/json:
               schema:
@@ -3699,41 +3487,40 @@ paths:
                       - ''
           headers: {}
     put:
-      summary: 更新分支灰度发布规则
+      summary: 更新分支灰度发布规则 (original openapi)
+      operationId: updateBranchRules
       deprecated: false
-      description: >-
-        PUT
-        /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
+      description: PUT /openapi/v1/envs/{env}/apps/{appId}/clusters/{clusterName}/namespaces/{namespaceName}/branches/{branchName}/rules
       tags:
         - Namespace Branch Management
       parameters:
         - name: appId
           in: path
-          description: 应用ID
+          description: '应用ID'
           required: true
           schema:
             type: string
         - name: env
           in: path
-          description: 环境标识
+          description: '环境标识'
           required: true
           schema:
             type: string
         - name: clusterName
           in: path
-          description: 集群名称
+          description: '集群名称'
           required: true
           schema:
             type: string
         - name: namespaceName
           in: path
-          description: 命名空间名称
+          description: '命名空间名称'
           required: true
           schema:
             type: string
         - name: branchName
           in: path
-          description: 分支名称
+          description: '分支名称'
           required: true
           schema:
             type: string
@@ -3747,21 +3534,17 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/OpenGrayReleaseRuleDTO'
-              required:
-                - ruleItems
-              description: 更新灰度发布规则请求体
+              $ref: '#/components/schemas/OpenGrayReleaseRuleDTO'
         required: true
       responses:
         '200':
-          description: 灰度规则更新成功
+          description: '灰度规则更新成功'
           content:
             application/json:
               schema:
                 type: object
-                properties: {}
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEmptyResponse'
           headers: {}
 components:
   securitySchemes:
@@ -3796,9 +3579,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 数据创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 数据最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         name:
           type: string
           description: 应用名称，用于显示的友好名称
@@ -3844,9 +3629,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 配置项创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 配置项最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         key:
           type: string
           description: 配置项的键名，在同一命名空间内唯一标识一个配置项
@@ -3891,9 +3678,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 集群创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 集群最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         name:
           type: string
           description: 集群名称，在同一应用和环境下唯一标识一个集群
@@ -3904,7 +3693,7 @@ components:
     MapString:
       type: object
       additionalProperties:
-          type: string
+        type: string
     OpenReleaseDTO:
       type: object
       properties:
@@ -3917,9 +3706,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 发布创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 发布最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         id:
           type: integer
           description: 发布记录的唯一标识符，系统自动生成
@@ -3991,9 +3782,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 命名空间创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 命名空间最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         name:
           type: string
           description: 命名空间名称，在同一应用内唯一标识一个命名空间
@@ -4043,9 +3836,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 灰度规则创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 灰度规则最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         appId:
           type: string
           description: 所属应用的唯一标识符
@@ -4076,9 +3871,11 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 命名空间创建时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 命名空间最后修改时间，ISO 8601格式的时间戳
+          example: "2025-09-29T12:34:56Z"
         appId:
           type: string
           description: 所属应用的唯一标识符
@@ -4140,7 +3937,7 @@ components:
       properties:
         env:
           type: string
-          description: 环境标识，例如 DEV、FAT、UAT、PROD
+          description: '环境标识，例如 DEV、FAT、UAT、PROD'
         clusters:
           type: array
           items:
@@ -4151,95 +3948,95 @@ components:
       properties:
         env:
           type: string
-          description: 环境标识
+          description: '环境标识'
         clusters:
           type: array
           items:
             $ref: '#/components/schemas/OpenClusterDTO'
-          description: 集群信息列表
-
-
+          description: '集群信息列表'
     OpenNamespaceTextModel:
       type: object
       properties:
         appId:
           type: string
-          description: 应用唯一标识
+          description: '应用唯一标识'
         env:
           type: string
-          description: 环境标识
+          description: '环境标识'
         clusterName:
           type: string
-          description: 集群名称
+          description: '集群名称'
         namespaceName:
           type: string
-          description: 命名空间名称
+          description: '命名空间名称'
         namespaceId:
           type: integer
-          description: 命名空间ID
+          description: '命名空间ID'
           format: int64
         format:
           type: string
-          description: 命名空间格式类型（properties/xml/json/yml等）
+          description: '命名空间格式类型（properties/xml/json/yml等）'
         configText:
           type: string
-          description: 配置内容的原始文本
+          description: '配置内容的原始文本'
         operator:
           type: string
-          description: 操作者用户名
+          description: '操作者用户名'
     OpenNamespaceIdentifier:
       type: object
       properties:
         appId:
           type: string
-          description: 应用唯一标识
+          description: '应用唯一标识'
         env:
           type: string
-          description: 环境标识
+          description: '环境标识'
         clusterName:
           type: string
-          description: 集群名称
+          description: '集群名称'
         namespaceName:
           type: string
-          description: 命名空间名称
+          description: '命名空间名称'
     OpenItemChangeSets:
       type: object
       properties:
         dataChangeCreatedBy:
           type: string
-          description: 变更集合创建者用户名
+          description: '变更集合创建者用户名'
         dataChangeLastModifiedBy:
           type: string
-          description: 变更集合最后修改者用户名
+          description: '变更集合最后修改者用户名'
         dataChangeCreatedByDisplayName:
           type: string
-          description: 创建者显示名
+          description: '创建者显示名'
         dataChangeLastModifiedByDisplayName:
           type: string
-          description: 最后修改者显示名
+          description: '最后修改者显示名'
         dataChangeCreatedTime:
           type: string
-          description: 变更集合创建时间（ISO 8601）
+          description: '变更集合创建时间（ISO 8601）'
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
-          description: 变更集合最后修改时间（ISO 8601）
+          description: '变更集合最后修改时间（ISO 8601）'
+          example: "2025-09-29T12:34:56Z"
         createItems:
           type: array
           items:
             $ref: '#/components/schemas/OpenItemDTO'
-          description: 待创建的配置项列表
+          description: '待创建的配置项列表'
           default: []
         updateItems:
           type: array
           items:
             $ref: '#/components/schemas/OpenItemDTO'
-          description: 待更新的配置项列表
+          description: '待更新的配置项列表'
           default: []
         deleteItems:
           type: array
           items:
             $ref: '#/components/schemas/OpenItemDTO'
-          description: 待删除的配置项列表
+          description: '待删除的配置项列表'
           default: []
     OpenItemDiffs:
       type: object
@@ -4264,7 +4061,6 @@ components:
           items:
             $ref: '#/components/schemas/OpenItemDTO'
           description: 需要同步的配置项列表
-
     KVEntity:
       type: object
       properties:
@@ -4283,7 +4079,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KVEntity'
-
     OpenInstanceConfigDTO:
       type: object
       properties:
@@ -4292,9 +4087,11 @@ components:
         releaseDeliveryTime:
           type: string
           description: 配置下发时间（ISO 8601）
+          example: "2025-09-29T12:34:56Z"
         dataChangeLastModifiedTime:
           type: string
           description: 最后修改时间（ISO 8601）
+          example: "2025-09-29T12:34:56Z"
     OpenInstanceDTO:
       type: object
       properties:
@@ -4322,9 +4119,7 @@ components:
         dataChangeCreatedTime:
           type: string
           description: 数据创建时间（ISO 8601）
-
-
-
+          example: "2025-09-29T12:34:56Z"
     OpenOrganizationDto:
       type: object
       properties:
@@ -4334,6 +4129,36 @@ components:
         orgName:
           type: string
           description: 组织名称
+    ExceptionResponse:
+      type: object
+      additionalProperties: true   # 对应 server 中 GlobalExceptionHandler返回Map<String,Object>
+      description: >
+        错误响应对象，表示为 Map<String,Object>。
+        字段包括：
+        - status: HTTP 状态码 (integer)
+        - message: 错误信息 (string)
+        - timestamp: 出错时间戳 (string)
+        - exception: 异常类名或标识 (string)
+      example:
+        status: 404
+        message: "Resource not found"
+        timestamp: "2025-09-29T12:34:56Z"
+        exception: "NotFoundException"
+    SuccessEmptyResponse: # 对应 ResponseEntity<Void> 是一个通用的空返回数据模型，不带任何信息，用于成功时的返回
+      type: object
+      properties: {}
+    StringToStringBoolMap: # Map<String, Map<String, Boolean>>
+      type: object
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: boolean
+      example:
+        projectA:
+          featureX: true
+          featureY: false
+        projectB:
+          darkMode: true
 
 
 servers: []
