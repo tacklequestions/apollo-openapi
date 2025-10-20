@@ -35,6 +35,7 @@ openapi-generator generate \
   -i "$SPEC_FILE" \
   -g java \
   -o "$JAVA_CLIENT_DIR" \
+  --additional-properties hideGenerationTimestamp=true \
   --additional-properties=groupId=com.apollo,artifactId=apollo-openapi-client,artifactVersion=0.0.1,packageName=com.apollo.openapi.client
 
 echo "🚀 Generating Spring Boot 2 Server..."
@@ -42,6 +43,7 @@ openapi-generator generate \
   -i "$SPEC_FILE" \
   -g spring \
   -o "$SPRING_BOOT2_DIR" \
+  --additional-properties hideGenerationTimestamp=true \
   --additional-properties=groupId=com.apollo,artifactId=apollo-openapi-server,artifactVersion=0.0.1,packageName=com.apollo.openapi.server,basePackage=com.apollo.openapi.server,configPackage=com.apollo.openapi.server.config,modelPackage=com.apollo.openapi.server.model,apiPackage=com.apollo.openapi.server.api,library=spring-boot,java8=true,interfaceOnly=false,delegatePattern=true,useTags=true
 
 echo "📦 Adding Maven Wrapper to Spring Boot 2 project..."
