@@ -54,7 +54,7 @@ import org.openapitools.client.JSON;
 /**
  * OpenNamespaceSyncModel
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-07T09:56:26.447+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class OpenNamespaceSyncModel {
   public static final String SERIALIZED_NAME_SYNC_TO_NAMESPACES = "syncToNamespaces";
   @SerializedName(SERIALIZED_NAME_SYNC_TO_NAMESPACES)

@@ -22,7 +22,7 @@ import javax.annotation.Generated;
  * OpenNamespaceSyncModel
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-10-07T09:56:27.881+08:00[Asia/Shanghai]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class OpenNamespaceSyncModel {
 
   @Valid

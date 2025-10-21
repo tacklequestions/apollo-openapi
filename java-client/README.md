@@ -2,7 +2,6 @@
 
 Apollo OpenAPI
 - API version: 1.0.0
-  - Build date: 2025-10-07T09:56:26.447+08:00[Asia/Shanghai]
 
 <p>Apollo配置中心OpenAPI接口文档</p>
 

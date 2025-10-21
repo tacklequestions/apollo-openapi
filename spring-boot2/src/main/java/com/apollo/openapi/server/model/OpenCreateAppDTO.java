@@ -22,7 +22,7 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "OpenCreateAppDTO", description = "创建Apollo应用的请求数据传输对象，包含创建应用所需的所有信息")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-10-07T09:56:27.881+08:00[Asia/Shanghai]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class OpenCreateAppDTO {
 
   private Boolean assignAppRoleToSelf;
